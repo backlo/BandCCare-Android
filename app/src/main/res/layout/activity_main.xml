@@ -7,34 +7,25 @@
     android:orientation="vertical"
     tools:context=".activity.MainActivity">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/surface_video"
-        android:layout_weight="1"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:orientation="horizontal">
-
-        <Button
-            android:layout_width="wrap_content"
+        <android.support.design.widget.AppBarLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Left"
-            android:layout_weight="1"
-            android:id="@+id/left_btn"/>
+            android:theme="@style/AppTheme.AppBarOverlay">
 
-        <Button
-            android:layout_width="wrap_content"
+
+        </android.support.design.widget.AppBarLayout>
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/viewpager"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tabs"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Right"
-            android:layout_weight="1"
-            android:id="@+id/right_btn"/>
-
+            android:layout_above="@+id/viewpager"
+            android:background="@color/colorPrimary"/>
 
     </LinearLayout>
-
-
-</LinearLayout>
