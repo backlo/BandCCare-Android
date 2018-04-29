@@ -19,7 +19,7 @@ public class VideoFragment extends Fragment {
             instance = new VideoFragment();
         return instance;
     }
-
+ 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
