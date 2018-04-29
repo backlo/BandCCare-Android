@@ -11,7 +11,7 @@ import com.example.hansung.band_cctv.R;
 import com.example.hansung.band_cctv.util.RtspViewPlayer;
 
 public class VideoFragment extends Fragment {
-    private static VideoFragment instance;
+    private static VideoFragment instance; 
     private RelativeLayout surfaceView;
 
     public static VideoFragment getInstance() {
