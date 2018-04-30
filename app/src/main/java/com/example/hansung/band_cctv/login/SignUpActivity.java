@@ -2,10 +2,10 @@ package com.example.hansung.band_cctv.login;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
-import android.support.v4.app.Fragment;
 
 import com.example.hansung.band_cctv.R;
 
@@ -21,7 +21,6 @@ public class SignUpActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
-
 
         next_btn = (Button) findViewById(R.id.next_btn);
         pre_btn = (Button) findViewById(R.id.pre_btn);
