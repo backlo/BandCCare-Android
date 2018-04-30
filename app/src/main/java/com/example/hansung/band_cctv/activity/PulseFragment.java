@@ -23,6 +23,6 @@ public class PulseFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = (View) inflater.inflate(R.layout.fragment_pulse, container, false);
         return rootView;
-    }  
+    }
 
 }
