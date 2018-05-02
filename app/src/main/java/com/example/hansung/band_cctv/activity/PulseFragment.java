@@ -48,8 +48,7 @@ public class PulseFragment extends Fragment {
     public static int startIndex;
 
     RetroClient retroClient;
-
-    int index =0;
+    public int xindexstart = 0;
     Double xindex = 1.0 ;
     LineChart lineChart;
     XAxis xAxis;
@@ -127,6 +126,7 @@ public class PulseFragment extends Fragment {
         xAxis.setAvoidFirstLastClipping(true);
         //xAxis.setAxisMaximum(200);
         xAxis.setDrawAxisLine(true);
+        xAxis.setAxisMinimum(0);
         xAxis.setValueFormatter(myformat);
         xAxis.setAxisMinimum(maxIndex);
         xAxis.enableGridDashedLine(15, 100, 5);
@@ -156,11 +156,10 @@ public class PulseFragment extends Fragment {
         lineChart.setAutoScaleMinMaxEnabled(true);
         lineChart.notifyDataSetChanged();
         lineChart.setDescription(description);
-        lineChart.moveViewTo(index,getData(),YAxis.AxisDependency.LEFT);
+        //lineChart.moveViewTo(maxIndex,getData(),YAxis.AxisDependency.LEFT);
         lineChart.setBackgroundColor(Color.parseColor("#FFBCB6B3"));
         lineChart.animateY(2000, Easing.EasingOption.EaseInElastic);
         lineChart.zoom((float) 1.5,1,0,0);
-
 
         return view;
     }
@@ -198,11 +197,11 @@ public class PulseFragment extends Fragment {
 
 
     public void chartUpdate(int x){
-        entries.add(new Entry(x,getData()));
+        entries.add(new Entry(0+xindexstart,getData()));
         lineChart.notifyDataSetChanged();
         lineChart.invalidate();
         xAxis.setAxisMaximum((float) (maxIndex+xindex));
-        xAxis.setAxisMinimum(maxIndex-20);
+        xAxis.setAxisMinimum(0);
         dataview.setText(String.valueOf(getData()));
     }
 
@@ -215,8 +214,8 @@ public class PulseFragment extends Fragment {
 
                 Log.e("Max INDEX@@@@", String.valueOf(startIndex));
                 xindex++;
-                index++;
                 startIndex++;
+                xindexstart++;
             }
         }
     };
@@ -256,7 +255,7 @@ public class PulseFragment extends Fragment {
         @Override
         public String getFormattedValue(float value, AxisBase axis) {
             // convertedTimestamp = originalTimestamp - referenceTimestamp
-            long originalTimestamp = ref + (long)value * 1000;
+            long originalTimestamp = ref + (long)value * 2000;
             mDate.setTime(originalTimestamp);
             // Retrieve original timestamp
             // Convert timestamp to hour:minute
