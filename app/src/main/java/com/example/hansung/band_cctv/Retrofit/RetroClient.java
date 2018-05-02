@@ -6,6 +6,7 @@ import com.example.hansung.band_cctv.Retrofit.Model.Request_DB;
 import com.example.hansung.band_cctv.Retrofit.Model.Request_Login;
 import com.example.hansung.band_cctv.Retrofit.Model.Response_Check;
 import com.example.hansung.band_cctv.Retrofit.Model.Response_Login;
+import com.example.hansung.band_cctv.Retrofit.Model.Response_MaxIndex;
 import com.example.hansung.band_cctv.Retrofit.Model.Response_Sensor;
 
 import java.util.HashMap;
@@ -113,6 +114,24 @@ public class RetroClient {
                 Log.e("onfailure",t.toString());
             }
         });
+    }
 
+    public void GetMaxIndex(final RetroCallback callback){
+        apiService.GetMaxIndex().enqueue(new Callback<Response_MaxIndex>() {
+            @Override
+            public void onResponse(Call<Response_MaxIndex> call, Response<Response_MaxIndex> response) {
+                if (response.isSuccessful()) {
+                    Log.e("onsuccess","success");
+                    callback.onSuccess(response.code(), response.body());
+                } else {
+                    callback.onFailure(response.code());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Response_MaxIndex> call, Throwable t) {
+                Log.e("maxindex onfailure",t.toString());
+            }
+        });
     }
 }

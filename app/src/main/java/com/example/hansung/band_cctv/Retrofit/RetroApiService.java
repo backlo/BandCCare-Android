@@ -4,6 +4,7 @@ import com.example.hansung.band_cctv.Retrofit.Model.Request_DB;
 import com.example.hansung.band_cctv.Retrofit.Model.Request_Login;
 import com.example.hansung.band_cctv.Retrofit.Model.Response_Check;
 import com.example.hansung.band_cctv.Retrofit.Model.Response_Login;
+import com.example.hansung.band_cctv.Retrofit.Model.Response_MaxIndex;
 import com.example.hansung.band_cctv.Retrofit.Model.Response_Sensor;
 
 import retrofit2.Call;
@@ -30,5 +31,9 @@ public interface RetroApiService {
     //@@센서값받기
     @GET("/getsensor")
     Call<Response_Sensor> GetSensor(@Query("index") int index);
+
+    //@@테이블의 마지막 인덱스값 가져오기
+    @GET("/getmaxindex")
+    Call<Response_MaxIndex> GetMaxIndex();
 
 }
