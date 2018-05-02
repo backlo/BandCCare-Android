@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.RelativeLayout;
 
 import com.example.hansung.band_cctv.R;
+import com.example.hansung.band_cctv.util.RtspViewPlayer;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -53,11 +54,11 @@ public class VideoFragment extends Fragment {
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
                         position = "left";
-                        new JSONTask().execute("http://192.168.0.8:3000/post");
+                        new JSONTask().execute("http://192.168.0.6:3000/post");
                         break;
                     case MotionEvent.ACTION_UP:
                         position = "stop";
-                        new JSONTask().execute("http://192.168.0.8:3000/post");
+                        new JSONTask().execute("http://192.168.0.6:3000/post");
                         break;
 
                 }
@@ -71,20 +72,20 @@ public class VideoFragment extends Fragment {
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
                         position = "right";
-                        new JSONTask().execute("http://192.168.0.8:3000/post");
+                        new JSONTask().execute("http://192.168.0.6:3000/post");
                         break;
                     case MotionEvent.ACTION_UP:
                         position = "stop";
-                        new JSONTask().execute("http://192.168.0.8:3000/post");
+                        new JSONTask().execute("http://192.168.0.6:3000/post");
                         break;
 
                 }
                 return false;
             }
         });
-    /*    RtspViewPlayer playView = new RtspViewPlayer(getContext(),"rtsp://192.168.0.2:8091/rtsp");
+        RtspViewPlayer playView = new RtspViewPlayer(getContext(),"rtsp://192.168.0.2:8091/rtsp");
         surfaceView = (RelativeLayout)view.findViewById(R.id.surface_video);
-        surfaceView.addView(playView);*/
+        surfaceView.addView(playView);
 
         return view;
     }
