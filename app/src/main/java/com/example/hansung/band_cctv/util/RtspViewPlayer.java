@@ -1,6 +1,7 @@
 package com.example.hansung.band_cctv.util;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
@@ -18,6 +19,7 @@ public class RtspViewPlayer extends SurfaceView implements SurfaceHolder.Callbac
         mHolder.addCallback(this);
 
         mPlayerNDKAdapter = new NDKAdapter();
+        Log.d("datasource",uri+"");
         mPlayerNDKAdapter.setDataSource(uri);
     }
 

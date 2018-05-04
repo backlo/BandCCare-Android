@@ -13,28 +13,15 @@
         android:id="@+id/surface_video"
         android:layout_weight="1"/>
 
-    <LinearLayout
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:orientation="horizontal">
+        android:text=" "/>
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Left"
-            android:layout_weight="1"
-            android:id="@+id/left_btn"/>
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Right"
-            android:layout_weight="1"
-            android:id="@+id/right_btn"/>
-
-
-    </LinearLayout>
-
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/surface_video1"
+        android:layout_weight="1"/>
 
 </LinearLayout>

@@ -16,10 +16,15 @@
 #define LOGW(...) __android_log_print(ANDROID_LOG_WARN   , "libnav", __VA_ARGS__)
 #define LOGE(...) __android_log_print(ANDROID_LOG_ERROR  , "libnav", __VA_ARGS__)
 
-char *uri;
+const char *uri[2];
+int setDataSource_index=0;
+int play_index=0;
 
 JNIEXPORT void JNICALL Java_com_example_hansung_band_1cctv_util_NDKAdapter_setDataSource(JNIEnv *env, jclass clazz, jstring _uri){
-    uri = (*env)->GetStringUTFChars(env, _uri, NULL);
+    uri[setDataSource_index] = (*env)->GetStringUTFChars(env, _uri, NULL);
+    LOGD("uri:%s", uri[setDataSource_index]);
+    setDataSource_index++;
+
 }
 
 JNIEXPORT jint JNICALL Java_com_example_hansung_band_1cctv_util_NDKAdapter_play(JNIEnv * env, jclass clazz, jobject surface)
@@ -27,7 +32,11 @@ JNIEXPORT jint JNICALL Java_com_example_hansung_band_1cctv_util_NDKAdapter_play(
     LOGD("play");
 
     // it must set to setDataSource for play.
-    const char * file_name = uri ;
+    const char * file_name = uri[play_index];
+
+    LOGD("uri:%s", uri[play_index]);
+    LOGD("file_name:%s", file_name);
+    play_index++;
     if( file_name == NULL ) {
         LOGE("Please set the DataSource");
         return -1;
@@ -40,7 +49,7 @@ JNIEXPORT jint JNICALL Java_com_example_hansung_band_1cctv_util_NDKAdapter_play(
     // Open video file
     if(avformat_open_input(&pFormatCtx, file_name, NULL, NULL)!=0) {
 
-        LOGE("Couldn't open file: %s!!! \n", file_name);
+        LOGE("Couldn't open file:%s\n", file_name);
         return -1; // Couldn't open file
     }
 
