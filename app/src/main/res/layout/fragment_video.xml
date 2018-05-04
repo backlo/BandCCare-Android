@@ -8,11 +8,26 @@
     android:padding="20dp"
     tools:context=".activity.VideoFragment">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:id="@+id/surface_video"/>
+        android:padding="1dp"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:id="@+id/surface_video1"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:id="@+id/surface_video2"/>
+
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
