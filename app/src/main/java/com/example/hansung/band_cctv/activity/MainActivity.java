@@ -1,32 +1,44 @@
 package com.example.hansung.band_cctv.activity;
 
+import android.os.Handler;
+import android.os.Message;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.SurfaceView;
 import android.widget.RelativeLayout;
 
+import com.example.hansung.band_cctv.MyPagerAdapter;
 import com.example.hansung.band_cctv.R;
 import com.example.hansung.band_cctv.util.RtspViewPlayer;
 
 public class MainActivity extends AppCompatActivity {
-    private RelativeLayout surfaceView;
-    private RelativeLayout surfaceView1;
-    private RtspViewPlayer playView;
-    private RtspViewPlayer playView1;
+    public static MyHandler myHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        myHandler = new MyHandler();
+        MyPagerAdapter mPagerAdapter = new MyPagerAdapter(getSupportFragmentManager());
+        ViewPager mViewPager = (ViewPager) findViewById(R.id.viewpager);
+        mViewPager.setAdapter(mPagerAdapter);
 
-        playView = new RtspViewPlayer(getApplication(),"rtsp://192.168.0.2:8091/rtsp");
+        TabLayout mTab = (TabLayout) findViewById(R.id.tabs);
+        mTab.setupWithViewPager(mViewPager);
 
-        surfaceView = (RelativeLayout) findViewById(R.id.surface_video);
-        surfaceView.addView(playView);
+        for (int i = 0; i < mViewPager.getAdapter().getCount(); i++) {
+            mTab.getTabAt(i).setIcon(mPagerAdapter.getIcon(i));
+        }
+    }
 
-        playView1 = new RtspViewPlayer(getApplication(),"rtsp://192.168.0.2:8091/rtsp1");
+    public class MyHandler extends Handler {
 
-        surfaceView1 = (RelativeLayout) findViewById(R.id.surface_video1);
-        surfaceView1.addView(playView1);
-
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+        }
     }
 }
+
