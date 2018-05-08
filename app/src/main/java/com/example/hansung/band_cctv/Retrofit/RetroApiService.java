@@ -1,10 +1,12 @@
 package com.example.hansung.band_cctv.Retrofit;
 
+import com.example.hansung.band_cctv.Retrofit.Model.Request_Band_member;
 import com.example.hansung.band_cctv.Retrofit.Model.Request_DB;
 import com.example.hansung.band_cctv.Retrofit.Model.Request_Login;
 import com.example.hansung.band_cctv.Retrofit.Model.Request_Login2;
 import com.example.hansung.band_cctv.Retrofit.Model.Request_Motor;
 import com.example.hansung.band_cctv.Retrofit.Model.Request_exit_PI;
+import com.example.hansung.band_cctv.Retrofit.Model.Request_App_member;
 import com.example.hansung.band_cctv.Retrofit.Model.Response_Check;
 import com.example.hansung.band_cctv.Retrofit.Model.Response_Login;
 import com.example.hansung.band_cctv.Retrofit.Model.Response_MaxIndex;
@@ -23,6 +25,12 @@ public interface RetroApiService {
     @POST("/insertdb")
     Call<Response_Check> InsertDB(@Body Request_DB request_db);
 
+    @POST("/insert_app_member")
+    Call<Response_Check> Insert_App_Member(@Body Request_App_member request_App_member);
+
+    @POST("/insert_band_member")
+    Call<Response_Check> Insert_Band_Member(@Body Request_Band_member request_band_member);
+
     //@@아이디중복체크
     @GET("/checkid")
     Call<Response_Check> CheckID(@Query("id") String id);
@@ -31,6 +39,7 @@ public interface RetroApiService {
     @POST("/logincheck")
     Call<Response_Login> LoginID(@Body Request_Login request_login);
 
+    //@@로그인할때 아이디,비밀번호 일치확인
     @POST("/logincheck2")
     Call<Response_Login> Login(@Body Request_Login2 request_login2);
 
@@ -42,10 +51,11 @@ public interface RetroApiService {
     @GET("/getmaxindex")
     Call<Response_MaxIndex> GetMaxIndex();
 
-    //PI프로세스 죽이기
+    //@@PI프로세스 죽이기
     @POST("/exit")
     Call<Request_exit_PI> Exit_PI(@Body Request_exit_PI request_exit_pi);
 
+    //@@모터제어
     @POST("/post")
     Call<Request_Motor> Motor_Controller(@Body Request_Motor request_motor);
 }

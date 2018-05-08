@@ -4,7 +4,6 @@ package com.example.hansung.band_cctv.login;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,19 +20,27 @@ public class AddDeviceFragment extends Fragment {
 
     private static AddDeviceFragment instance;
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = (View) inflater.inflate(R.layout.fragment_add_device, container, false);
+
         Button band_btn = view.findViewById(R.id.band_btn);
         Button camera_btn = view.findViewById(R.id.camera_btn);
+
+
 
         band_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 new IntentIntegrator(getActivity()).initiateScan();
-                Log.i("naverrrrrrr", getActivity().toString());
+            }
+        });
+
+        camera_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new IntentIntegrator(getActivity()).initiateScan();
             }
         });
         return view;
@@ -55,5 +62,4 @@ public class AddDeviceFragment extends Fragment {
             super.onActivityResult(requestCode, resultCode, data);
         }
     }
-
 }
