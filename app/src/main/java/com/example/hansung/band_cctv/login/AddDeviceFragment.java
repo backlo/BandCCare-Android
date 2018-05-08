@@ -36,10 +36,7 @@ public class AddDeviceFragment extends Fragment {
                 Log.i("naverrrrrrr", getActivity().toString());
             }
         });
-
-
         return view;
-
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {

@@ -33,18 +33,17 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        retroClient = RetroClient.getInstance().createBaseApi();
-
-        parameter.put("AppUserInfo_id",editText_id.getText().toString());
-        parameter.put("AppUserInfo_password",editText_pw.getText().toString());
-
+        parameter = new HashMap<>();
         editText_id = (EditText)findViewById(R.id.login_id_et);
         editText_pw = (EditText)findViewById(R.id.login_pw_et);
 
         Button login_btn = (Button) findViewById(R.id.login_btn);
         Button signUp_btn = (Button) findViewById(R.id.signUp_btn);
 
-        parameter = new HashMap<>();
+        retroClient = RetroClient.getInstance().createBaseApi();
+
+        parameter.put("AppUserInfo_id",editText_id.getText().toString());
+        parameter.put("AppUserInfo_password",editText_pw.getText().toString());
 
         login_btn.setOnClickListener(new View.OnClickListener() {
             @Override

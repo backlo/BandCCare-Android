@@ -5,6 +5,7 @@ import android.util.Log;
 import com.example.hansung.band_cctv.Retrofit.Model.Request_DB;
 import com.example.hansung.band_cctv.Retrofit.Model.Request_Login;
 import com.example.hansung.band_cctv.Retrofit.Model.Request_Login2;
+import com.example.hansung.band_cctv.Retrofit.Model.Request_Motor;
 import com.example.hansung.band_cctv.Retrofit.Model.Request_exit_PI;
 import com.example.hansung.band_cctv.Retrofit.Model.Response_Check;
 import com.example.hansung.band_cctv.Retrofit.Model.Response_Login;
@@ -170,6 +171,25 @@ public class RetroClient {
 
             @Override
             public void onFailure(Call<Request_exit_PI> call, Throwable t) {
+
+            }
+        });
+    }
+
+    public void Motor_Controller(HashMap<String,Object> parameters,final RetroCallback callback){
+        apiService.Motor_Controller(new Request_Motor(parameters)).enqueue(new Callback<Request_Motor>() {
+            @Override
+            public void onResponse(Call<Request_Motor> call, Response<Request_Motor> response) {
+                if (response.isSuccessful()) {
+                    Log.e("onsuccess","success");
+                    callback.onSuccess(response.code(), response.body());
+                } else {
+                    callback.onFailure(response.code());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Request_Motor> call, Throwable t) {
 
             }
         });

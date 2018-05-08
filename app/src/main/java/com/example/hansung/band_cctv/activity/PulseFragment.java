@@ -233,8 +233,6 @@ public class PulseFragment extends Fragment {
         }
     }
 
-
-
     public String getTime(){
         mNow = System.currentTimeMillis();
         mDate = new Date(mNow);
