@@ -5,6 +5,7 @@ import android.util.Log;
 import com.example.hansung.band_cctv.Retrofit.Model.Request_DB;
 import com.example.hansung.band_cctv.Retrofit.Model.Request_Login;
 import com.example.hansung.band_cctv.Retrofit.Model.Request_Login2;
+import com.example.hansung.band_cctv.Retrofit.Model.Request_exit_PI;
 import com.example.hansung.band_cctv.Retrofit.Model.Response_Check;
 import com.example.hansung.band_cctv.Retrofit.Model.Response_Login;
 import com.example.hansung.band_cctv.Retrofit.Model.Response_MaxIndex;
@@ -131,7 +132,7 @@ public class RetroClient {
 
             @Override
             public void onFailure(Call<Response_Sensor> call, Throwable t) {
-                Log.e("onfailure",t.toString());
+                Log.e("onfailure@@",t.toString());
             }
         });
     }
@@ -151,6 +152,25 @@ public class RetroClient {
             @Override
             public void onFailure(Call<Response_MaxIndex> call, Throwable t) {
                 Log.e("maxindex onfailure",t.toString());
+            }
+        });
+    }
+
+    public void Exit_PI(HashMap<String, Object> parameters,final RetroCallback callback){
+        apiService.Exit_PI(new Request_exit_PI(parameters)).enqueue(new Callback<Request_exit_PI>() {
+            @Override
+            public void onResponse(Call<Request_exit_PI> call, Response<Request_exit_PI> response) {
+                if (response.isSuccessful()) {
+                    Log.e("onsuccess","success");
+                    callback.onSuccess(response.code(), response.body());
+                } else {
+                    callback.onFailure(response.code());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Request_exit_PI> call, Throwable t) {
+
             }
         });
     }

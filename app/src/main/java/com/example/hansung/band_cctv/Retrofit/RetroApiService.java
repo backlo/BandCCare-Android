@@ -3,6 +3,7 @@ package com.example.hansung.band_cctv.Retrofit;
 import com.example.hansung.band_cctv.Retrofit.Model.Request_DB;
 import com.example.hansung.band_cctv.Retrofit.Model.Request_Login;
 import com.example.hansung.band_cctv.Retrofit.Model.Request_Login2;
+import com.example.hansung.band_cctv.Retrofit.Model.Request_exit_PI;
 import com.example.hansung.band_cctv.Retrofit.Model.Response_Check;
 import com.example.hansung.band_cctv.Retrofit.Model.Response_Login;
 import com.example.hansung.band_cctv.Retrofit.Model.Response_MaxIndex;
@@ -40,4 +41,6 @@ public interface RetroApiService {
     @GET("/getmaxindex")
     Call<Response_MaxIndex> GetMaxIndex();
 
+    @POST("/exit")
+    Call<Request_exit_PI> Exit_PI(@Body Request_exit_PI request_exit_pi);
 }

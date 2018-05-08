@@ -25,7 +25,6 @@ public class AddDeviceFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         View view = (View) inflater.inflate(R.layout.fragment_add_device, container, false);
         Button band_btn = view.findViewById(R.id.band_btn);
         Button camera_btn = view.findViewById(R.id.camera_btn);
