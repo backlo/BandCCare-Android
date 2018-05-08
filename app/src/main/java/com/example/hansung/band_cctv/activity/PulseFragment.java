@@ -10,8 +10,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
 import com.example.hansung.band_cctv.R;
 import com.example.hansung.band_cctv.Retrofit.Model.Response_MaxIndex;
 import com.example.hansung.band_cctv.Retrofit.Model.Response_Sensor;
@@ -49,7 +52,7 @@ public class PulseFragment extends Fragment {
 
     RetroClient retroClient;
     public int xindexstart = 0;
-    Double xindex = 1.0 ;
+    Double xindex = 1.0;
     LineChart lineChart;
     XAxis xAxis;
     List<Entry> entries;
@@ -58,7 +61,7 @@ public class PulseFragment extends Fragment {
     TextView timeTextView;
     int result;
     String time_result;
-
+    TextView today_tv;
 
     public static PulseFragment getInstance() {
         if (instance == null)
@@ -72,10 +75,19 @@ public class PulseFragment extends Fragment {
         View view = (View) inflater.inflate(R.layout.fragment_pulse, container, false);
 
         retroClient = RetroClient.getInstance().createBaseApi();
-
         dataview = (TextView) view.findViewById(R.id.dataview);
         lineChart = (LineChart) view.findViewById(R.id.linechart);
 
+        ImageView rabbit = (ImageView) view.findViewById(R.id.heart_img);
+        GlideDrawableImageViewTarget gifImage = new GlideDrawableImageViewTarget(rabbit);
+        Glide.with(this).load(R.drawable.heart).into(gifImage);
+
+        long now = System.currentTimeMillis();
+        Date date = new Date(now);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy년 MM월 dd일");
+        String getTime = sdf.format(date);
+        today_tv = (TextView) view.findViewById(R.id.today_tv);
+        today_tv.setText(getTime);
 
         DataThread thread = new DataThread();
         thread.setDaemon(true);
@@ -85,12 +97,14 @@ public class PulseFragment extends Fragment {
             @Override
             public void onError(Throwable t) {
             }
+
             @Override
             public void onSuccess(int code, Object receivedData) {
-                data = (Response_MaxIndex)receivedData;
+                data = (Response_MaxIndex) receivedData;
                 maxIndex = data.getMax();
-                startIndex = maxIndex-10;
+                startIndex = maxIndex - 10;
             }
+
             @Override
             public void onFailure(int code) {
             }
@@ -99,8 +113,8 @@ public class PulseFragment extends Fragment {
         entries = new ArrayList<>();
         //entries.add(new Entry(0,0));
 
-        LineDataSet lineDataSet = new LineDataSet(entries, "심박수");
-        lineDataSet.setLineWidth(2);
+        LineDataSet lineDataSet = new LineDataSet(entries, "심박수(heart rate)");
+        lineDataSet.setLineWidth(1);
         lineDataSet.setCircleRadius(4);
         lineDataSet.setCircleColor(Color.parseColor("#FFEC6253"));
         lineDataSet.setCircleColorHole(Color.WHITE);
@@ -110,7 +124,7 @@ public class PulseFragment extends Fragment {
         lineDataSet.setDrawHorizontalHighlightIndicator(true);
         lineDataSet.setDrawHighlightIndicators(true);
         lineDataSet.setDrawValues(false);
-        lineDataSet.setDrawFilled(true);
+        lineDataSet.setDrawFilled(false);
 
         ArrayList<LineDataSet> dataSets = new ArrayList<>();
         dataSets.add(lineDataSet);
@@ -124,19 +138,18 @@ public class PulseFragment extends Fragment {
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setTextColor(Color.BLACK);
         xAxis.setAvoidFirstLastClipping(true);
-        //xAxis.setAxisMaximum(200);
         xAxis.setDrawAxisLine(true);
         xAxis.setAxisMinimum(0);
         xAxis.setValueFormatter(myformat);
         xAxis.setAxisMinimum(maxIndex);
         xAxis.enableGridDashedLine(15, 100, 5);
 
-        LimitLine min = new LimitLine ( 50 , " 최소심박수" );
-        LimitLine max = new LimitLine(170,"최대심박수");
-        min.setLineColor(Color.RED);
-        min.setTextColor(Color.RED);
-        max.setLineColor(Color.RED);
-        max.setTextColor(Color.RED);
+        LimitLine min = new LimitLine(50, " 최소심박수");
+        LimitLine max = new LimitLine(170, "최대심박수");
+        min.setLineColor(Color.GRAY);
+        min.setTextColor(Color.BLACK);
+        max.setLineColor(Color.GRAY);
+        max.setTextColor(Color.BLACK);
         YAxis yLAxis = lineChart.getAxisLeft();
         yLAxis.setAxisMaximum(200);
         yLAxis.setTextColor(Color.BLACK);
@@ -156,10 +169,11 @@ public class PulseFragment extends Fragment {
         lineChart.setAutoScaleMinMaxEnabled(true);
         lineChart.notifyDataSetChanged();
         lineChart.setDescription(description);
+
         //lineChart.moveViewTo(maxIndex,getData(),YAxis.AxisDependency.LEFT);
-        lineChart.setBackgroundColor(Color.parseColor("#FFBCB6B3"));
+        lineChart.setBackgroundColor(Color.parseColor("#FFFFFF"));
         lineChart.animateY(2000, Easing.EasingOption.EaseInElastic);
-        lineChart.zoom((float) 1.5,1,0,0);
+        lineChart.zoom((float) 1.5, 1, 0, 0);
 
         return view;
     }
@@ -169,46 +183,54 @@ public class PulseFragment extends Fragment {
             @Override
             public void onError(Throwable t) {
             }
+
             @Override
             public void onSuccess(int code, Object receivedData) {
                 Response_Sensor data = (Response_Sensor) receivedData;
                 Log.e("datas =", String.valueOf(data.getSensor_data()));
             }
+
             @Override
             public void onFailure(int code) {
             }
         });
     }
+
     public int getData() {
         retroClient.GetSensor(startIndex, new RetroCallback() {
             Response_Sensor data;
+
             @Override
-            public void onError(Throwable t) {}
+            public void onError(Throwable t) {
+            }
+
             @Override
             public void onSuccess(int code, Object receivedData) {
                 data = (Response_Sensor) receivedData;
                 result = data.getSensor_data();
             }
+
             @Override
-            public void onFailure(int code) {}
+            public void onFailure(int code) {
+            }
         });
         return result;
     }
 
 
-    public void chartUpdate(int x){
-        entries.add(new Entry(0+xindexstart,getData()));
+    public void chartUpdate(int x) {
+        entries.add(new Entry(0 + xindexstart, getData()));
         lineChart.notifyDataSetChanged();
         lineChart.invalidate();
-        xAxis.setAxisMaximum((float) (maxIndex+xindex));
+        xAxis.setAxisMaximum((float) (maxIndex + xindex));
         xAxis.setAxisMinimum(0);
         dataview.setText(String.valueOf(getData()));
     }
 
-    Handler handler = new Handler(){
+    Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-            if(msg.what == 0 ){
+            if (msg.what == 0) {
                 StartgetData();
                 chartUpdate(startIndex);
 
@@ -219,21 +241,23 @@ public class PulseFragment extends Fragment {
             }
         }
     };
-    class DataThread extends Thread{
+
+    class DataThread extends Thread {
         @Override
         public void run() {
-            while(true){
+            while (true) {
                 handler.sendEmptyMessage(0);
-                try{
+                try {
                     Thread.sleep(2000);
-                }catch (InterruptedException e){
+                } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
             }
         }
     }
 
-    public String getTime(){
+
+    public String getTime() {
         mNow = System.currentTimeMillis();
         mDate = new Date(mNow);
         return dateFormat.format(mDate);
@@ -244,7 +268,7 @@ public class PulseFragment extends Fragment {
         private DateFormat mDataFormat;
         public Date mDate;
 
-        public HourAxisValueFormatter(){
+        public HourAxisValueFormatter() {
             this.mDataFormat = new SimpleDateFormat("mm:ss", Locale.KOREAN);
             //this.mDataFormat = DateFormat.getTimeInstance();
             this.mDate = new Date();
@@ -253,7 +277,7 @@ public class PulseFragment extends Fragment {
         @Override
         public String getFormattedValue(float value, AxisBase axis) {
             // convertedTimestamp = originalTimestamp - referenceTimestamp
-            long originalTimestamp = ref + (long)value * 2000;
+            long originalTimestamp = ref + (long) value * 2000;
             mDate.setTime(originalTimestamp);
             // Retrieve original timestamp
             // Convert timestamp to hour:minute

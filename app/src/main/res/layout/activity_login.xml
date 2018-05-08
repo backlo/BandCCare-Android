@@ -4,10 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
     android:orientation="vertical"
     android:padding="20dp"
-    tools:context=".login.LoginActivity">
+    android:gravity="center"
+    tools:context=".login.LoginActivity"
+    android:theme="@style/AppTheme">
 
     <ImageView
         android:layout_width="match_parent"

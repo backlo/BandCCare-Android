@@ -3,10 +3,18 @@ package com.example.hansung.band_cctv.activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.example.hansung.band_cctv.MyPagerAdapter;
 import com.example.hansung.band_cctv.R;
@@ -18,6 +26,7 @@ import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity {
     public static MyHandler myHandler;
+    private DrawerLayout mDrawerLayout;
 
     RetroClient retroClient;
 
@@ -37,8 +46,8 @@ public class MainActivity extends AppCompatActivity {
         exit = "exit";
         noexit = "noexit";
         retroClient = RetroClient.getInstance().createBaseApi();
-        parameter.put("exit",exit);
-        parameter2.put("exit",noexit);
+        parameter.put("exit", exit);
+        parameter2.put("exit", noexit);
 
         retroClient.Exit_PI(parameter2, new RetroCallback() {
             @Override
@@ -68,6 +77,44 @@ public class MainActivity extends AppCompatActivity {
         for (int i = 0; i < mViewPager.getAdapter().getCount(); i++) {
             mTab.getTabAt(i).setIcon(mPagerAdapter.getIcon(i));
         }
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setHomeAsUpIndicator(R.drawable.ic_menu);
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.navigation_view);
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(MenuItem menuItem) {
+                menuItem.setChecked(true);
+                mDrawerLayout.closeDrawers();
+
+                int id = menuItem.getItemId();
+                switch (id) {
+                    case R.id.navigation_item1:
+                        Toast.makeText(MainActivity.this, "App user info", Toast.LENGTH_LONG).show();
+                        break;
+
+                    case R.id.navigation_item2:
+                        Toast.makeText(MainActivity.this, "band user info", Toast.LENGTH_LONG).show();
+                        break;
+
+                    case R.id.navigation_item3:
+                        Toast.makeText(MainActivity.this, "device info", Toast.LENGTH_LONG).show();
+                        break;
+
+                    case R.id.navigation_logout:
+                        Toast.makeText(MainActivity.this, "logout", Toast.LENGTH_LONG).show();
+                        break;
+
+                }
+
+                return true;
+            }
+        });
     }
 
     public class MyHandler extends Handler {
@@ -78,10 +125,11 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Log.e("main ondestroy","destroy");
+        Log.e("main ondestroy", "destroy");
         retroClient.Exit_PI(parameter, new RetroCallback() {
             @Override
             public void onError(Throwable t) {
@@ -90,8 +138,8 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onSuccess(int code, Object receivedData) {
-                Request_exit_PI data = (Request_exit_PI)receivedData;
-                Log.e("exit data@@",data.getExit());
+                Request_exit_PI data = (Request_exit_PI) receivedData;
+                Log.e("exit data@@", data.getExit());
             }
 
             @Override
@@ -100,6 +148,30 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        switch (id) {
+            case android.R.id.home:
+                mDrawerLayout.openDrawer(GravityCompat.START);
+                return true;
+            case R.id.action_settings:
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }
 

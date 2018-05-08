@@ -22,4 +22,14 @@
         completions."
     </string>
     <string name="title_activity_sign_up">SignUpActivity</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <!--String related to navigation Drawer-->
+    <string name="nav_menu_item1">App User Info</string>
+    <string name="nav_menu_item2">Band User Info</string>
+    <string name="nav_menu_item3">Device Info</string>
+    <string name="nav_menu_logout">Logout</string>
+    <string name="drawer_header_text">Drawer Header</string>
+
 </resources>
