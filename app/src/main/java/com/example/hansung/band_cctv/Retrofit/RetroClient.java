@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.example.hansung.band_cctv.Retrofit.Model.Request_DB;
 import com.example.hansung.band_cctv.Retrofit.Model.Request_Login;
+import com.example.hansung.band_cctv.Retrofit.Model.Request_Login2;
 import com.example.hansung.band_cctv.Retrofit.Model.Response_Check;
 import com.example.hansung.band_cctv.Retrofit.Model.Response_Login;
 import com.example.hansung.band_cctv.Retrofit.Model.Response_MaxIndex;
@@ -58,6 +59,25 @@ public class RetroClient {
 
             @Override
             public void onFailure(Call<Response_Check> call, Throwable t) {
+            }
+        });
+    }
+
+    public void Login(HashMap<String, Object> parameter, final RetroCallback callback){
+        apiService.Login(new Request_Login2(parameter)).enqueue(new Callback<Response_Login>() {
+            @Override
+            public void onResponse(Call<Response_Login> call, Response<Response_Login> response) {
+                if (response.isSuccessful()) {
+                    callback.onSuccess(response.code(), response.body());
+                    Log.e("login success","success");
+                } else {
+                    callback.onFailure(response.code());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Response_Login> call, Throwable t) {
+                Log.e("login onfailure","fail->"+t.toString());
             }
         });
     }

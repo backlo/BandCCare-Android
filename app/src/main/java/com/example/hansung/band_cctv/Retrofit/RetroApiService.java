@@ -2,6 +2,7 @@ package com.example.hansung.band_cctv.Retrofit;
 
 import com.example.hansung.band_cctv.Retrofit.Model.Request_DB;
 import com.example.hansung.band_cctv.Retrofit.Model.Request_Login;
+import com.example.hansung.band_cctv.Retrofit.Model.Request_Login2;
 import com.example.hansung.band_cctv.Retrofit.Model.Response_Check;
 import com.example.hansung.band_cctv.Retrofit.Model.Response_Login;
 import com.example.hansung.band_cctv.Retrofit.Model.Response_MaxIndex;
@@ -27,6 +28,9 @@ public interface RetroApiService {
     //@@아이디,비밀번호 일치 확인
     @POST("/logincheck")
     Call<Response_Login> LoginID(@Body Request_Login request_login);
+
+    @POST("/logincheck2")
+    Call<Response_Login> Login(@Body Request_Login2 request_login2);
 
     //@@센서값받기
     @GET("/getsensor")
