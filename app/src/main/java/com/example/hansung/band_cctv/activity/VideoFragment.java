@@ -1,42 +1,46 @@
 package com.example.hansung.band_cctv.activity;
 
-import android.os.AsyncTask;
+
+import com.example.hansung.band_cctv.R;
+import com.example.hansung.band_cctv.Retrofit.RetroCallback;
+import com.example.hansung.band_cctv.Retrofit.RetroClient;
+import com.example.hansung.band_cctv.util.RtspViewPlayer;
+
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ExpandableListView;
 import android.widget.RelativeLayout;
-
-import com.example.hansung.band_cctv.R;
-import com.example.hansung.band_cctv.util.RtspViewPlayer;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.ProtocolException;
-import java.net.URL;
+import android.widget.Toast;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class VideoFragment extends Fragment {
     private static VideoFragment instance;
+    /* video */
+    RetroClient retroClient;
     private RtspViewPlayer playView_first;
     private RtspViewPlayer playView_second;
     private RelativeLayout surfaceView_first;
     private RelativeLayout surfaceView_second;
-    private static String position;
+    HashMap<String, Object> parameter_right;
+    HashMap<String, Object> parameter_left;
+    HashMap<String, Object> parameter_stop;
+    public String right;
+    public String left;
+    public String stop;
 
+    /* UI design */
+    public ArrayList<String> parentList;
+    public ArrayList<String> childList;
+    ExpandableListView expListView;
+    com.example.hansung.band_cctv.ExpandableListAdapter listAdapter;
+
+    /* constructor(Singleton) */
     public static VideoFragment getInstance() {
         if (instance == null)
             instance = new VideoFragment();
@@ -51,17 +55,58 @@ public class VideoFragment extends Fragment {
         Button left_btn = (Button) view.findViewById(R.id.left_btn);
         Button right_btn = (Button) view.findViewById(R.id.right_btn);
 
-/*        left_btn.setOnTouchListener(new View.OnTouchListener() {
+        retroClient = RetroClient.getInstance().createBaseApi();
+        right = "right";
+        left = "left";
+        stop = "stop";
+
+        parameter_left = new HashMap<>();
+        parameter_right = new HashMap<>();
+        parameter_stop = new HashMap<>();
+
+        parameter_right.put("rsl", right);
+        parameter_left.put("rsl", left);
+        parameter_stop.put("rsl", stop);
+        
+        left_btn.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
-                        position = "left";
-                        new JSONTask().execute("http://192.168.0.6:3000/post");
+                        retroClient.Motor_Controller(parameter_left, new RetroCallback() {
+                            @Override
+                            public void onError(Throwable t) {
+
+                            }
+
+                            @Override
+                            public void onSuccess(int code, Object receivedData) {
+
+                            }
+
+                            @Override
+                            public void onFailure(int code) {
+
+                            }
+                        });
                         break;
                     case MotionEvent.ACTION_UP:
-                        position = "stop";
-                        new JSONTask().execute("http://192.168.0.6:3000/post");
+                        retroClient.Motor_Controller(parameter_stop, new RetroCallback() {
+                            @Override
+                            public void onError(Throwable t) {
+
+                            }
+
+                            @Override
+                            public void onSuccess(int code, Object receivedData) {
+
+                            }
+
+                            @Override
+                            public void onFailure(int code) {
+
+                            }
+                        });
                         break;
 
                 }
@@ -74,12 +119,41 @@ public class VideoFragment extends Fragment {
             public boolean onTouch(View v, MotionEvent event) {
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
-                        position = "right";
-                        new JSONTask().execute("http://192.168.0.6:3000/post");
+                        retroClient.Motor_Controller(parameter_right, new RetroCallback() {
+                            @Override
+                            public void onError(Throwable t) {
+
+                            }
+
+                            @Override
+                            public void onSuccess(int code, Object receivedData) {
+
+                            }
+
+                            @Override
+                            public void onFailure(int code) {
+
+                            }
+                        });
+
                         break;
                     case MotionEvent.ACTION_UP:
-                        position = "stop";
-                        new JSONTask().execute("http://192.168.0.6:3000/post");
+                        retroClient.Motor_Controller(parameter_stop, new RetroCallback() {
+                            @Override
+                            public void onError(Throwable t) {
+
+                            }
+
+                            @Override
+                            public void onSuccess(int code, Object receivedData) {
+
+                            }
+
+                            @Override
+                            public void onFailure(int code) {
+
+                            }
+                        });
                         break;
 
                 }
@@ -87,83 +161,90 @@ public class VideoFragment extends Fragment {
             }
         });
 
-        playView_first = new RtspViewPlayer(getContext(),"rtsp://192.168.0.2:8091/rtsp");
-        surfaceView_first = (RelativeLayout)view.findViewById(R.id.surface_video1);
+        playView_first = new RtspViewPlayer(getContext(), "rtsp://192.168.0.2:8091/rtsp");
+        surfaceView_first = (RelativeLayout) view.findViewById(R.id.surface_video1);
         surfaceView_first.addView(playView_first);
 
-        playView_second = new RtspViewPlayer(getContext(),"rtsp://192.168.0.2:8091/rtsp1");
-        surfaceView_second = (RelativeLayout)view.findViewById(R.id.surface_video2);
+        playView_second = new RtspViewPlayer(getContext(), "rtsp://192.168.0.2:8091/rtsp1");
+        surfaceView_second = (RelativeLayout) view.findViewById(R.id.surface_video2);
         surfaceView_second.addView(playView_second);
 
-*/
+        /* UI design */
+
+        expListView = (ExpandableListView) view.findViewById(R.id.elv);
+        setListData();
+
+        listAdapter = new com.example.hansung.band_cctv.ExpandableListAdapter(getContext(), parentList, childList);
+        expListView.setAdapter(listAdapter);
+
+        // Listview Group click listener
+        expListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
+
+            @Override
+            public boolean onGroupClick(ExpandableListView parent, View v,
+                                        int groupPosition, long id) {
+                // Toast.makeText(getApplicationContext(),
+                // "Group Clicked " + listDataHeader.get(groupPosition),
+                // Toast.LENGTH_SHORT).show();
+                return false;
+            }
+        });
+
+        // Listview Group expanded listener
+        expListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
+
+            @Override
+            public void onGroupExpand(int groupPosition) {
+                Toast.makeText(getContext(),
+                        parentList.get(groupPosition) + " Expanded",
+                        Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        // Listview Group collasped listener
+        expListView.setOnGroupCollapseListener(new ExpandableListView.OnGroupCollapseListener() {
+
+            @Override
+            public void onGroupCollapse(int groupPosition) {
+                Toast.makeText(getContext(),
+                        parentList.get(groupPosition) + " Collapsed",
+                        Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+        // Listview on child click listener
+        expListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+
+            @Override
+            public boolean onChildClick(ExpandableListView parent, View v,
+                                        int groupPosition, int childPosition, long id) {
+                Toast.makeText(
+                        getContext(),
+                        parentList.get(groupPosition)
+                                + " : "
+                                + childList.get(
+                                childPosition), Toast.LENGTH_SHORT)
+                        .show();
+                return false;
+            }
+        });
+
         return view;
     }
-/*
-    public class JSONTask extends AsyncTask<String, String, String> {
-
-        @Override
-        protected String doInBackground(String... urls) {
-            try {
-                JSONObject jsonObject = new JSONObject();
-                Log.e("rsl", position);
-                jsonObject.accumulate("rsl", position);
-
-                HttpURLConnection conn = null;
-                BufferedReader reader = null;
-
-                try {
-                    URL url = new URL(urls[0]);
-                    conn = (HttpURLConnection) url.openConnection();
-                    conn.setRequestMethod("POST");
-                    conn.setRequestProperty("Cache-Control", "no-cache");
-                    conn.setRequestProperty("Content-Type", "application/json");
-                    conn.setRequestProperty("Accept", "text/html");
-                    conn.setDoOutput(true);
-                    conn.setDoInput(true);
-                    conn.connect();
-
-                    OutputStream outputStream = conn.getOutputStream();
-
-                    BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(outputStream));
-                    writer.write(jsonObject.toString());
-                    writer.flush();
-                    writer.close();
-
-                    InputStream stream = conn.getInputStream();
-                    reader = new BufferedReader(new InputStreamReader(stream));
-                    StringBuffer buffer = new StringBuffer();
-                    String line = "";
-                    while ((line = reader.readLine()) != null) {
-                        buffer.append(line);
-                    }
-
-                    return buffer.toString();
-
-                } catch (MalformedURLException e) {
-                    e.printStackTrace();
-                } catch (ProtocolException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                } finally {
-                    if (conn != null) {
-                        conn.disconnect();
-                    }
-                    try {
-                        if (reader != null) {
-                            reader.close();
-                        }
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-
-            return null;
-        }
 
 
-    }*/
+    private void setListData() {
+        parentList = new ArrayList<String>();
+        childList = new ArrayList<String>();
+
+        parentList.add("camera1");
+        parentList.add("camera2");
+
+        childList.add("");
+        childList.add("camera2 화면입니다.");
+
+
+    }
+
 }

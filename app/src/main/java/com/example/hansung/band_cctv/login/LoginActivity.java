@@ -48,6 +48,9 @@ public class LoginActivity extends AppCompatActivity {
         login_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
+
                 parameter.put("AppUserInfo_id",editText_id.getText().toString());
                 parameter.put("AppUserInfo_password",editText_pw.getText().toString());
 
