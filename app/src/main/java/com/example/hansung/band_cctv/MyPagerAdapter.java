@@ -4,7 +4,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.example.hansung.band_cctv.activity.InfoFragment;
+import com.example.hansung.band_cctv.activity.LocationFragment;
 import com.example.hansung.band_cctv.activity.PulseFragment;
 import com.example.hansung.band_cctv.activity.VideoFragment;
 
@@ -23,7 +23,7 @@ public class MyPagerAdapter extends FragmentPagerAdapter{
             case 1:
                 return PulseFragment.getInstance();
             case 2:
-                return InfoFragment.getInstance();
+                return LocationFragment.getInstance();
             default:
                 return null;
         }
@@ -32,11 +32,11 @@ public class MyPagerAdapter extends FragmentPagerAdapter{
     public String getPageTitle(int position){
         switch (position) {
             case 0:
-                return "Video";
+                return "VIDEO";
             case 1:
-                return "Pulse";
+                return "PULSE";
             case 2:
-                return "Info";
+                return "LOCATION";
             default:
                 return null;
         }
@@ -49,7 +49,7 @@ public class MyPagerAdapter extends FragmentPagerAdapter{
             case 1:
                 return R.drawable.tab_pulse;
             case 2:
-                return R.drawable.tab_info;
+                return R.drawable.location;
             default:
                 return 0;
         }

@@ -15,6 +15,11 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -98,6 +103,6 @@
             android:layout_height="wrap_content"
             android:text="등록" />
     </LinearLayout>
-
+        </LinearLayout>
     </ScrollView>
 </LinearLayout>

@@ -9,12 +9,12 @@ import android.view.ViewGroup;
 
 import com.example.hansung.band_cctv.R;
 
-public class InfoFragment extends Fragment {
-    private static InfoFragment instance;
+public class LocationFragment extends Fragment {
+    private static LocationFragment instance;
 
-    public static InfoFragment getInstance() {
+    public static LocationFragment getInstance() {
         if (instance == null)
-            instance = new InfoFragment();
+            instance = new LocationFragment();
         return instance;
     }
 
@@ -22,7 +22,7 @@ public class InfoFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = (View) inflater.inflate(R.layout.fragment_info, container, false);
+        View rootView = (View) inflater.inflate(R.layout.fragment_location, container, false);
         return rootView;
     }
 

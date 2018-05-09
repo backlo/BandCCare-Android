@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <item android:id="@+id/action_settings"
-        android:title="@string/action_settings"
+    <item android:id="@+id/action_119"
+        android:title="@string/action_119"
         app:showAsAction="never" />
+    <item android:id="@+id/action_112"
+        android:title="@string/action_112"
+        app:showAsAction="never" />
+    <item android:id="@+id/action_call"
+        android:title="@string/action_call"
+        app:showAsAction="never" />
+
 </menu>

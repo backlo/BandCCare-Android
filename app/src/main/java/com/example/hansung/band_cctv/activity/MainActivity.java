@@ -1,5 +1,7 @@
 package com.example.hansung.band_cctv.activity;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -21,6 +23,7 @@ import com.example.hansung.band_cctv.R;
 import com.example.hansung.band_cctv.Retrofit.Model.Request_exit_PI;
 import com.example.hansung.band_cctv.Retrofit.RetroCallback;
 import com.example.hansung.band_cctv.Retrofit.RetroClient;
+import com.example.hansung.band_cctv.login.LoginActivity;
 
 import java.util.HashMap;
 
@@ -93,21 +96,29 @@ public class MainActivity extends AppCompatActivity {
                 mDrawerLayout.closeDrawers();
 
                 int id = menuItem.getItemId();
+                Intent intent;
                 switch (id) {
                     case R.id.navigation_item1:
                         Toast.makeText(MainActivity.this, "App user info", Toast.LENGTH_LONG).show();
+                        intent = new Intent(getApplicationContext(), InfoActivity.class);
+                        startActivity(intent);
                         break;
 
                     case R.id.navigation_item2:
                         Toast.makeText(MainActivity.this, "band user info", Toast.LENGTH_LONG).show();
+                        intent = new Intent(getApplicationContext(), InfoActivity.class);
+                        startActivity(intent);
                         break;
 
                     case R.id.navigation_item3:
                         Toast.makeText(MainActivity.this, "device info", Toast.LENGTH_LONG).show();
+                        intent = new Intent(getApplicationContext(), InfoActivity.class);
+                        startActivity(intent);
                         break;
 
                     case R.id.navigation_logout:
-                        Toast.makeText(MainActivity.this, "logout", Toast.LENGTH_LONG).show();
+                       intent = new Intent(getApplicationContext(), LoginActivity.class);
+                       startActivity(intent);
                         break;
 
                 }
@@ -166,9 +177,14 @@ public class MainActivity extends AppCompatActivity {
         switch (id) {
             case android.R.id.home:
                 mDrawerLayout.openDrawer(GravityCompat.START);
-                return true;
-            case R.id.action_settings:
-                return true;
+                break;
+            case R.id.action_119:
+                startActivity(new Intent(Intent.ACTION_DIAL, Uri.parse("tel:119")));
+                break;
+            case R.id.action_call:
+                String tel = "01074771488";
+                startActivity(new Intent(Intent.ACTION_DIAL, Uri.parse("tel:010-1234-1234")));
+                break;
         }
 
         return super.onOptionsItemSelected(item);

@@ -2,12 +2,15 @@
     <string name="app_name">BandC Care</string>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="tab_text_1">Tab 1</string>
-    <string name="tab_text_2">Tab 2</string>
-    <string name="tab_text_3">Tab 3</string>
-    <string name="action_settings">Settings</string>
+    <string name="tab_text_1">VIDEO</string>
+    <string name="tab_text_2">PULSE</string>
+    <string name="tab_text_3">LOCATION</string>
+    <string name="action_119">긴급전화 (119)</string>
+    <string name="action_112">긴급전화 (112)</string>
+    <string name="action_call">상대방에게 전화걸기</string>
+
     <string name="section_format">Hello World from section: %1$d</string>
-    <string name="title_activity_login">Sign in</string>
+    <string name="title_activity_login">Login</string>
 
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
@@ -21,7 +24,7 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
-    <string name="title_activity_sign_up">SignUpActivity</string>
+    <string name="title_activity_sign_up">Sign Up</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 

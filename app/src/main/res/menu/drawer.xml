@@ -5,20 +5,26 @@
         <item
             android:id="@+id/navigation_item1"
             android:checked="true"
-            android:icon="@drawable/ic_attachment"
+            android:icon="@drawable/user_info"
             android:title="@string/nav_menu_item1" />
         <item
             android:id="@+id/navigation_item2"
-            android:icon="@drawable/ic_image"
+            android:icon="@drawable/band_info"
             android:title="@string/nav_menu_item2" />
+
         <item
             android:id="@+id/navigation_item3"
-            android:icon="@drawable/ic_place"
+            android:icon="@drawable/device_info"
             android:title="@string/nav_menu_item3" />
         <item
             android:id="@+id/navigation_logout"
-            android:icon="@drawable/ic_place"
+            android:icon="@drawable/logout"
             android:title="@string/nav_menu_logout" />
+        <item
+            android:id="@+id/navigation_logout2"
+            android:icon="@drawable/logout3"
+            android:title="@string/nav_menu_logout" />
+
     </group>
 
 </menu>

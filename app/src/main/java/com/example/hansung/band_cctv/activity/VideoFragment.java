@@ -36,9 +36,12 @@ public class VideoFragment extends Fragment {
 
     /* UI design */
     public ArrayList<String> parentList;
-    public ArrayList<String> childList;
+    public HashMap<String, String> childList;
     ExpandableListView expListView;
     com.example.hansung.band_cctv.ExpandableListAdapter listAdapter;
+
+    public String uri1 = "rtsp://192.168.0.2:8091/rtsp";
+    public String uri2 = "rtsp://192.168.0.2:8091/rtsp1";
 
     /* constructor(Singleton) */
     public static VideoFragment getInstance() {
@@ -67,8 +70,8 @@ public class VideoFragment extends Fragment {
         parameter_right.put("rsl", right);
         parameter_left.put("rsl", left);
         parameter_stop.put("rsl", stop);
-        
-        left_btn.setOnTouchListener(new View.OnTouchListener() {
+
+        /*left_btn.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 switch (event.getAction()) {
@@ -168,7 +171,7 @@ public class VideoFragment extends Fragment {
         playView_second = new RtspViewPlayer(getContext(), "rtsp://192.168.0.2:8091/rtsp1");
         surfaceView_second = (RelativeLayout) view.findViewById(R.id.surface_video2);
         surfaceView_second.addView(playView_second);
-
+*/
         /* UI design */
 
         expListView = (ExpandableListView) view.findViewById(R.id.elv);
@@ -183,14 +186,14 @@ public class VideoFragment extends Fragment {
             @Override
             public boolean onGroupClick(ExpandableListView parent, View v,
                                         int groupPosition, long id) {
-                // Toast.makeText(getApplicationContext(),
-                // "Group Clicked " + listDataHeader.get(groupPosition),
-                // Toast.LENGTH_SHORT).show();
+                 Toast.makeText(getContext(),
+                 "Group Clicked " + parentList.get(groupPosition),
+                 Toast.LENGTH_SHORT).show();
                 return false;
             }
         });
 
-        // Listview Group expanded listener
+        // Listview Group 열렸을 때
         expListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
 
             @Override
@@ -201,7 +204,7 @@ public class VideoFragment extends Fragment {
             }
         });
 
-        // Listview Group collasped listener
+        // Listview Group 닫혔을 때
         expListView.setOnGroupCollapseListener(new ExpandableListView.OnGroupCollapseListener() {
 
             @Override
@@ -236,13 +239,13 @@ public class VideoFragment extends Fragment {
 
     private void setListData() {
         parentList = new ArrayList<String>();
-        childList = new ArrayList<String>();
+        childList = new HashMap<String, String>();
 
         parentList.add("camera1");
         parentList.add("camera2");
 
-        childList.add("");
-        childList.add("camera2 화면입니다.");
+        childList.put(parentList.get(0),uri1);
+        childList.put(parentList.get(1),uri2);
 
 
     }
