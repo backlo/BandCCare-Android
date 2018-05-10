@@ -21,6 +21,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="username"
+        android:text="admin"
         android:inputType="textPersonName" />
 
     <EditText
@@ -29,6 +30,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="password"
+        android:text="admin"
         android:inputType="textPassword" />
 
     <Button

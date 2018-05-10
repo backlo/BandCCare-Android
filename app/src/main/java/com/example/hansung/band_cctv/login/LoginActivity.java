@@ -13,6 +13,7 @@ import com.example.hansung.band_cctv.R;
 import com.example.hansung.band_cctv.Retrofit.Model.Response_Login;
 import com.example.hansung.band_cctv.Retrofit.RetroCallback;
 import com.example.hansung.band_cctv.Retrofit.RetroClient;
+import com.example.hansung.band_cctv.Service.Service_Notification;
 import com.example.hansung.band_cctv.activity.MainActivity;
 
 import java.util.HashMap;
@@ -20,7 +21,8 @@ import java.util.HashMap;
 public class LoginActivity extends AppCompatActivity {
 
     RetroClient retroClient;
-
+    Intent intent;
+    Intent intent1;
     EditText editText_id;
     EditText editText_pw;
     Button login_btn;
@@ -48,8 +50,6 @@ public class LoginActivity extends AppCompatActivity {
         login_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(intent);
 
                 parameter.put("AppUserInfo_id",editText_id.getText().toString());
                 parameter.put("AppUserInfo_password",editText_pw.getText().toString());
@@ -68,9 +68,11 @@ public class LoginActivity extends AppCompatActivity {
                         Response_Login data = (Response_Login)receivedData;
                         Log.e("login get data","data->"+data.getSuccess());
                         if(data.getSuccess().equals("success")){
-                            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                            intent = new Intent(getApplicationContext(), MainActivity.class);
+                            intent1 = new Intent(getApplicationContext(), Service_Notification.class);
                             Toast.makeText(LoginActivity.this, "로그인성공", Toast.LENGTH_SHORT).show();
                             startActivity(intent);
+                            startService(intent1);
                         }else if(data.getSuccess().equals("nomatch")){
                             Toast.makeText(LoginActivity.this, "비밀번호 혹은 아이디를 확인하세요", Toast.LENGTH_SHORT).show();
                         }else{
