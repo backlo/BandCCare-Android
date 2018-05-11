@@ -34,11 +34,6 @@ public class VideoFragment extends Fragment {
     public String left;
     public String stop;
 
-    /* UI design */
-    public ArrayList<String> parentList;
-    public HashMap<String, String> childList;
-    ExpandableListView expListView;
-    com.example.hansung.band_cctv.ExpandableListAdapter listAdapter;
 
     public String uri1 = "rtsp://192.168.0.2:8091/rtsp";
     public String uri2 = "rtsp://192.168.0.2:8091/rtsp1";
@@ -55,8 +50,8 @@ public class VideoFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View view = (View) inflater.inflate(R.layout.fragment_video, container, false);
-        Button left_btn = (Button) view.findViewById(R.id.left_btn);
-        Button right_btn = (Button) view.findViewById(R.id.right_btn);
+        Button left_btn = (Button) view.findViewById(R.id.left_btn1);
+        Button right_btn = (Button) view.findViewById(R.id.right_btn1);
 
         retroClient = RetroClient.getInstance().createBaseApi();
         right = "right";
@@ -71,7 +66,7 @@ public class VideoFragment extends Fragment {
         parameter_left.put("rsl", left);
         parameter_stop.put("rsl", stop);
 
-        /*left_btn.setOnTouchListener(new View.OnTouchListener() {
+        left_btn.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 switch (event.getAction()) {
@@ -164,7 +159,7 @@ public class VideoFragment extends Fragment {
             }
         });
 
-        playView_first = new RtspViewPlayer(getContext(), "rtsp://192.168.0.2:8091/rtsp");
+  /*      playView_first = new RtspViewPlayer(getContext(), "rtsp://192.168.0.2:8091/rtsp");
         surfaceView_first = (RelativeLayout) view.findViewById(R.id.surface_video1);
         surfaceView_first.addView(playView_first);
 
@@ -172,82 +167,7 @@ public class VideoFragment extends Fragment {
         surfaceView_second = (RelativeLayout) view.findViewById(R.id.surface_video2);
         surfaceView_second.addView(playView_second);
 */
-        /* UI design */
-
-        expListView = (ExpandableListView) view.findViewById(R.id.elv);
-        setListData();
-
-        listAdapter = new com.example.hansung.band_cctv.ExpandableListAdapter(getContext(), parentList, childList);
-        expListView.setAdapter(listAdapter);
-
-        // Listview Group click listener
-        expListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
-
-            @Override
-            public boolean onGroupClick(ExpandableListView parent, View v,
-                                        int groupPosition, long id) {
-                 Toast.makeText(getContext(),
-                 "Group Clicked " + parentList.get(groupPosition),
-                 Toast.LENGTH_SHORT).show();
-                return false;
-            }
-        });
-
-        // Listview Group 열렸을 때
-        expListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
-
-            @Override
-            public void onGroupExpand(int groupPosition) {
-                Toast.makeText(getContext(),
-                        parentList.get(groupPosition) + " Expanded",
-                        Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        // Listview Group 닫혔을 때
-        expListView.setOnGroupCollapseListener(new ExpandableListView.OnGroupCollapseListener() {
-
-            @Override
-            public void onGroupCollapse(int groupPosition) {
-                Toast.makeText(getContext(),
-                        parentList.get(groupPosition) + " Collapsed",
-                        Toast.LENGTH_SHORT).show();
-
-            }
-        });
-
-        // Listview on child click listener
-        expListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
-
-            @Override
-            public boolean onChildClick(ExpandableListView parent, View v,
-                                        int groupPosition, int childPosition, long id) {
-                Toast.makeText(
-                        getContext(),
-                        parentList.get(groupPosition)
-                                + " : "
-                                + childList.get(
-                                childPosition), Toast.LENGTH_SHORT)
-                        .show();
-                return false;
-            }
-        });
-
         return view;
-    }
-
-
-    private void setListData() {
-        parentList = new ArrayList<String>();
-        childList = new HashMap<String, String>();
-
-        parentList.add("camera1");
-        parentList.add("camera2");
-
-        childList.put(parentList.get(0),uri1);
-        childList.put(parentList.get(1),uri2);
-
-
     }
 
 }

@@ -28,21 +28,29 @@ import com.example.hansung.band_cctv.login.LoginActivity;
 import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity {
-    public static MyHandler myHandler;
+    public static Boolean isAppUser;
+    public static MainActivity instance;
+    // public static MyHandler myHandler;
     private DrawerLayout mDrawerLayout;
-
     RetroClient retroClient;
-
     public String exit;
     public String noexit;
 
     HashMap<String, Object> parameter;
     HashMap<String, Object> parameter2;
 
+    public static MainActivity getInstance() {
+        if (instance == null)
+            instance = new MainActivity();
+        return instance;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        isAppUser = getIntent().getBooleanExtra("isAppUser", false);
 
         parameter = new HashMap<>();
         parameter2 = new HashMap<>();
@@ -69,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        myHandler = new MyHandler();
+        //myHandler = new MyHandler();
         MyPagerAdapter mPagerAdapter = new MyPagerAdapter(getSupportFragmentManager());
         ViewPager mViewPager = (ViewPager) findViewById(R.id.viewpager);
         mViewPager.setAdapter(mPagerAdapter);
@@ -101,24 +109,27 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.navigation_item1:
                         Toast.makeText(MainActivity.this, "App user info", Toast.LENGTH_LONG).show();
                         intent = new Intent(getApplicationContext(), InfoActivity.class);
+                        intent.putExtra("info",1);
                         startActivity(intent);
                         break;
 
                     case R.id.navigation_item2:
                         Toast.makeText(MainActivity.this, "band user info", Toast.LENGTH_LONG).show();
                         intent = new Intent(getApplicationContext(), InfoActivity.class);
+                        intent.putExtra("info",2);
                         startActivity(intent);
                         break;
 
                     case R.id.navigation_item3:
                         Toast.makeText(MainActivity.this, "device info", Toast.LENGTH_LONG).show();
                         intent = new Intent(getApplicationContext(), InfoActivity.class);
+                        intent.putExtra("info",3);
                         startActivity(intent);
                         break;
 
                     case R.id.navigation_logout:
-                       intent = new Intent(getApplicationContext(), LoginActivity.class);
-                       startActivity(intent);
+                        intent = new Intent(getApplicationContext(), LoginActivity.class);
+                        startActivity(intent);
                         break;
 
                 }
@@ -128,13 +139,13 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public class MyHandler extends Handler {
+ /*   public class MyHandler extends Handler {
 
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
         }
-    }
+    }*/
 
 
     @Override
@@ -169,9 +180,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
         switch (id) {
@@ -182,12 +190,15 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(Intent.ACTION_DIAL, Uri.parse("tel:119")));
                 break;
             case R.id.action_call:
-                String tel = "01074771488";
                 startActivity(new Intent(Intent.ACTION_DIAL, Uri.parse("tel:010-1234-1234")));
                 break;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public Boolean getIsAppUser() {
+        return isAppUser;
     }
 }
 
