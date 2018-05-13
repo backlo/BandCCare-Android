@@ -2,6 +2,7 @@ package com.example.hansung.band_cctv.Retrofit;
 
 import android.util.Log;
 
+import com.example.hansung.band_cctv.Retrofit.Model.Request_Alarm;
 import com.example.hansung.band_cctv.Retrofit.Model.Request_App_member;
 import com.example.hansung.band_cctv.Retrofit.Model.Request_Band_member;
 import com.example.hansung.band_cctv.Retrofit.Model.Request_DB;
@@ -220,6 +221,25 @@ public class RetroClient {
         });
     }
 
+    public void Send_Alarm(HashMap<String ,Object> parameters , final RetroCallback callback){
+        apiService.Send_Alarm(new Request_Alarm(parameters)).enqueue(new Callback<Request_Alarm>() {
+            @Override
+            public void onResponse(Call<Request_Alarm> call, Response<Request_Alarm> response) {
+                if (response.isSuccessful()) {
+                    Log.e("Exit PI onsuccess","success");
+                    callback.onSuccess(response.code(), response.body());
+                } else {
+                    callback.onFailure(response.code());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Request_Alarm> call, Throwable t) {
+
+            }
+        });
+    }
+
     public void Motor_Controller(HashMap<String,Object> parameters,final RetroCallback callback){
         apiService.Motor_Controller(new Request_Motor(parameters)).enqueue(new Callback<Request_Motor>() {
             @Override
@@ -295,6 +315,8 @@ public class RetroClient {
             }
         });
     }
+
+
 
 
 

@@ -102,7 +102,7 @@ public class PulseFragment extends Fragment {
             public void onSuccess(int code, Object receivedData) {
                 data = (Response_MaxIndex)receivedData;
                 maxIndex = data.getMax();
-                startIndex = maxIndex-10;
+                startIndex = maxIndex-3;
             }
             @Override
             public void onFailure(int code) {

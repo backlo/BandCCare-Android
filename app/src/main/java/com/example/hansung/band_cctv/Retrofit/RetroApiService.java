@@ -1,5 +1,6 @@
 package com.example.hansung.band_cctv.Retrofit;
 
+import com.example.hansung.band_cctv.Retrofit.Model.Request_Alarm;
 import com.example.hansung.band_cctv.Retrofit.Model.Request_App_member;
 import com.example.hansung.band_cctv.Retrofit.Model.Request_Band_member;
 import com.example.hansung.band_cctv.Retrofit.Model.Request_DB;
@@ -73,4 +74,8 @@ public interface RetroApiService {
     //@@모터제어
     @POST("/post")
     Call<Request_Motor> Motor_Controller(@Body Request_Motor request_motor);
+
+    //@@위험알람
+    @POST("/alarm")
+    Call<Request_Alarm> Send_Alarm(@Body Request_Alarm request_alarm);
 }

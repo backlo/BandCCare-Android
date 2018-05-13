@@ -3,9 +3,12 @@ package com.example.hansung.band_cctv.Thread;
 import android.os.Handler;
 import android.util.Log;
 
+import com.example.hansung.band_cctv.Retrofit.Model.Response_MaxIndex;
 import com.example.hansung.band_cctv.Retrofit.Model.Response_Sensor;
 import com.example.hansung.band_cctv.Retrofit.RetroCallback;
 import com.example.hansung.band_cctv.Retrofit.RetroClient;
+
+import java.util.HashMap;
 
 
 public class ServiceThread extends Thread {
@@ -16,9 +19,31 @@ public class ServiceThread extends Thread {
     int result;
     int sum = 0;
     int count = 0;
+    int startindex;
+    String alarm = "alarm";
+    HashMap<String, Object> alarmmap;
 
     public ServiceThread(Handler handler) {
+        alarmmap = new HashMap<>();
+        alarmmap.put("alarm",alarm);
         retroClient = RetroClient.getInstance().createBaseApi();
+        retroClient.GetMaxIndex(new RetroCallback() {
+            @Override
+            public void onError(Throwable t) {
+
+            }
+
+            @Override
+            public void onSuccess(int code, Object receivedData) {
+                Response_MaxIndex data = (Response_MaxIndex)receivedData;
+                startindex = data.getMax();
+            }
+
+            @Override
+            public void onFailure(int code) {
+
+            }
+        });
         this.handler = handler;
     }
 
@@ -30,7 +55,7 @@ public class ServiceThread extends Thread {
     }
 
     public int getData() {
-        retroClient.GetSensor(index, new RetroCallback() {
+        retroClient.GetSensor(startindex, new RetroCallback() {
             Response_Sensor data;
 
             @Override
@@ -62,6 +87,22 @@ public class ServiceThread extends Thread {
                 if (a > 150 || a < 70) {
                     Log.e("okokok", "나여기들어옴 ㅋ");
                     handler.sendEmptyMessage(0);
+                    retroClient.Send_Alarm(alarmmap, new RetroCallback() {
+                        @Override
+                        public void onError(Throwable t) {
+
+                        }
+
+                        @Override
+                        public void onSuccess(int code, Object receivedData) {
+
+                        }
+
+                        @Override
+                        public void onFailure(int code) {
+
+                        }
+                    });
                 } else {
                     handler.sendEmptyMessage(1);
                 }
@@ -70,7 +111,7 @@ public class ServiceThread extends Thread {
             } else {
                 handler.sendEmptyMessage(1);
             }
-            index++;
+            startindex++;
             try {
                 Thread.sleep(3000); //10초씩 쉰다.
             } catch (Exception e) {

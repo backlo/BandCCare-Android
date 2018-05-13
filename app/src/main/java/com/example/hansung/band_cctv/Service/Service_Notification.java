@@ -61,7 +61,7 @@ public class Service_Notification extends Service {
                 notification = new Notification.Builder(getApplicationContext())
                         .setContentTitle("Content Title")
                         .setContentText("Content Text")
-                        .setSmallIcon(R.drawable.ic_launcher_foreground)
+                        .setSmallIcon(R.drawable.noti_icon)
                         .setTicker("알림!!!")
                         .setContentIntent(pendingIntent)
                         .build();
