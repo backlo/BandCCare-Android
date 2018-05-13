@@ -2,19 +2,23 @@ package com.example.hansung.band_cctv.Retrofit;
 
 import android.util.Log;
 
+import com.example.hansung.band_cctv.Retrofit.Model.Request_App_member;
 import com.example.hansung.band_cctv.Retrofit.Model.Request_Band_member;
 import com.example.hansung.band_cctv.Retrofit.Model.Request_DB;
 import com.example.hansung.band_cctv.Retrofit.Model.Request_Login;
 import com.example.hansung.band_cctv.Retrofit.Model.Request_Login2;
 import com.example.hansung.band_cctv.Retrofit.Model.Request_Motor;
 import com.example.hansung.band_cctv.Retrofit.Model.Request_exit_PI;
-import com.example.hansung.band_cctv.Retrofit.Model.Request_App_member;
+import com.example.hansung.band_cctv.Retrofit.Model.Response_Band_Info;
 import com.example.hansung.band_cctv.Retrofit.Model.Response_Check;
+import com.example.hansung.band_cctv.Retrofit.Model.Response_Info;
 import com.example.hansung.band_cctv.Retrofit.Model.Response_Login;
 import com.example.hansung.band_cctv.Retrofit.Model.Response_MaxIndex;
 import com.example.hansung.band_cctv.Retrofit.Model.Response_Sensor;
+import com.example.hansung.band_cctv.Retrofit.Model.Response_User_Index;
 
 import java.util.HashMap;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -183,7 +187,7 @@ public class RetroClient {
             @Override
             public void onResponse(Call<Response_MaxIndex> call, Response<Response_MaxIndex> response) {
                 if (response.isSuccessful()) {
-                    Log.e("onsuccess","success");
+                    Log.e("GetMaxIndex onsuccess","success");
                     callback.onSuccess(response.code(), response.body());
                 } else {
                     callback.onFailure(response.code());
@@ -202,7 +206,7 @@ public class RetroClient {
             @Override
             public void onResponse(Call<Request_exit_PI> call, Response<Request_exit_PI> response) {
                 if (response.isSuccessful()) {
-                    Log.e("onsuccess","success");
+                    Log.e("Exit PI onsuccess","success");
                     callback.onSuccess(response.code(), response.body());
                 } else {
                     callback.onFailure(response.code());
@@ -221,7 +225,7 @@ public class RetroClient {
             @Override
             public void onResponse(Call<Request_Motor> call, Response<Request_Motor> response) {
                 if (response.isSuccessful()) {
-                    Log.e("onsuccess","success");
+                    Log.e("Motor ctl success","success");
                     callback.onSuccess(response.code(), response.body());
                 } else {
                     callback.onFailure(response.code());
@@ -231,6 +235,63 @@ public class RetroClient {
             @Override
             public void onFailure(Call<Request_Motor> call, Throwable t) {
 
+            }
+        });
+    }
+
+    public void GetInfo(String id, final RetroCallback callback){
+        apiService.GetInfo(id).enqueue(new Callback<List<Response_Info>>() {
+            @Override
+            public void onResponse(Call<List<Response_Info>> call, Response<List<Response_Info>> response) {
+                if (response.isSuccessful()) {
+                    Log.e("GetInfo success","success");
+                    callback.onSuccess(response.code(), response.body());
+                } else {
+                    callback.onFailure(response.code());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Response_Info>> call, Throwable t) {
+
+            }
+        });
+    }
+
+    public void GetInfo_Band(int index, final RetroCallback callback){
+        apiService.GetInfo_Band(index).enqueue(new Callback<List<Response_Band_Info>>() {
+            @Override
+            public void onResponse(Call<List<Response_Band_Info>> call, Response<List<Response_Band_Info>> response) {
+                if (response.isSuccessful()) {
+                    Log.e("Get band Info success","success");
+                    callback.onSuccess(response.code(), response.body());
+                } else {
+                    callback.onFailure(response.code());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Response_Band_Info>> call, Throwable t) {
+                Log.e("onfailure getinfo band","error"+t.toString());
+            }
+        });
+    }
+
+    public void GetInfo_index(String id, final RetroCallback callback){
+        apiService.GetInfo_index(id).enqueue(new Callback<Response_User_Index>() {
+            @Override
+            public void onResponse(Call<Response_User_Index> call, Response<Response_User_Index> response) {
+                if (response.isSuccessful()) {
+                    Log.e("Get Info index success","success");
+                    callback.onSuccess(response.code(), response.body());
+                } else {
+                    callback.onFailure(response.code());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Response_User_Index> call, Throwable t) {
+                Log.e("getinfoindex fail",""+t.toString());
             }
         });
     }

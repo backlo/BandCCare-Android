@@ -1,16 +1,21 @@
 package com.example.hansung.band_cctv.Retrofit;
 
+import com.example.hansung.band_cctv.Retrofit.Model.Request_App_member;
 import com.example.hansung.band_cctv.Retrofit.Model.Request_Band_member;
 import com.example.hansung.band_cctv.Retrofit.Model.Request_DB;
 import com.example.hansung.band_cctv.Retrofit.Model.Request_Login;
 import com.example.hansung.band_cctv.Retrofit.Model.Request_Login2;
 import com.example.hansung.band_cctv.Retrofit.Model.Request_Motor;
 import com.example.hansung.band_cctv.Retrofit.Model.Request_exit_PI;
-import com.example.hansung.band_cctv.Retrofit.Model.Request_App_member;
+import com.example.hansung.band_cctv.Retrofit.Model.Response_Band_Info;
 import com.example.hansung.band_cctv.Retrofit.Model.Response_Check;
+import com.example.hansung.band_cctv.Retrofit.Model.Response_Info;
 import com.example.hansung.band_cctv.Retrofit.Model.Response_Login;
 import com.example.hansung.band_cctv.Retrofit.Model.Response_MaxIndex;
 import com.example.hansung.band_cctv.Retrofit.Model.Response_Sensor;
+import com.example.hansung.band_cctv.Retrofit.Model.Response_User_Index;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -20,6 +25,7 @@ import retrofit2.http.Query;
 
 public interface RetroApiService {
     final String Base_URL = "http://192.168.0.6:4000";
+    //String Base_URL = "http://192.168.1.25:4000";
 
     //@@회원가입
     @POST("/insertdb")
@@ -30,6 +36,15 @@ public interface RetroApiService {
 
     @POST("/insert_band_member")
     Call<Response_Check> Insert_Band_Member(@Body Request_Band_member request_band_member);
+
+    @GET("/getinfo")
+    Call<List<Response_Info>> GetInfo(@Query("id") String id);
+
+    @GET("/getbanduserinfo")
+    Call<List<Response_Band_Info>> GetInfo_Band(@Query("index") int index);
+
+    @GET("/appuserinfo_index")
+    Call<Response_User_Index> GetInfo_index(@Query("id") String id);
 
     //@@아이디중복체크
     @GET("/checkid")

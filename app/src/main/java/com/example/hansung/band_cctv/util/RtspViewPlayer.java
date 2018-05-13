@@ -20,7 +20,7 @@ public class RtspViewPlayer extends SurfaceView implements SurfaceHolder.Callbac
 
         mPlayerNDKAdapter = new NDKAdapter();
         Log.d("datasource",uri+"");
-        mPlayerNDKAdapter.setDataSource(uri);
+        NDKAdapter.setDataSource(uri);
     }
 
     @Override
@@ -28,7 +28,7 @@ public class RtspViewPlayer extends SurfaceView implements SurfaceHolder.Callbac
         new Thread(new Runnable() {
             @Override
             public void run() {
-                mPlayerNDKAdapter.play(mHolder.getSurface());
+                NDKAdapter.play(mHolder.getSurface());
             }
         }).start();
     }

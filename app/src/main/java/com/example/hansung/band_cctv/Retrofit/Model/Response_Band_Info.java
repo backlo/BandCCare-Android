@@ -1,27 +1,20 @@
 package com.example.hansung.band_cctv.Retrofit.Model;
 
-import com.google.gson.annotations.SerializedName;
-
-import java.util.HashMap;
-
-public class Request_Band_member {
-    @SerializedName("BandUserInfo_name")
+public class Response_Band_Info {
+    public int BandUserInfo_index;
     public String BandUserInfo_name;
-    @SerializedName("BandUserInfo_sex")
     public String BandUserInfo_sex;
-    @SerializedName("BandUserInfo_phone")
     public String BandUserInfo_phone;
-    @SerializedName("BandUserInfo_birth")
     public String BandUserInfo_birth;
-    @SerializedName("BandUserInfo_address")
     public String BandUserInfo_address;
 
-    public Request_Band_member(HashMap<String, Object> parameters){
-        this.BandUserInfo_name = (String)parameters.get("BandUserInfo_name");
-        this.BandUserInfo_sex = (String)parameters.get("BandUserInfo_sex");
-        this.BandUserInfo_phone = (String)parameters.get("BandUserInfo_phone");
-        this.BandUserInfo_birth = (String)parameters.get("BandUserInfo_birth");
-        this.BandUserInfo_address = (String)parameters.get("BandUserInfo_address");
+
+    public int getBandUserInfo_index() {
+        return BandUserInfo_index;
+    }
+
+    public void setBandUserInfo_index(int bandUserInfo_index) {
+        BandUserInfo_index = bandUserInfo_index;
     }
 
     public String getBandUserInfo_name() {

@@ -10,8 +10,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import com.example.hansung.band_cctv.R;
+
+import java.util.HashMap;
 
 public class AddBandUserFragment extends Fragment {
 
@@ -24,6 +28,7 @@ public class AddBandUserFragment extends Fragment {
     EditText editText_name;
     RadioButton radioButton_m;
     RadioButton radioButton_w;
+    RadioGroup radioGroup;
 
     public String band_user_id;
     public String band_user_phone;
@@ -31,18 +36,36 @@ public class AddBandUserFragment extends Fragment {
     public String band_user_address;
     public String band_user_name;
 
+    public HashMap<String,String> radiomap;
+    View view;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_add_band_user,container,false);
-
-        editText_name = (EditText)view.findViewById(R.id.id_et);
-        editText_phone = (EditText)view.findViewById(R.id.phone_et);
-        editText_birthday = (EditText)view.findViewById(R.id.birthday_et);
-        editText_address = (EditText)view.findViewById(R.id.adress_et);
-        radioButton_m = (RadioButton) view.findViewById(R.id.radioButton);
-        radioButton_w = (RadioButton)view.findViewById(R.id.radioButton2);
+        radiomap = new HashMap<>();
+        editText_name = view.findViewById(R.id.id_et);
+        editText_phone = view.findViewById(R.id.phone_et);
+        editText_birthday = view.findViewById(R.id.birthday_et);
+        editText_address = view.findViewById(R.id.adress_et);
+        radioButton_m = view.findViewById(R.id.radioButton);
+        radioButton_w = view.findViewById(R.id.radioButton2);
+        radioGroup = view.findViewById(R.id.radiogroup);
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId){
+                    case R.id.radioButton:
+                            Toast.makeText(getContext(),""+radioButton_m.getText().toString(),Toast.LENGTH_SHORT).show();
+                            radiomap.put("sex",radioButton_m.getText().toString());
+                        break;
+                        case R.id.radioButton2:
+                            Toast.makeText(getContext(),""+radioButton_w.getText().toString(),Toast.LENGTH_SHORT).show();
+                            radiomap.put("sex",radioButton_w.getText().toString());
+                        break;
+                }
+            }
+        });
 
         editText_name.addTextChangedListener(new TextWatcher() {
             @Override
@@ -124,6 +147,9 @@ public class AddBandUserFragment extends Fragment {
     }
     public String getBand_user_address(){
         return band_user_address;
+    }
+    public String getBand_user_radio(){
+        return radiomap.get("sex");
     }
 
 }

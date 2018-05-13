@@ -28,12 +28,12 @@ public class AddAppUserFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = (View) inflater.inflate(R.layout.fragment_add_app_user, container, false);
+        View view = inflater.inflate(R.layout.fragment_add_app_user, container, false);
 
-        editText_birthday = (EditText)view.findViewById(R.id.birthday_et);
-        editText_phone = (EditText)view.findViewById(R.id.phone_et);
-        editText_password = (EditText)view.findViewById(R.id.pw_et);
-        editText_id = (EditText)view.findViewById(R.id.id_et);
+        editText_birthday = view.findViewById(R.id.birthday_et);
+        editText_phone = view.findViewById(R.id.phone_et);
+        editText_password = view.findViewById(R.id.pw_et);
+        editText_id = view.findViewById(R.id.id_et);
 
         editText_password.addTextChangedListener(new TextWatcher() {
             @Override

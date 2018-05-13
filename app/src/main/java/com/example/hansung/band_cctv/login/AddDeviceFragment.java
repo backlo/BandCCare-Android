@@ -19,16 +19,17 @@ public class AddDeviceFragment extends Fragment {
 
 
     private static AddDeviceFragment instance;
+    public String qr_result_band;
+    public String qr_result_camera;
+    IntentResult result_band;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = (View) inflater.inflate(R.layout.fragment_add_device, container, false);
+        View view = inflater.inflate(R.layout.fragment_add_device, container, false);
 
         Button band_btn = view.findViewById(R.id.band_btn);
         Button camera_btn = view.findViewById(R.id.camera_btn);
-
-
 
         band_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,16 +51,34 @@ public class AddDeviceFragment extends Fragment {
         //  com.google.zxing.integration.android.IntentIntegrator.REQUEST_CODE
         //  = 0x0000c0de; // Only use bottom 16 bits
         if (requestCode == IntentIntegrator.REQUEST_CODE) {
-            IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
-            if (result == null) {
+            IntentResult intentResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+            if (intentResult == null) {
                 // 취소됨
                 Toast.makeText(getActivity(), "Cancelled", Toast.LENGTH_LONG).show();
             } else {
                 // 스캔된 QRCode --> result.getContents()
-                Toast.makeText(getActivity(), "Scanned: " + result.getContents(), Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(), "Scanned: " + intentResult.getContents(), Toast.LENGTH_LONG).show();
+
+                if(intentResult.getContents().equals("band_1")){
+                    Toast.makeText(getActivity(), ""+intentResult.getContents(), Toast.LENGTH_SHORT).show();
+                    qr_result_band = intentResult.getContents();
+                }else{
+                    Toast.makeText(getActivity(), ""+intentResult.getContents(), Toast.LENGTH_SHORT).show();
+                    qr_result_camera = intentResult.getContents();
+                }
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data);
         }
     }
+
+    public String getQr_result_band(){
+        return qr_result_band;
+    }
+
+    public String getQr_result_camera(){
+        return qr_result_camera;
+    }
+
+
 }

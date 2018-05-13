@@ -3,8 +3,6 @@ package com.example.hansung.band_cctv.activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.GravityCompat;
@@ -33,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
     // public static MyHandler myHandler;
     private DrawerLayout mDrawerLayout;
     RetroClient retroClient;
+
     public String exit;
     public String noexit;
 
@@ -49,6 +48,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        retroClient = RetroClient.getInstance().createBaseApi();
 
         isAppUser = getIntent().getBooleanExtra("isAppUser", false);
 
