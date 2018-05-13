@@ -66,19 +66,19 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // 서버 안통할때 용 코드 (지우지마세용)
 
-                isAppUser = true;
+              /*  isAppUser = true;
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 intent.putExtra("isAppUser", isAppUser);
                 startActivity(intent);
-                Toast.makeText(LoginActivity.this, "" + isAppUser, Toast.LENGTH_SHORT).show();
-/*
+                Toast.makeText(LoginActivity.this, "" + isAppUser, Toast.LENGTH_SHORT).show();*/
+
                 parameter.put("AppUserInfo_id", editText_id.getText().toString());
                 parameter.put("AppUserInfo_password", editText_pw.getText().toString());
 
                 Log.e("input id", "id->" + editText_id.getText().toString());
                 Log.e("input password", "password->" + editText_pw.getText().toString());
-*/
+
                 retroClient.Login(parameter, new RetroCallback() {
                     @Override
                     public void onError(Throwable t) {
@@ -87,7 +87,7 @@ public class LoginActivity extends AppCompatActivity {
 
                     @Override
                     public void onSuccess(int code, Object receivedData) {
-                       /* Response_Login data = (Response_Login) receivedData;
+                       Response_Login data = (Response_Login) receivedData;
                         Log.e("login get data", "data->" + data.getSuccess());
                         if (data.getSuccess().equals("success")) {
 
@@ -104,7 +104,7 @@ public class LoginActivity extends AppCompatActivity {
                             Toast.makeText(LoginActivity.this, "비밀번호 혹은 아이디를 확인하세요", Toast.LENGTH_SHORT).show();
                         } else {
                             Toast.makeText(LoginActivity.this, "해당아이디가 없습니다.", Toast.LENGTH_SHORT).show();
-                        }*/
+                        }
                     }
 
                     @Override
@@ -118,7 +118,7 @@ public class LoginActivity extends AppCompatActivity {
         login_band_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // 서버 안통할때용 코드 (지우지마세요!)
+                /*// 서버 안통할때용 코드 (지우지마세요!)
 
                 isAppUser = false;
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
@@ -126,15 +126,14 @@ public class LoginActivity extends AppCompatActivity {
 
                 intent.putExtra("isAppUser", isAppUser);
                 startActivity(intent);
-                Toast.makeText(LoginActivity.this, "" + isAppUser, Toast.LENGTH_SHORT).show();
-/*
+                Toast.makeText(LoginActivity.this, "" + isAppUser, Toast.LENGTH_SHORT).show();*/
+
                 parameter.put("AppUserInfo_id", editText_id.getText().toString());
                 parameter.put("AppUserInfo_password", editText_pw.getText().toString());
 
                 Log.e("input id", "id->" + editText_id.getText().toString());
                 Log.e("input password", "password->" + editText_pw.getText().toString());
-*/
-                retroClient.Login(parameter, new RetroCallback() {
+               retroClient.Login(parameter, new RetroCallback() {
                     @Override
                     public void onError(Throwable t) {
 
@@ -142,7 +141,7 @@ public class LoginActivity extends AppCompatActivity {
 
                     @Override
                     public void onSuccess(int code, Object receivedData) {
-                   /*     Response_Login data = (Response_Login) receivedData;
+                        Response_Login data = (Response_Login) receivedData;
                         Log.e("login get data", "data->" + data.getSuccess());
                         if (data.getSuccess().equals("success")) {
                             isAppUser = false;
@@ -157,7 +156,7 @@ public class LoginActivity extends AppCompatActivity {
                             Toast.makeText(LoginActivity.this, "비밀번호 혹은 아이디를 확인하세요", Toast.LENGTH_SHORT).show();
                         } else {
                             Toast.makeText(LoginActivity.this, "해당아이디가 없습니다.", Toast.LENGTH_SHORT).show();
-                        }*/
+                        }
                     }
 
                     @Override

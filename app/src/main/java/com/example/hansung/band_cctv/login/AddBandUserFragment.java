@@ -37,9 +37,9 @@ public class AddBandUserFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_add_band_user,container,false);
 
-        editText_name = (EditText)view.findViewById(R.id.bandUser_name_tv);
-        editText_phone = (EditText)view.findViewById(R.id.bandUser_phone_tv);
-        editText_birthday = (EditText)view.findViewById(R.id.bandUser_birth_tv);
+        editText_name = (EditText)view.findViewById(R.id.id_et);
+        editText_phone = (EditText)view.findViewById(R.id.phone_et);
+        editText_birthday = (EditText)view.findViewById(R.id.birthday_et);
         editText_address = (EditText)view.findViewById(R.id.adress_et);
         radioButton_m = (RadioButton) view.findViewById(R.id.radioButton);
         radioButton_w = (RadioButton)view.findViewById(R.id.radioButton2);

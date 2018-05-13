@@ -1,7 +1,6 @@
 package com.example.hansung.band_cctv.activity;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -10,32 +9,70 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.hansung.band_cctv.R;
 import com.example.hansung.band_cctv.login.LoginActivity;
+
+import org.w3c.dom.Text;
 
 public class InfoActivity extends AppCompatActivity {
 
     int APPUSER = 1, BANDUSER = 2, DEVICE = 3;
     private DrawerLayout mDrawerLayout;
 
+    LinearLayout id_layout;
+    LinearLayout name_layout;
+    LinearLayout phone_layout;
+    LinearLayout birth_layout;
+    LinearLayout band_layout;
+    LinearLayout camera_layout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_info);
-
-        Log.e("??????????????","띠용");
         int intentValue = getIntent().getIntExtra("info", 0);
 
+        TextView info_tv = (TextView) findViewById(R.id.info_tv);
+
+        id_layout = (LinearLayout) findViewById(R.id.id_layout);
+        name_layout = (LinearLayout) findViewById(R.id.name_layout);
+        phone_layout = (LinearLayout) findViewById(R.id.phone_layout);
+        birth_layout = (LinearLayout) findViewById(R.id.birth_layout);
+        band_layout = (LinearLayout) findViewById(R.id.band_layout);
+        camera_layout = (LinearLayout) findViewById(R.id.camera_layout);
+
+        TextView id_tv = (TextView) findViewById(R.id.id_tv);
+        TextView name_tv = (TextView) findViewById(R.id.name_tv);
+        TextView phone_tv = (TextView) findViewById(R.id.phone_tv);
+        TextView birth_tv = (TextView) findViewById(R.id.birth_tv);
+        TextView band_tv = (TextView) findViewById(R.id.band_tv);
+        TextView camera_tv = (TextView) findViewById(R.id.camera_tv);
+
+
         if (intentValue == APPUSER) {
-            // 앱유저 인포 불러오기
+            info_tv.setText("보호자 정보입니다.");
+            setLayout(1, 0, 1, 1, 0, 0);
+            id_tv.setText("db값");
+            phone_tv.setText("db값");
+            birth_tv.setText("db값");
         } else if (intentValue == BANDUSER) {
-            //밴드 유저 인포 불러오기
+            info_tv.setText("사용자 정보입니다.");
+            setLayout(1, 1, 1, 1, 0, 0);
+            id_tv.setText("db값");
+            name_tv.setText("db값");
+            phone_tv.setText("db값");
+            birth_tv.setText("db값");
         } else if (intentValue == DEVICE) {
-            // 디바이스 인포 불러오기
+            info_tv.setText("기기 정보입니다.");
+            setLayout(0, 0, 0, 0, 1, 1);
+            band_tv.setText("db값");
+            camera_tv.setText("db값");
         } else {
         }
 
@@ -104,6 +141,26 @@ public class InfoActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    public void setLayout(int id, int name, int phone, int birth, int band, int camera) {
+        if (id == 0) id_layout.setVisibility(View.INVISIBLE);
+        else id_layout.setVisibility(View.VISIBLE);
+
+        if (name == 0) name_layout.setVisibility(View.INVISIBLE);
+        else name_layout.setVisibility(View.VISIBLE);
+
+        if (phone == 0) phone_layout.setVisibility(View.INVISIBLE);
+        else phone_layout.setVisibility(View.VISIBLE);
+
+        if (birth == 0) birth_layout.setVisibility(View.INVISIBLE);
+        else birth_layout.setVisibility(View.VISIBLE);
+
+        if (band == 0) band_layout.setVisibility(View.INVISIBLE);
+        else band_layout.setVisibility(View.VISIBLE);
+
+        if (camera == 0) camera_layout.setVisibility(View.INVISIBLE);
+        else camera_layout.setVisibility(View.VISIBLE);
+
+    }
 
 
 }

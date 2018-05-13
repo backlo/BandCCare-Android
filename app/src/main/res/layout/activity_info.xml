@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/drawer_layout"
     android:theme="@style/AppTheme">
 
     <ScrollView
@@ -17,6 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
+
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
@@ -26,8 +27,10 @@
 
 
             <TextView
+                android:id="@+id/info_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:layout_marginBottom="20dp"
                 android:text="보호자(본인) 정보입니다." />
 
@@ -39,6 +42,7 @@
                 android:padding="10dp">
 
                 <LinearLayout
+                    android:id="@+id/id_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
@@ -49,7 +53,7 @@
                         android:text="아이디" />
 
                     <TextView
-                        android:id="@+id/appUser_id_tv"
+                        android:id="@+id/id_tv"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="palceholder" />
@@ -57,6 +61,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/name_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
@@ -67,7 +72,7 @@
                         android:text="이름" />
 
                     <TextView
-                        android:id="@+id/appUser_name_tv"
+                        android:id="@+id/name_tv"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="palceholder" />
@@ -76,6 +81,8 @@
 
 
                 <LinearLayout
+                    android:id="@+id/phone_layout"
+
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
@@ -86,20 +93,15 @@
                         android:text="연락처" />
 
                     <TextView
-                        android:id="@+id/appUser_phone_tv"
+                        android:id="@+id/phone_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="palceholder" />
-
-                    <Button
-                        android:id="@+id/appUser_btn"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="변경" />
-
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/birth_layout"
+
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
@@ -110,123 +112,16 @@
                         android:text="생년월일" />
 
                     <TextView
-                        android:id="@+id/appUser_birth_tv"
+                        android:id="@+id/birth_tv"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="palceholder" />
-
-                    <Button
-                        android:id="@+id/appUser_birth_btn"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="변경" />
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <!-- 밴드 사용자 정보 -->
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"
-                android:layout_marginTop="40dp"
-                android:text="사용자(밴드착용자) 정보입니다." />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/round"
-                android:orientation="vertical"
-                android:padding="10dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="60dp"
-                        android:layout_height="wrap_content"
-                        android:text="이름" />
-
-                    <TextView
-                        android:id="@+id/bandUser_name_tv"
-                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="palceholder" />
 
                 </LinearLayout>
 
-
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:id="@+id/band_layout"
 
-                    <TextView
-                        android:layout_width="60dp"
-                        android:layout_height="wrap_content"
-                        android:text="연락처" />
-
-                    <TextView
-                        android:id="@+id/bandUser_phone_tv"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="palceholder" />
-
-                    <Button
-                        android:id="@+id/band_phone_btn"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="변경" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="60dp"
-                        android:layout_height="wrap_content"
-                        android:text="생년월일" />
-
-                    <TextView
-                        android:id="@+id/bandUser_birth_tv"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="palceholder" />
-
-                    <Button
-                        android:id="@+id/bandUser_birth_btn"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="변경" />
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <!-- 기기정보 -->
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"
-                android:layout_marginTop="40dp"
-                android:text="등록 기기 정보입니다." />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/round"
-                android:orientation="vertical"
-                android:padding="10dp">
-
-                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
@@ -235,16 +130,17 @@
                         android:layout_width="60dp"
                         android:layout_height="wrap_content"
                         android:text="Smart Band" />
-
-                    <Button
-                        android:id="@+id/band_btn"
+                    <TextView
+                        android:id="@+id/band_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="변경" />
+                        android:text="palceholder" />
+
                 </LinearLayout>
 
-
                 <LinearLayout
+                    android:id="@+id/camera_layout"
+
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
@@ -252,20 +148,19 @@
                     <TextView
                         android:layout_width="60dp"
                         android:layout_height="wrap_content"
-                        android:text="Camera" />
+                        android:text="camera" />
 
-                    <Button
-                        android:id="@+id/camera_btn"
+                    <TextView
+                        android:id="@+id/camera_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="변경" />
+                        android:text="palceholder" />
 
                 </LinearLayout>
+
             </LinearLayout>
 
         </LinearLayout>
-
-
     </ScrollView>
 
     <android.support.design.widget.NavigationView
