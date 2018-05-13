@@ -16,6 +16,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+
             android:orientation="vertical">
 
             <android.support.v7.widget.Toolbar
@@ -31,13 +32,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginBottom="20dp"
-                android:text="보호자(본인) 정보입니다." />
+                android:layout_marginBottom="40dp"
+                android:layout_marginTop="30dp"
+                android:text="정보" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/round"
                 android:orientation="vertical"
                 android:padding="10dp">
 
@@ -45,17 +46,21 @@
                     android:id="@+id/id_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:gravity="center"
                     android:orientation="horizontal">
 
                     <TextView
-                        android:layout_width="60dp"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
                         android:text="아이디" />
 
                     <TextView
                         android:id="@+id/id_tv"
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_weight="2"
                         android:text="palceholder" />
 
                 </LinearLayout>
@@ -64,102 +69,196 @@
                     android:id="@+id/name_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:gravity="center"
                     android:orientation="horizontal">
 
                     <TextView
-                        android:layout_width="60dp"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
                         android:text="이름" />
 
                     <TextView
                         android:id="@+id/name_tv"
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="palceholder" />
+                        android:layout_weight="2"
+                        android:text="진소린" />
 
                 </LinearLayout>
 
-
                 <LinearLayout
-                    android:id="@+id/phone_layout"
-
+                    android:id="@+id/sex_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:gravity="center"
                     android:orientation="horizontal">
 
                     <TextView
-                        android:layout_width="60dp"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="성별" />
+
+                    <TextView
+                        android:id="@+id/sex_tv"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:text="여성" />
+
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/phone_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
                         android:text="연락처" />
 
                     <TextView
                         android:id="@+id/phone_tv"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_weight="2"
                         android:text="palceholder" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:id="@+id/birth_layout"
-
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:gravity="center"
                     android:orientation="horizontal">
 
                     <TextView
-                        android:layout_width="60dp"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
                         android:text="생년월일" />
 
                     <TextView
                         android:id="@+id/birth_tv"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_weight="2"
                         android:text="palceholder" />
 
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/band_layout"
-
+                    android:id="@+id/address_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:gravity="center"
                     android:orientation="horizontal">
 
                     <TextView
-                        android:layout_width="60dp"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="주소" />
+
+                    <TextView
+                        android:id="@+id/address_tv"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:text="palceholder" />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/device_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="10dp">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:layout_margin="5dp"
+                        android:src="@drawable/smartwatch" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:gravity="center"
+
                         android:text="Smart Band" />
+
                     <TextView
                         android:id="@+id/band_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="palceholder" />
+
+                        android:layout_margin="5dp"
+                        android:text="109329"
+                        android:textStyle="bold" />
 
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/camera_layout"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.2"
+                    android:orientation="vertical">
 
-                    android:layout_width="match_parent"
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:layout_weight="2"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:layout_margin="5dp"
+                        android:src="@drawable/camera" />
 
                     <TextView
-                        android:layout_width="60dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:gravity="center"
                         android:text="camera" />
 
                     <TextView
                         android:id="@+id/camera_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="palceholder" />
+                        android:layout_margin="5dp"
+                        android:text="109329"
+                        android:textStyle="bold" />
 
                 </LinearLayout>
-
             </LinearLayout>
-
         </LinearLayout>
     </ScrollView>
 

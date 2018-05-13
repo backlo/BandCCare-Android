@@ -8,7 +8,6 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -29,8 +28,8 @@ public class InfoActivity extends AppCompatActivity {
     LinearLayout name_layout;
     LinearLayout phone_layout;
     LinearLayout birth_layout;
-    LinearLayout band_layout;
-    LinearLayout camera_layout;
+    LinearLayout device_layout;
+    LinearLayout address_layout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,8 +43,8 @@ public class InfoActivity extends AppCompatActivity {
         name_layout = (LinearLayout) findViewById(R.id.name_layout);
         phone_layout = (LinearLayout) findViewById(R.id.phone_layout);
         birth_layout = (LinearLayout) findViewById(R.id.birth_layout);
-        band_layout = (LinearLayout) findViewById(R.id.band_layout);
-        camera_layout = (LinearLayout) findViewById(R.id.camera_layout);
+        address_layout = (LinearLayout) findViewById(R.id.address_layout);
+        device_layout = (LinearLayout) findViewById(R.id.device_layout);
 
         TextView id_tv = (TextView) findViewById(R.id.id_tv);
         TextView name_tv = (TextView) findViewById(R.id.name_tv);
@@ -63,14 +62,14 @@ public class InfoActivity extends AppCompatActivity {
             birth_tv.setText("db값");
         } else if (intentValue == BANDUSER) {
             info_tv.setText("사용자 정보입니다.");
-            setLayout(1, 1, 1, 1, 0, 0);
+            setLayout(1, 1, 1, 1,1, 0);
             id_tv.setText("db값");
             name_tv.setText("db값");
             phone_tv.setText("db값");
             birth_tv.setText("db값");
         } else if (intentValue == DEVICE) {
             info_tv.setText("기기 정보입니다.");
-            setLayout(0, 0, 0, 0, 1, 1);
+            setLayout(0, 0, 0, 0, 0, 1);
             band_tv.setText("db값");
             camera_tv.setText("db값");
         } else {
@@ -141,24 +140,23 @@ public class InfoActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void setLayout(int id, int name, int phone, int birth, int band, int camera) {
-        if (id == 0) id_layout.setVisibility(View.INVISIBLE);
+    public void setLayout(int id, int name, int phone, int birth, int address, int device) {
+        if (id == 0) id_layout.setVisibility(View.GONE);
         else id_layout.setVisibility(View.VISIBLE);
 
-        if (name == 0) name_layout.setVisibility(View.INVISIBLE);
+        if (name == 0) name_layout.setVisibility(View.GONE);
         else name_layout.setVisibility(View.VISIBLE);
 
-        if (phone == 0) phone_layout.setVisibility(View.INVISIBLE);
+        if (phone == 0) phone_layout.setVisibility(View.GONE);
         else phone_layout.setVisibility(View.VISIBLE);
 
-        if (birth == 0) birth_layout.setVisibility(View.INVISIBLE);
+        if (birth == 0) birth_layout.setVisibility(View.GONE);
         else birth_layout.setVisibility(View.VISIBLE);
+        if (address == 0) address_layout.setVisibility(View.GONE);
+        else address_layout.setVisibility(View.VISIBLE);
 
-        if (band == 0) band_layout.setVisibility(View.INVISIBLE);
-        else band_layout.setVisibility(View.VISIBLE);
-
-        if (camera == 0) camera_layout.setVisibility(View.INVISIBLE);
-        else camera_layout.setVisibility(View.VISIBLE);
+        if (device == 0) device_layout.setVisibility(View.GONE);
+        else device_layout.setVisibility(View.VISIBLE);
 
     }
 
