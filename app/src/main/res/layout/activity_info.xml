@@ -26,160 +26,241 @@
                 android:background="?attr/colorPrimary"
                 android:theme="@style/ThemeOverlay.AppCompat.Dark" />
 
-
-            <TextView
-                android:id="@+id/info_tv"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginBottom="40dp"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/app_id_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="placeholder"
+                    android:textColor="@android:color/black"
+                    android:textSize="17sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" 님"
+                    android:textColor="@android:color/black"
+                    android:textSize="17sp" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/info_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
-                android:text="정보" />
+                android:background="@drawable/info_parent_textview"
+                android:gravity="center"
+                android:text="보호자 정보"
+                android:textColor="@android:color/black" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+
+                <LinearLayout
+                    android:id="@+id/app_birth_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/info"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Birthday" />
+
+                    <TextView
+                        android:id="@+id/app_birth_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="placeholder"
+                        android:textColor="@android:color/black"
+                        android:textSize="17sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/app_phone_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/info"
+
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Phone Number" />
+
+                    <TextView
+                        android:id="@+id/app_phone_tv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="placeholder"
+                        android:textColor="@android:color/black"
+                        android:textSize="17sp" />
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/band_info_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/info_parent_textview"
+                android:gravity="center"
+                android:text="착용자 정보"
+                android:textColor="@android:color/black" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
                 android:orientation="vertical"
                 android:padding="10dp">
 
+
                 <LinearLayout
-                    android:id="@+id/id_layout"
+                    android:id="@+id/band_name_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:orientation="horizontal">
+                    android:layout_margin="10dp"
+                    android:orientation="vertical">
 
                     <TextView
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="아이디" />
+                        android:text="Name" />
 
                     <TextView
-                        android:id="@+id/id_tv"
-                        android:layout_width="0dp"
+                        android:id="@+id/band_name_tv"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="2"
-                        android:text="palceholder" />
+                        android:text="placeholder"
+                        android:textColor="@android:color/black"
+                        android:textSize="17sp" />
 
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/name_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
                     android:orientation="horizontal">
 
-                    <TextView
+                    <LinearLayout
+                        android:id="@+id/band_sex_layout"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
                         android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="이름" />
+                        android:orientation="vertical">
 
-                    <TextView
-                        android:id="@+id/name_tv"
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Gender" />
+
+                        <TextView
+                            android:id="@+id/band_sex_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="placeholder"
+                            android:textColor="@android:color/black"
+                            android:textSize="17sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/band_birth_layout"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="2"
-                        android:text="진소린" />
+                        android:layout_margin="10dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Birthday" />
+
+                        <TextView
+                            android:id="@+id/band_birth_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="placeholder"
+                            android:textColor="@android:color/black"
+                            android:textSize="17sp" />
+
+                    </LinearLayout>
 
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/sex_layout"
+                    android:id="@+id/band_phone_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:orientation="horizontal">
+                    android:layout_margin="10dp"
+                    android:orientation="vertical">
 
                     <TextView
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="성별" />
+                        android:text="Phone Number" />
 
                     <TextView
-                        android:id="@+id/sex_tv"
-                        android:layout_width="0dp"
+                        android:id="@+id/band_phone_tv"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="2"
-                        android:text="여성" />
-
-                </LinearLayout>
-                <LinearLayout
-                    android:id="@+id/phone_layout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="연락처" />
-
-                    <TextView
-                        android:id="@+id/phone_tv"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="2"
-                        android:text="palceholder" />
+                        android:text="placeholder"
+                        android:textColor="@android:color/black"
+                        android:textSize="17sp" />
                 </LinearLayout>
 
-                <LinearLayout
-                    android:id="@+id/birth_layout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="생년월일" />
-
-                    <TextView
-                        android:id="@+id/birth_tv"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="2"
-                        android:text="palceholder" />
-
-                </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/address_layout"
+                    android:id="@+id/band_address_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:orientation="horizontal">
+                    android:layout_margin="10dp"
+                    android:orientation="vertical">
 
                     <TextView
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="주소" />
+                        android:text="Address" />
 
                     <TextView
-                        android:id="@+id/address_tv"
-                        android:layout_width="0dp"
+                        android:id="@+id/band_address_tv"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="2"
-                        android:text="palceholder" />
+                        android:text="placeholder"
+                        android:textColor="@android:color/black"
+                        android:textSize="17sp" />
 
                 </LinearLayout>
 
 
             </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/info_parent_textview"
+                android:gravity="center"
+                android:text="기기 정보"
+                android:textColor="@android:color/black" />
 
             <LinearLayout
                 android:id="@+id/device_layout"
@@ -214,10 +295,9 @@
                         android:id="@+id/band_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-
-                        android:layout_margin="5dp"
-                        android:text="109329"
-                        android:textStyle="bold" />
+                        android:text="placeholder"
+                        android:textColor="@android:color/black"
+                        android:textSize="17sp" />
 
                 </LinearLayout>
 
@@ -253,9 +333,9 @@
                         android:id="@+id/camera_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
-                        android:text="109329"
-                        android:textStyle="bold" />
+                        android:text="placeholder"
+                        android:textColor="@android:color/black"
+                        android:textSize="17sp" />
 
                 </LinearLayout>
             </LinearLayout>

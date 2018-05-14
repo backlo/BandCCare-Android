@@ -15,51 +15,53 @@
         android:layout_height="169dp"
         app:srcCompat="@drawable/logo2" />
 
-    <EditText
-        android:id="@+id/login_id_et"
-        android:layout_width="300dp"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="username"
-        android:text="admin"
-        android:inputType="textPersonName" />
+        android:gravity="center"
 
-    <EditText
-        android:id="@+id/login_pw_et"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="password"
-        android:text="admin"
-        android:inputType="textPassword" />
-<!--
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/username_img"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginRight="10dp"
+            app:srcCompat="@drawable/username" />
+
+        <EditText
+            android:id="@+id/login_id_et"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="username"
+            android:inputType="textPersonName"
+            android:text="admin" />
+    </LinearLayout>
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingLeft="15dp"
+        android:gravity="center"
+        android:orientation="horizontal">
 
-        android:paddingRight="15dp">
+        <ImageView
+            android:id="@+id/password_img"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginRight="10dp"
 
-        <CheckBox
-            android:id="@+id/login_app_check"
-            android:layout_width="wrap_content"
+            app:srcCompat="@drawable/password" />
+
+        <EditText
+            android:id="@+id/login_pw_et"
+            android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:layout_marginRight="80dp"
-            android:layout_weight="1"
-            android:text="APP 사용자" />
-
-        <CheckBox
-            android:id="@+id/login_band_check"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-
-            android:layout_weight="1"
-            android:text="BAND 사용자" />
-
+            android:ems="10"
+            android:hint="password"
+            android:inputType="textPassword"
+            android:text="admin" />
     </LinearLayout>
--->
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -68,15 +70,6 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp">
 
-<!--        <Button
-            android:id="@+id/login_btn"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="30dp"
-            android:background="@color/colorPrimary"
-            android:text="Login"
-            android:textColor="@android:color/background_light" />-->
         <Button
             android:id="@+id/login_app_btn"
             android:layout_width="wrap_content"

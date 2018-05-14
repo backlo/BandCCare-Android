@@ -27,7 +27,6 @@ import java.util.ArrayList;
 
 public class InfoActivity extends AppCompatActivity {
 
-    int APPUSER = 1, BANDUSER = 2, DEVICE = 3;
     private DrawerLayout mDrawerLayout;
     SharedPreferences sharedPreferences;
     RetroClient retroClient;
@@ -35,46 +34,45 @@ public class InfoActivity extends AppCompatActivity {
     public static ArrayList<Response_Info> infoArrayList;
     public static ArrayList<Response_Band_Info> bandInfoArrayList;
     public String id;
-
     public String app_info_id;
 
-    LinearLayout id_layout;
-    LinearLayout name_layout;
-    LinearLayout phone_layout;
-    LinearLayout birth_layout;
-    LinearLayout device_layout;
-    LinearLayout address_layout;
+    TextView app_id_tv;
+    TextView app_phone_tv;
+    TextView app_birth_tv;
+
+    TextView band_name_tv;
+    TextView band_phone_tv;
+    TextView band_sex_tv;
+    TextView band_birth_tv;
+    TextView band_address_tv;
+
+    TextView camera_tv;
+    TextView band_tv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_info);
 
+        app_id_tv = (TextView) findViewById(R.id.app_id_tv);
+        app_phone_tv = (TextView) findViewById(R.id.app_phone_tv);
+        app_birth_tv = (TextView) findViewById(R.id.app_birth_tv);
+
+        band_name_tv = (TextView) findViewById(R.id.band_name_tv);
+        band_phone_tv = (TextView) findViewById(R.id.band_phone_tv);
+        band_sex_tv = (TextView) findViewById(R.id.band_sex_tv);
+        band_birth_tv = (TextView) findViewById(R.id.band_birth_tv);
+        band_address_tv = (TextView) findViewById(R.id.band_address_tv);
+
+        camera_tv = (TextView) findViewById(R.id.camera_tv);
+        band_tv = (TextView) findViewById(R.id.band_tv);
+
         retroClient = RetroClient.getInstance().createBaseApi();
 
-        sharedPreferences = getSharedPreferences("logininfo",MODE_PRIVATE);
-        id = sharedPreferences.getString("id","null");
-        String pw = sharedPreferences.getString("pw","null");
-        Log.e("shared info!!!!","id->"+id+","+"pw->"+pw);
-
-        final int intentValue = getIntent().getIntExtra("info", 0);
-
-        final TextView info_tv = (TextView) findViewById(R.id.info_tv);
-
-        id_layout = (LinearLayout) findViewById(R.id.id_layout);
-        name_layout = (LinearLayout) findViewById(R.id.name_layout);
-        phone_layout = (LinearLayout) findViewById(R.id.phone_layout);
-        birth_layout = (LinearLayout) findViewById(R.id.birth_layout);
-        address_layout = (LinearLayout) findViewById(R.id.address_layout);
-        device_layout = (LinearLayout) findViewById(R.id.device_layout);
-
-        final TextView id_tv = (TextView) findViewById(R.id.id_tv);
-        final TextView name_tv = (TextView) findViewById(R.id.name_tv);
-        final TextView phone_tv = (TextView) findViewById(R.id.phone_tv);
-        final TextView birth_tv = (TextView) findViewById(R.id.birth_tv);
-        final TextView band_tv = (TextView) findViewById(R.id.band_tv);
-        final TextView camera_tv = (TextView) findViewById(R.id.camera_tv);
-        final TextView address_tv = (TextView) findViewById(R.id.address_tv);
+        sharedPreferences = getSharedPreferences("logininfo", MODE_PRIVATE);
+        id = sharedPreferences.getString("id", "null");
+        String pw = sharedPreferences.getString("pw", "null");
+        Log.e("shared info!!!!", "id->" + id + "," + "pw->" + pw);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -130,90 +128,67 @@ public class InfoActivity extends AppCompatActivity {
             @Override
             public void onError(Throwable t) {
             }
+
             @Override
             public void onSuccess(int code, Object receivedData) {
-                infoArrayList = (ArrayList<Response_Info>)receivedData;
-                Log.e("user info index->",""+infoArrayList.get(0).getAppUserInfo_index());
-                Log.e("user info band_id->",""+infoArrayList.get(0).getAppUserInfo_band_id());
-                Log.e("user info birthday->",""+infoArrayList.get(0).getAppUserInfo_birthday());
-                Log.e("user info camera_id->",""+infoArrayList.get(0).getAppUserInfo_camera_id());
-                Log.e("user info id->",""+infoArrayList.get(0).getAppUserInfo_id());
-                Log.e("user info pw->",""+infoArrayList.get(0).getAppUserInfo_password());
-                Log.e("user info phone->",""+infoArrayList.get(0).getAppUserInfo_phone());
+                infoArrayList = (ArrayList<Response_Info>) receivedData;
+                Log.e("user info index->", "" + infoArrayList.get(0).getAppUserInfo_index());
+                Log.e("user info band_id->", "" + infoArrayList.get(0).getAppUserInfo_band_id());
+                Log.e("user info birthday->", "" + infoArrayList.get(0).getAppUserInfo_birthday());
+                Log.e("user info camera_id->", "" + infoArrayList.get(0).getAppUserInfo_camera_id());
+                Log.e("user info id->", "" + infoArrayList.get(0).getAppUserInfo_id());
+                Log.e("user info pw->", "" + infoArrayList.get(0).getAppUserInfo_password());
+                Log.e("user info phone->", "" + infoArrayList.get(0).getAppUserInfo_phone());
                 sendindex = infoArrayList.get(0).getAppUserInfo_index();
 
                 retroClient.GetInfo_Band(sendindex, new RetroCallback() {
                     @Override
                     public void onError(Throwable t) {
                     }
+
                     @Override
                     public void onSuccess(int code, Object receivedData) {
-                        bandInfoArrayList = (ArrayList<Response_Band_Info>)receivedData;
-                        Log.e("band user address->",""+bandInfoArrayList.get(0).getBandUserInfo_address());
-                        Log.e("band user birth->",""+bandInfoArrayList.get(0).getBandUserInfo_birth());
-                        Log.e("band user index->",""+bandInfoArrayList.get(0).getBandUserInfo_index());
-                        Log.e("band user name->",""+bandInfoArrayList.get(0).getBandUserInfo_name());
-                        Log.e("band user phone->",""+bandInfoArrayList.get(0).getBandUserInfo_phone());
-                        Log.e("band user sex->",""+bandInfoArrayList.get(0).getBandUserInfo_sex());
+                        bandInfoArrayList = (ArrayList<Response_Band_Info>) receivedData;
+                        Log.e("band user address->", "" + bandInfoArrayList.get(0).getBandUserInfo_address());
+                        Log.e("band user birth->", "" + bandInfoArrayList.get(0).getBandUserInfo_birth());
+                        Log.e("band user index->", "" + bandInfoArrayList.get(0).getBandUserInfo_index());
+                        Log.e("band user name->", "" + bandInfoArrayList.get(0).getBandUserInfo_name());
+                        Log.e("band user phone->", "" + bandInfoArrayList.get(0).getBandUserInfo_phone());
+                        Log.e("band user sex->", "" + bandInfoArrayList.get(0).getBandUserInfo_sex());
 
-                        if (intentValue == APPUSER) {
-                            info_tv.setText("보호자 정보입니다.");
-                            setLayout(1, 0, 1, 1, 0, 0);
-                            id_tv.setText(infoArrayList.get(0).getAppUserInfo_id());
-                            phone_tv.setText(infoArrayList.get(0).getAppUserInfo_phone());
-                            birth_tv.setText(infoArrayList.get(0).getAppUserInfo_birthday());
-                        } else if (intentValue == BANDUSER) {
-                            info_tv.setText("사용자 정보입니다.");
-                            setLayout(1, 1, 1, 1,1, 0);
-                            id_tv.setText(bandInfoArrayList.get(0).getBandUserInfo_name());
-                            name_tv.setText(bandInfoArrayList.get(0).getBandUserInfo_name());
-                            phone_tv.setText(bandInfoArrayList.get(0).getBandUserInfo_phone());
-                            birth_tv.setText(bandInfoArrayList.get(0).getBandUserInfo_birth());
-                            address_tv.setText(bandInfoArrayList.get(0).getBandUserInfo_address());
-                        } else if (intentValue == DEVICE) {
-                            info_tv.setText("기기 정보입니다.");
-                            setLayout(0, 0, 0, 0, 0, 1);
-                            band_tv.setText(infoArrayList.get(0).getAppUserInfo_band_id());
-                            camera_tv.setText(infoArrayList.get(0).getAppUserInfo_camera_id());
-                        } else {
-                        }
                     }
+
                     @Override
-                    public void onFailure(int code) {}
+                    public void onFailure(int code) {
+                    }
                 });
+
                 app_info_id = infoArrayList.get(0).getAppUserInfo_id();
+
+                app_id_tv.setText(infoArrayList.get(0).AppUserInfo_id);
+                app_phone_tv.setText(infoArrayList.get(0).AppUserInfo_phone);
+                app_birth_tv.setText(infoArrayList.get(0).AppUserInfo_birthday);
+                band_name_tv.setText(bandInfoArrayList.get(0).BandUserInfo_name);
+                band_phone_tv.setText(bandInfoArrayList.get(0).BandUserInfo_phone);
+                band_sex_tv.setText(bandInfoArrayList.get(0).BandUserInfo_sex);
+                band_birth_tv.setText(bandInfoArrayList.get(0).BandUserInfo_birth);
+                band_address_tv.setText(bandInfoArrayList.get(0).BandUserInfo_address);
+
+                camera_tv = (TextView) findViewById(R.id.camera_tv);
+                band_tv = (TextView) findViewById(R.id.band_tv);
             }
+
             @Override
             public void onFailure(int code) {
             }
         });
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
             mDrawerLayout.openDrawer(GravityCompat.START);
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    public void setLayout(int id, int name, int phone, int birth, int address, int device) {
-        if (id == 0) id_layout.setVisibility(View.GONE);
-        else id_layout.setVisibility(View.VISIBLE);
-
-        if (name == 0) name_layout.setVisibility(View.GONE);
-        else name_layout.setVisibility(View.VISIBLE);
-
-        if (phone == 0) phone_layout.setVisibility(View.GONE);
-        else phone_layout.setVisibility(View.VISIBLE);
-
-        if (birth == 0) birth_layout.setVisibility(View.GONE);
-        else birth_layout.setVisibility(View.VISIBLE);
-
-        if (address == 0) address_layout.setVisibility(View.GONE);
-        else address_layout.setVisibility(View.VISIBLE);
-
-        if (device == 0) device_layout.setVisibility(View.GONE);
-        else device_layout.setVisibility(View.VISIBLE);
-
     }
 }
