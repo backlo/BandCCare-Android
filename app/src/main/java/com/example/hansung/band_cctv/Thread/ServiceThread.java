@@ -84,7 +84,7 @@ public class ServiceThread extends Thread {
             if (count == 5) {
                 int a = sum / count;
                 Log.e("okokok", String.valueOf(a));
-                if (a > 150 || a < 70) {
+                if (a > 150 || a < 40) {
                     Log.e("okokok", "나여기들어옴 ㅋ");
                     handler.sendEmptyMessage(0);
                     retroClient.Send_Alarm(alarmmap, new RetroCallback() {
@@ -95,7 +95,7 @@ public class ServiceThread extends Thread {
 
                         @Override
                         public void onSuccess(int code, Object receivedData) {
-
+                            Log.e("send alarm success","alarm@");
                         }
 
                         @Override

@@ -37,6 +37,8 @@ public class MainActivity extends AppCompatActivity {
 
     HashMap<String, Object> parameter;
     HashMap<String, Object> parameter2;
+    String noalarm = "noalarm";
+    HashMap<String, Object> noalarmmap;
 
     public static MainActivity getInstance() {
         if (instance == null)
@@ -48,7 +50,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        noalarmmap = new HashMap<>();
+        noalarmmap.put("alarm",noalarm);
         retroClient = RetroClient.getInstance().createBaseApi();
 
         isAppUser = getIntent().getBooleanExtra("isAppUser", false);
@@ -78,26 +81,43 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        retroClient.Send_Alarm(noalarmmap, new RetroCallback() {
+            @Override
+            public void onError(Throwable t) {
+
+            }
+
+            @Override
+            public void onSuccess(int code, Object receivedData) {
+                Log.e("alaram","noalarm");
+            }
+
+            @Override
+            public void onFailure(int code) {
+
+            }
+        });
+
         //myHandler = new MyHandler();
         MyPagerAdapter mPagerAdapter = new MyPagerAdapter(getSupportFragmentManager());
-        ViewPager mViewPager = (ViewPager) findViewById(R.id.viewpager);
+        ViewPager mViewPager = findViewById(R.id.viewpager);
         mViewPager.setAdapter(mPagerAdapter);
 
-        TabLayout mTab = (TabLayout) findViewById(R.id.tabs);
+        TabLayout mTab = findViewById(R.id.tabs);
         mTab.setupWithViewPager(mViewPager);
 
         for (int i = 0; i < mViewPager.getAdapter().getCount(); i++) {
             mTab.getTabAt(i).setIcon(mPagerAdapter.getIcon(i));
         }
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setHomeAsUpIndicator(R.drawable.ic_menu);
         actionBar.setDisplayHomeAsUpEnabled(true);
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        mDrawerLayout = findViewById(R.id.drawer_layout);
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.navigation_view);
+        NavigationView navigationView = findViewById(R.id.navigation_view);
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(MenuItem menuItem) {

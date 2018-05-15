@@ -172,7 +172,7 @@ public class PulseFragment extends Fragment {
         //lineChart.moveViewTo(maxIndex,getData(),YAxis.AxisDependency.LEFT);
         lineChart.setBackgroundColor(Color.parseColor("#FFBCB6B3"));
         lineChart.animateY(2000, Easing.EasingOption.EaseInElastic);
-        lineChart.zoom((float) 1.5,1,0,0);
+        lineChart.zoom((float) 1.2,1,0,0);
 
         return view;
     }

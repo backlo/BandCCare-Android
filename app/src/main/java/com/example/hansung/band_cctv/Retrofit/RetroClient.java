@@ -6,6 +6,7 @@ import com.example.hansung.band_cctv.Retrofit.Model.Request_Alarm;
 import com.example.hansung.band_cctv.Retrofit.Model.Request_App_member;
 import com.example.hansung.band_cctv.Retrofit.Model.Request_Band_member;
 import com.example.hansung.band_cctv.Retrofit.Model.Request_DB;
+import com.example.hansung.band_cctv.Retrofit.Model.Request_Location;
 import com.example.hansung.band_cctv.Retrofit.Model.Request_Login;
 import com.example.hansung.band_cctv.Retrofit.Model.Request_Login2;
 import com.example.hansung.band_cctv.Retrofit.Model.Request_Motor;
@@ -13,10 +14,10 @@ import com.example.hansung.band_cctv.Retrofit.Model.Request_exit_PI;
 import com.example.hansung.band_cctv.Retrofit.Model.Response_Band_Info;
 import com.example.hansung.band_cctv.Retrofit.Model.Response_Check;
 import com.example.hansung.band_cctv.Retrofit.Model.Response_Info;
+import com.example.hansung.band_cctv.Retrofit.Model.Response_Location;
 import com.example.hansung.band_cctv.Retrofit.Model.Response_Login;
 import com.example.hansung.band_cctv.Retrofit.Model.Response_MaxIndex;
 import com.example.hansung.band_cctv.Retrofit.Model.Response_Sensor;
-import com.example.hansung.band_cctv.Retrofit.Model.Response_User_Index;
 
 import java.util.HashMap;
 import java.util.List;
@@ -297,12 +298,12 @@ public class RetroClient {
         });
     }
 
-    public void GetInfo_index(String id, final RetroCallback callback){
-        apiService.GetInfo_index(id).enqueue(new Callback<Response_User_Index>() {
+    public void Get_Location(final RetroCallback callback){
+        apiService.Get_Location().enqueue(new Callback<List<Response_Location>>() {
             @Override
-            public void onResponse(Call<Response_User_Index> call, Response<Response_User_Index> response) {
+            public void onResponse(Call<List<Response_Location>> call, Response<List<Response_Location>> response) {
                 if (response.isSuccessful()) {
-                    Log.e("Get Info index success","success");
+                    Log.e("Get location success","success");
                     callback.onSuccess(response.code(), response.body());
                 } else {
                     callback.onFailure(response.code());
@@ -310,8 +311,28 @@ public class RetroClient {
             }
 
             @Override
-            public void onFailure(Call<Response_User_Index> call, Throwable t) {
-                Log.e("getinfoindex fail",""+t.toString());
+            public void onFailure(Call<List<Response_Location>> call, Throwable t) {
+
+            }
+        });
+    }
+
+
+
+    public void Put_Location(HashMap<String,Double> parameters, final RetroCallback callback){
+        apiService.Put_Location(new Request_Location(parameters)).enqueue(new Callback<Response_Check>() {
+            @Override
+            public void onResponse(Call<Response_Check> call, Response<Response_Check> response) {
+                if (response.isSuccessful()) {
+                    Log.e("Put Location success","success");
+                    callback.onSuccess(response.code(), response.body());
+                } else {
+                    callback.onFailure(response.code());
+                }
+            }
+            @Override
+            public void onFailure(Call<Response_Check> call, Throwable t) {
+
             }
         });
     }

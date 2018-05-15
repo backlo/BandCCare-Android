@@ -60,12 +60,12 @@ public class LoginActivity extends AppCompatActivity {
         editor = pref.edit();
 
         parameter = new HashMap<>();
-        editText_id = (EditText) findViewById(R.id.login_id_et);
-        editText_pw = (EditText) findViewById(R.id.login_pw_et);
+        editText_id = findViewById(R.id.login_id_et);
+        editText_pw = findViewById(R.id.login_pw_et);
 
-        Button signUp_btn = (Button) findViewById(R.id.signUp_btn);
-        Button login_app_btn = (Button) findViewById(R.id.login_app_btn);
-        Button login_band_btn = (Button) findViewById(R.id.login_band_btn);
+        Button signUp_btn = findViewById(R.id.signUp_btn);
+        Button login_app_btn = findViewById(R.id.login_app_btn);
+        Button login_band_btn = findViewById(R.id.login_band_btn);
 
         username_img = (ImageView) findViewById(R.id.username_img);
         password_img = (ImageView) findViewById(R.id.password_img);

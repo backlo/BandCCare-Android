@@ -4,6 +4,7 @@ import com.example.hansung.band_cctv.Retrofit.Model.Request_Alarm;
 import com.example.hansung.band_cctv.Retrofit.Model.Request_App_member;
 import com.example.hansung.band_cctv.Retrofit.Model.Request_Band_member;
 import com.example.hansung.band_cctv.Retrofit.Model.Request_DB;
+import com.example.hansung.band_cctv.Retrofit.Model.Request_Location;
 import com.example.hansung.band_cctv.Retrofit.Model.Request_Login;
 import com.example.hansung.band_cctv.Retrofit.Model.Request_Login2;
 import com.example.hansung.band_cctv.Retrofit.Model.Request_Motor;
@@ -11,6 +12,7 @@ import com.example.hansung.band_cctv.Retrofit.Model.Request_exit_PI;
 import com.example.hansung.band_cctv.Retrofit.Model.Response_Band_Info;
 import com.example.hansung.band_cctv.Retrofit.Model.Response_Check;
 import com.example.hansung.band_cctv.Retrofit.Model.Response_Info;
+import com.example.hansung.band_cctv.Retrofit.Model.Response_Location;
 import com.example.hansung.band_cctv.Retrofit.Model.Response_Login;
 import com.example.hansung.band_cctv.Retrofit.Model.Response_MaxIndex;
 import com.example.hansung.band_cctv.Retrofit.Model.Response_Sensor;
@@ -26,7 +28,7 @@ import retrofit2.http.Query;
 
 public interface RetroApiService {
     final String Base_URL = "http://192.168.0.6:4000";
-    //String Base_URL = "http://192.168.1.25:4000";
+    //String Base_URL = "http://172.30.1.50:4000";
 
     //@@회원가입
     @POST("/insertdb")
@@ -78,4 +80,12 @@ public interface RetroApiService {
     //@@위험알람
     @POST("/alarm")
     Call<Request_Alarm> Send_Alarm(@Body Request_Alarm request_alarm);
+
+    //@@좌표값넣기
+    @POST("/location_info")
+    Call<Response_Check> Put_Location(@Body Request_Location request_location);
+
+    //@@좌표값받기
+    @GET("/location_info")
+    Call<List<Response_Location>> Get_Location();
 }

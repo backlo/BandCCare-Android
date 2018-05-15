@@ -128,17 +128,16 @@ public class InfoActivity extends AppCompatActivity {
             @Override
             public void onError(Throwable t) {
             }
-
             @Override
             public void onSuccess(int code, Object receivedData) {
-                infoArrayList = (ArrayList<Response_Info>) receivedData;
-                Log.e("user info index->", "" + infoArrayList.get(0).getAppUserInfo_index());
-                Log.e("user info band_id->", "" + infoArrayList.get(0).getAppUserInfo_band_id());
-                Log.e("user info birthday->", "" + infoArrayList.get(0).getAppUserInfo_birthday());
-                Log.e("user info camera_id->", "" + infoArrayList.get(0).getAppUserInfo_camera_id());
-                Log.e("user info id->", "" + infoArrayList.get(0).getAppUserInfo_id());
-                Log.e("user info pw->", "" + infoArrayList.get(0).getAppUserInfo_password());
-                Log.e("user info phone->", "" + infoArrayList.get(0).getAppUserInfo_phone());
+                infoArrayList = (ArrayList<Response_Info>)receivedData;
+                Log.e("user info index->",""+infoArrayList.get(0).getAppUserInfo_index());
+                Log.e("user info band_id->",""+infoArrayList.get(0).getAppUserInfo_band_id());
+                Log.e("user info birthday->",""+infoArrayList.get(0).getAppUserInfo_birthday());
+                Log.e("user info camera_id->",""+infoArrayList.get(0).getAppUserInfo_camera_id());
+                Log.e("user info id->",""+infoArrayList.get(0).getAppUserInfo_id());
+                Log.e("user info pw->",""+infoArrayList.get(0).getAppUserInfo_password());
+                Log.e("user info phone->",""+infoArrayList.get(0).getAppUserInfo_phone());
                 sendindex = infoArrayList.get(0).getAppUserInfo_index();
 
                 retroClient.GetInfo_Band(sendindex, new RetroCallback() {
