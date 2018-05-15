@@ -20,6 +20,7 @@ import com.example.hansung.band_cctv.Retrofit.Model.Response_MaxIndex;
 import com.example.hansung.band_cctv.Retrofit.Model.Response_Sensor;
 import com.example.hansung.band_cctv.Retrofit.RetroCallback;
 import com.example.hansung.band_cctv.Retrofit.RetroClient;
+import com.example.hansung.band_cctv.Thread.ServiceThread;
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.AxisBase;
@@ -62,6 +63,8 @@ public class PulseFragment extends Fragment {
     int result;
     String time_result;
     TextView today_tv;
+    ServiceThread thread;
+    Myhandeler myhandeler;
 
     public static PulseFragment getInstance() {
         if (instance == null)
@@ -89,8 +92,8 @@ public class PulseFragment extends Fragment {
         String getTime = sdf.format(date);
         today_tv = view.findViewById(R.id.today_tv);
         today_tv.setText(getTime);
-
-        DataThread thread = new DataThread();
+        myhandeler = new Myhandeler();
+        thread = new ServiceThread(myhandeler);
         thread.setDaemon(true);
         thread.start();
 
@@ -218,7 +221,21 @@ public class PulseFragment extends Fragment {
         dataview.setText(String.valueOf(getData()));
     }
 
-    Handler handler = new Handler(){
+    class Myhandeler extends Handler{
+        @Override
+        public void handleMessage(Message msg) {
+            if(msg.what == 2 ){
+                StartgetData();
+                chartUpdate(startIndex);
+                Log.e("심박테이블 Index ->", String.valueOf(startIndex));
+                xindex++;
+                startIndex++;
+                xindexstart++;
+            }
+        }
+    }
+
+ /*   Handler handler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
             if(msg.what == 0 ){
@@ -244,7 +261,7 @@ public class PulseFragment extends Fragment {
                 }
             }
         }
-    }
+    }*/
 
     public String getTime(){
         mNow = System.currentTimeMillis();

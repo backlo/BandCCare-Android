@@ -78,13 +78,14 @@ public class ServiceThread extends Thread {
     public void run() {
         //반복적으로 수행할 작업을 한다.
         while (isRun) {
+            handler.sendEmptyMessage(2);
             Log.e("okokok", String.valueOf(getData()));
             sum += getData();
             count++;
             if (count == 5) {
                 int a = sum / count;
                 Log.e("okokok", String.valueOf(a));
-                if (a > 150 || a < 40) {
+                if (a > 150 || a < 70) {
                     Log.e("okokok", "나여기들어옴 ㅋ");
                     handler.sendEmptyMessage(0);
                     retroClient.Send_Alarm(alarmmap, new RetroCallback() {
@@ -95,7 +96,7 @@ public class ServiceThread extends Thread {
 
                         @Override
                         public void onSuccess(int code, Object receivedData) {
-                            Log.e("send alarm success","alarm@");
+
                         }
 
                         @Override
@@ -113,7 +114,7 @@ public class ServiceThread extends Thread {
             }
             startindex++;
             try {
-                Thread.sleep(3000); //10초씩 쉰다.
+                Thread.sleep(2000); //2초씩 쉰다.
             } catch (Exception e) {
             }
         }
