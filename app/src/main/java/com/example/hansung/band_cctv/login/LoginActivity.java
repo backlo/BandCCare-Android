@@ -2,7 +2,6 @@ package com.example.hansung.band_cctv.login;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.media.Image;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
@@ -18,9 +17,8 @@ import com.example.hansung.band_cctv.R;
 import com.example.hansung.band_cctv.Retrofit.Model.Response_Login;
 import com.example.hansung.band_cctv.Retrofit.RetroCallback;
 import com.example.hansung.band_cctv.Retrofit.RetroClient;
-import com.example.hansung.band_cctv.Service.Service_Notification;
 import com.example.hansung.band_cctv.activity.MainActivity;
-import com.example.hansung.band_cctv.activity.VideoFragment;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import java.util.HashMap;
 
@@ -39,6 +37,7 @@ public class LoginActivity extends AppCompatActivity {
     EditText editText_pw;
     Button login_btn;
     Button signUp_btn;
+    String id;
 
     HashMap<String, Object> parameter;
     ImageView username_img;
@@ -122,19 +121,19 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // 서버 안통할때 용 코드 (지우지마세용)
 
-                isAppUser = true;
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                intent.putExtra("isAppUser", isAppUser);
-                startActivity(intent);
-                Toast.makeText(LoginActivity.this, "" + isAppUser, Toast.LENGTH_SHORT).show();
-/*
+//                isAppUser = true;
+//                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+//                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//                intent.putExtra("isAppUser", isAppUser);
+//                startActivity(intent);
+//                Toast.makeText(LoginActivity.this, "" + isAppUser, Toast.LENGTH_SHORT).show();
+
                 parameter.put("AppUserInfo_id", editText_id.getText().toString());
                 parameter.put("AppUserInfo_password", editText_pw.getText().toString());
 
                 Log.e("input id", "id->" + editText_id.getText().toString());
                 Log.e("input password", "password->" + editText_pw.getText().toString());
-*/
+
                 retroClient.Login(parameter, new RetroCallback() {
                     @Override
                     public void onError(Throwable t) {
@@ -146,8 +145,6 @@ public class LoginActivity extends AppCompatActivity {
                        Response_Login data = (Response_Login) receivedData;
                         Log.e("login get data", "data->" + data.getSuccess());
                         if (data.getSuccess().equals("success")) {
-
-/*
                             isAppUser = true;
                             Toast.makeText(LoginActivity.this, "" + isAppUser, Toast.LENGTH_SHORT).show();
 
@@ -155,12 +152,39 @@ public class LoginActivity extends AppCompatActivity {
                             intent.putExtra("isAppUser", isAppUser);
                               intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             startActivity(intent);
-                            intent1 = new Intent(getApplicationContext(), Service_Notification.class);
-                            startService(intent1);
 
                             editor.putString("id",editText_id.getText().toString());
                             editor.putString("pw",editText_pw.getText().toString());
-                            editor.commit();*/
+                            editor.commit();
+
+                            FirebaseInstanceId.getInstance().getToken();
+
+                            if (FirebaseInstanceId.getInstance().getToken() != null) {
+                                Log.d("token", "token = " + FirebaseInstanceId.getInstance().getToken());
+                            }
+                            sharedPreferences = getSharedPreferences("logininfo", MODE_PRIVATE);
+                            id = sharedPreferences.getString("id", "null");
+
+
+                            HashMap<String, Object> tokenmap = new HashMap<>();
+                            tokenmap.put("user_id",id);
+                            tokenmap.put("user_token",FirebaseInstanceId.getInstance().getToken());
+                            retroClient.UserToken(tokenmap, new RetroCallback() {
+                                @Override
+                                public void onError(Throwable t) {
+
+                                }
+
+                                @Override
+                                public void onSuccess(int code, Object receivedData) {
+
+                                }
+
+                                @Override
+                                public void onFailure(int code) {
+
+                                }
+                            });
                         } else if (data.getSuccess().equals("nomatch")) {
                             Toast.makeText(LoginActivity.this, "비밀번호 혹은 아이디를 확인하세요", Toast.LENGTH_SHORT).show();
                         } else {
@@ -181,20 +205,20 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // 서버 안통할때용 코드 (지우지마세요!)
 
-                isAppUser = false;
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//                isAppUser = false;
+//                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+//                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//
+//                intent.putExtra("isAppUser", isAppUser);
+//                startActivity(intent);
+//                Toast.makeText(LoginActivity.this, "" + isAppUser, Toast.LENGTH_SHORT).show();
 
-                intent.putExtra("isAppUser", isAppUser);
-                startActivity(intent);
-                Toast.makeText(LoginActivity.this, "" + isAppUser, Toast.LENGTH_SHORT).show();
-/*
                 parameter.put("AppUserInfo_id", editText_id.getText().toString());
                 parameter.put("AppUserInfo_password", editText_pw.getText().toString());
 
                 Log.e("input id", "id->" + editText_id.getText().toString());
-                Log.e("input password", "password->" + editText_pw.getText().toString());*/
-               retroClient.Login(parameter, new RetroCallback() {
+                Log.e("input password", "password->" + editText_pw.getText().toString());
+                retroClient.Login(parameter, new RetroCallback() {
                     @Override
                     public void onError(Throwable t) {
 
@@ -205,14 +229,12 @@ public class LoginActivity extends AppCompatActivity {
                         Response_Login data = (Response_Login) receivedData;
                         Log.e("login get data", "data->" + data.getSuccess());
                         if (data.getSuccess().equals("success")) {
-                         /*   isAppUser = false;
+                            isAppUser = false;
                             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                             Toast.makeText(LoginActivity.this, "로그인성공", Toast.LENGTH_SHORT).show();
                               intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             intent.putExtra("isAppUser", isAppUser);
                             startActivity(intent);
-                            intent1 = new Intent(getApplicationContext(), Service_Notification.class);
-                            startService(intent1);*/
                         } else if (data.getSuccess().equals("nomatch")) {
                             Toast.makeText(LoginActivity.this, "비밀번호 혹은 아이디를 확인하세요", Toast.LENGTH_SHORT).show();
                         } else {

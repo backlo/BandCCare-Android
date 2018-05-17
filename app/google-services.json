@@ -1,0 +1,53 @@
+{
+  "project_info": {
+    "project_number": "597021784266",
+    "firebase_url": "https://bandccare-5c81a.firebaseio.com",
+    "project_id": "bandccare-5c81a",
+    "storage_bucket": "bandccare-5c81a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:597021784266:android:68036cce4bfc8aa9",
+        "android_client_info": {
+          "package_name": "com.example.hansung.band_cctv"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "597021784266-l3b6c79vq9ko7q3tgbb9jde63r2kdusj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.hansung.band_cctv",
+            "certificate_hash": "028981952ccf244cc6a6cb0153810014eab960f3"
+          }
+        },
+        {
+          "client_id": "597021784266-grag0jrfo9a0n26ubej8htho53859h73.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [{
+        "current_key": "AIzaSyDqgtx2k_lGw9EUaJUQsMqxPS8BTqR0zkU"
+      }],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "597021784266-grag0jrfo9a0n26ubej8htho53859h73.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

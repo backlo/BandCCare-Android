@@ -75,7 +75,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_location, container, false);
+        final View view = inflater.inflate(R.layout.fragment_location, container, false);
         retroClient = RetroClient.getInstance().createBaseApi();
         locationmap = new HashMap<>();
 
@@ -86,8 +86,6 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
         LocationThread thread = new LocationThread();
         thread.setDaemon(true);
         thread.start();
-
-
 
         find_location.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -115,7 +113,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
                 }
                 if(currentLocationMaker == null){
                     currentLocationMaker = gMap.addMarker(new MarkerOptions().position(myPhoneLocation).title("착용자 위치").alpha(0.8f).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
-                    gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(myPhoneLocation, 16));
+                    //gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(myPhoneLocation, 16));
                     currentLocationMaker.showInfoWindow();
                 }
             }
@@ -194,7 +192,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
     @Override
     public void onViewCreated(View view, Bundle savedInstance) {
         super.onViewCreated(view, savedInstance);
-        mapFragment = (MapFragment)getActivity().getFragmentManager().findFragmentById(R.id.map);
+        mapFragment = (MapFragment)getActivity().getFragmentManager().findFragmentById(R.id.mymap);
         gFusedLocationClient = LocationServices.getFusedLocationProviderClient(getActivity());
         mapFragment.getMapAsync(this);
     }

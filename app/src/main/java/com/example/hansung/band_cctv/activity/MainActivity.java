@@ -1,6 +1,7 @@
 package com.example.hansung.band_cctv.activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -19,10 +20,12 @@ import android.widget.Toast;
 import com.example.hansung.band_cctv.MyPagerAdapter;
 import com.example.hansung.band_cctv.R;
 import com.example.hansung.band_cctv.Retrofit.Model.Request_exit_PI;
+import com.example.hansung.band_cctv.Retrofit.Model.Response_Token;
 import com.example.hansung.band_cctv.Retrofit.RetroCallback;
 import com.example.hansung.band_cctv.Retrofit.RetroClient;
 import com.example.hansung.band_cctv.login.LoginActivity;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity {
@@ -32,8 +35,12 @@ public class MainActivity extends AppCompatActivity {
     private DrawerLayout mDrawerLayout;
     RetroClient retroClient;
 
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
+
     public String exit;
     public String noexit;
+    String id;
 
     HashMap<String, Object> parameter;
     HashMap<String, Object> parameter2;
@@ -53,6 +60,26 @@ public class MainActivity extends AppCompatActivity {
         noalarmmap = new HashMap<>();
         noalarmmap.put("alarm",noalarm);
         retroClient = RetroClient.getInstance().createBaseApi();
+
+        sharedPreferences = getSharedPreferences("logininfo", MODE_PRIVATE);
+        id = sharedPreferences.getString("id", "null");
+
+        retroClient.GetToken(id, new RetroCallback() {
+            @Override
+            public void onError(Throwable t) {
+
+            }
+            @Override
+            public void onSuccess(int code, Object receivedData) {
+                ArrayList<Response_Token> data = (ArrayList<Response_Token>)receivedData;
+                Log.e("get token",data.get(0).getUser_token());
+            }
+
+            @Override
+            public void onFailure(int code) {
+
+            }
+        });
 
         isAppUser = getIntent().getBooleanExtra("isAppUser", false);
 
@@ -227,5 +254,11 @@ public class MainActivity extends AppCompatActivity {
     public Boolean getIsAppUser() {
         return isAppUser;
     }
+/*
+    @Override
+    public void onBackPressed() {
+        PulseFragment.DataThread.interrupted();
+        super.onBackPressed();
+    }*/
 }
 

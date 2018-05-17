@@ -10,14 +10,17 @@ import com.example.hansung.band_cctv.Retrofit.Model.Request_Location;
 import com.example.hansung.band_cctv.Retrofit.Model.Request_Login;
 import com.example.hansung.band_cctv.Retrofit.Model.Request_Login2;
 import com.example.hansung.band_cctv.Retrofit.Model.Request_Motor;
+import com.example.hansung.band_cctv.Retrofit.Model.Request_Token;
 import com.example.hansung.band_cctv.Retrofit.Model.Request_exit_PI;
 import com.example.hansung.band_cctv.Retrofit.Model.Response_Band_Info;
 import com.example.hansung.band_cctv.Retrofit.Model.Response_Check;
+import com.example.hansung.band_cctv.Retrofit.Model.Response_Detect;
 import com.example.hansung.band_cctv.Retrofit.Model.Response_Info;
 import com.example.hansung.band_cctv.Retrofit.Model.Response_Location;
 import com.example.hansung.band_cctv.Retrofit.Model.Response_Login;
 import com.example.hansung.band_cctv.Retrofit.Model.Response_MaxIndex;
 import com.example.hansung.band_cctv.Retrofit.Model.Response_Sensor;
+import com.example.hansung.band_cctv.Retrofit.Model.Response_Token;
 
 import java.util.HashMap;
 import java.util.List;
@@ -260,6 +263,25 @@ public class RetroClient {
         });
     }
 
+    public void Motor_Controller2(HashMap<String, Object> parameters, final RetroCallback callback){
+        apiService.Motor_Controller2(new Request_Motor(parameters)).enqueue(new Callback<Request_Motor>() {
+            @Override
+            public void onResponse(Call<Request_Motor> call, Response<Request_Motor> response) {
+                if (response.isSuccessful()) {
+                    Log.e("Motor ctl success","success");
+                    callback.onSuccess(response.code(), response.body());
+                } else {
+                    callback.onFailure(response.code());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Request_Motor> call, Throwable t) {
+
+            }
+        });
+    }
+
     public void GetInfo(String id, final RetroCallback callback){
         apiService.GetInfo(id).enqueue(new Callback<List<Response_Info>>() {
             @Override
@@ -332,6 +354,63 @@ public class RetroClient {
             }
             @Override
             public void onFailure(Call<Response_Check> call, Throwable t) {
+
+            }
+        });
+    }
+
+    public void Detect(final RetroCallback callback){
+        apiService.Detect().enqueue(new Callback<Response_Detect>() {
+            @Override
+            public void onResponse(Call<Response_Detect> call, Response<Response_Detect> response) {
+                if (response.isSuccessful()) {
+                    Log.e("Detect success","success");
+                    callback.onSuccess(response.code(), response.body());
+                } else {
+                    callback.onFailure(response.code());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Response_Detect> call, Throwable t) {
+
+            }
+        });
+    }
+
+    public void UserToken(HashMap<String,Object> parameters, final RetroCallback callback){
+        apiService.UserToken(new Request_Token(parameters)).enqueue(new Callback<Response_Check>() {
+            @Override
+            public void onResponse(Call<Response_Check> call, Response<Response_Check> response) {
+                if (response.isSuccessful()) {
+                    Log.e("Token success","success");
+                    callback.onSuccess(response.code(), response.body());
+                } else {
+                    callback.onFailure(response.code());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Response_Check> call, Throwable t) {
+
+            }
+        });
+    }
+
+    public void GetToken(String user_id, final RetroCallback callback){
+        apiService.GetToken(user_id).enqueue(new Callback<List<Response_Token>>() {
+            @Override
+            public void onResponse(Call<List<Response_Token>> call, Response<List<Response_Token>> response) {
+                if (response.isSuccessful()) {
+                    Log.e( "Get Token success","success");
+                    callback.onSuccess(response.code(), response.body());
+                } else {
+                    callback.onFailure(response.code());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Response_Token>> call, Throwable t) {
 
             }
         });

@@ -1,5 +1,6 @@
 package com.example.hansung.band_cctv.activity;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -30,8 +31,11 @@ public class VideoFragment extends Fragment {
     HashMap<String, Object> parameter_left;
     HashMap<String, Object> parameter_stop;
 
-    Button left_btn;
-    Button right_btn;
+    Button left_btn1;
+    Button right_btn1;
+
+    Button left_btn2;
+    Button right_btn2;
 
     RetroClient retroClient;
 
@@ -41,14 +45,18 @@ public class VideoFragment extends Fragment {
         return instance;
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_video, container, false);
 
-        left_btn = view.findViewById(R.id.left_btn1);
-        right_btn = view.findViewById(R.id.right_btn1);
+        left_btn1 = view.findViewById(R.id.left_btn1);
+        right_btn1 = view.findViewById(R.id.right_btn1);
+
+        left_btn2 = view.findViewById(R.id.left_btn2);
+
         retroClient = RetroClient.getInstance().createBaseApi();
 
         right = "right";
@@ -64,7 +72,7 @@ public class VideoFragment extends Fragment {
         parameter_left.put("rsl",left);
         parameter_stop.put("rsl",stop);
 
-        left_btn.setOnTouchListener(new View.OnTouchListener() {
+        left_btn1.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 switch (event.getAction()) {
@@ -109,7 +117,7 @@ public class VideoFragment extends Fragment {
             }
         });
 
-        right_btn.setOnTouchListener(new View.OnTouchListener() {
+        right_btn1.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 switch (event.getAction()) {
@@ -153,14 +161,14 @@ public class VideoFragment extends Fragment {
             }
         });
 
-//        playView_first = new RtspViewPlayer(getContext(),"rtsp://192.168.0.2:8091/rtsp");
-//        surfaceView_first = (RelativeLayout)view.findViewById(R.id.surface_video1);
-//        surfaceView_first.addView(playView_first);
-//
-//        playView_second = new RtspViewPlayer(getContext(),"rtsp://192.168.0.2:8091/rtsp1");
-//        surfaceView_second = (RelativeLayout)view.findViewById(R.id.surface_video2);
-//        surfaceView_second.addView(playView_second);
-//
+        playView_first = new RtspViewPlayer(getContext(),"rtsp://192.168.0.2:8091/rtsp");
+        surfaceView_first = (RelativeLayout)view.findViewById(R.id.surface_video1);
+        surfaceView_first.addView(playView_first);
+
+        playView_second = new RtspViewPlayer(getContext(),"rtsp://192.168.0.2:8091/rtsp1");
+        surfaceView_second = (RelativeLayout)view.findViewById(R.id.surface_video2);
+        surfaceView_second.addView(playView_second);
+
         return view;
     }
 }

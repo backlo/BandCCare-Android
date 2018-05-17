@@ -8,14 +8,17 @@ import com.example.hansung.band_cctv.Retrofit.Model.Request_Location;
 import com.example.hansung.band_cctv.Retrofit.Model.Request_Login;
 import com.example.hansung.band_cctv.Retrofit.Model.Request_Login2;
 import com.example.hansung.band_cctv.Retrofit.Model.Request_Motor;
+import com.example.hansung.band_cctv.Retrofit.Model.Request_Token;
 import com.example.hansung.band_cctv.Retrofit.Model.Request_exit_PI;
 import com.example.hansung.band_cctv.Retrofit.Model.Response_Band_Info;
 import com.example.hansung.band_cctv.Retrofit.Model.Response_Check;
+import com.example.hansung.band_cctv.Retrofit.Model.Response_Detect;
 import com.example.hansung.band_cctv.Retrofit.Model.Response_Info;
 import com.example.hansung.band_cctv.Retrofit.Model.Response_Location;
 import com.example.hansung.band_cctv.Retrofit.Model.Response_Login;
 import com.example.hansung.band_cctv.Retrofit.Model.Response_MaxIndex;
 import com.example.hansung.band_cctv.Retrofit.Model.Response_Sensor;
+import com.example.hansung.band_cctv.Retrofit.Model.Response_Token;
 import com.example.hansung.band_cctv.Retrofit.Model.Response_User_Index;
 
 import java.util.List;
@@ -28,7 +31,7 @@ import retrofit2.http.Query;
 
 public interface RetroApiService {
     final String Base_URL = "http://192.168.0.6:4000";
-    //String Base_URL = "http://172.30.1.50:4000";
+    //final String Base_URL = "http://172.30.1.31:4000";
 
     //@@회원가입
     @POST("/insertdb")
@@ -77,6 +80,9 @@ public interface RetroApiService {
     @POST("/post")
     Call<Request_Motor> Motor_Controller(@Body Request_Motor request_motor);
 
+    @POST("/post1")
+    Call<Request_Motor> Motor_Controller2(@Body Request_Motor request_motor);
+
     //@@위험알람
     @POST("/alarm")
     Call<Request_Alarm> Send_Alarm(@Body Request_Alarm request_alarm);
@@ -88,4 +94,14 @@ public interface RetroApiService {
     //@@좌표값받기
     @GET("/location_info")
     Call<List<Response_Location>> Get_Location();
+
+    //@@움직임체크
+    @GET("/detect")
+    Call<Response_Detect> Detect();
+
+    @POST("/fcmtoken")
+    Call<Response_Check> UserToken(@Body Request_Token request_token);
+
+    @GET("/gettoken")
+    Call<List<Response_Token>> GetToken(@Query("user_id") String user_id);
 }
