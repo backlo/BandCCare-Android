@@ -12,7 +12,7 @@ import android.util.Log;
 
 import com.example.hansung.band_cctv.R;
 import com.example.hansung.band_cctv.Retrofit.RetroCallback;
-import com.example.hansung.band_cctv.Retrofit.RetroClient;
+import com.example.hansung.band_cctv.Retrofit2.RetroClient2;
 import com.example.hansung.band_cctv.activity.MainActivity;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
@@ -21,11 +21,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class CustomFirebaseMessagingService extends FirebaseMessagingService {
-    RetroClient retroClient;
+    RetroClient2 retroClient2;
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
-        retroClient = RetroClient.getInstance().createBaseApi();
+        retroClient2 = RetroClient2.getInstance().createBaseApi2();
         Map<String, String> pushDataMap = remoteMessage.getData();
         sendalaramdata();
         sendNotification(pushDataMap);
@@ -34,7 +34,7 @@ public class CustomFirebaseMessagingService extends FirebaseMessagingService {
     public void sendalaramdata(){
         HashMap<String, Object> alarmmap = new HashMap<>();
         alarmmap.put("alarm","alarm");
-        retroClient.Send_Alarm(alarmmap, new RetroCallback() {
+        retroClient2.Send_Alarm(alarmmap, new RetroCallback() {
             @Override
             public void onError(Throwable t) {
             }

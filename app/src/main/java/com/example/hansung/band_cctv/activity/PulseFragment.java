@@ -104,7 +104,7 @@ public class PulseFragment extends Fragment {
             public void onSuccess(int code, Object receivedData) {
                 data = (Response_MaxIndex)receivedData;
                 maxIndex = data.getMax();
-                startIndex = maxIndex-3;
+                startIndex = maxIndex-2;
             }
             @Override
             public void onFailure(int code) {
@@ -219,28 +219,27 @@ public class PulseFragment extends Fragment {
         xAxis.setAxisMinimum(0);
         dataview.setText(String.valueOf(getData()));
     }
+//
+//    class Myhandler extends Handler{
+//        @Override
+//        public void handleMessage(Message msg) {
+//            if(msg.what == 2 ){
+//                StartgetData();
+//                chartUpdate(startIndex);
+//                Log.e("심박테이블 Index ->", String.valueOf(startIndex));
+//                xindex++;
+//                startIndex++;
+//                xindexstart++;
+//            }
+//        }
+//    }
 
-    class Myhandeler extends Handler{
-        @Override
-        public void handleMessage(Message msg) {
-            if(msg.what == 2 ){
-                StartgetData();
-                chartUpdate(startIndex);
-                Log.e("심박테이블 Index ->", String.valueOf(startIndex));
-                xindex++;
-                startIndex++;
-                xindexstart++;
-            }
-        }
-    }
-
-    Handler handler = new Handler(){
+     Handler handler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
             if(msg.what == 0 ){
                 StartgetData();
                 chartUpdate(startIndex);
-
                 Log.e("심박테이블 Index ->", String.valueOf(startIndex));
                 xindex++;
                 startIndex++;
@@ -249,7 +248,7 @@ public class PulseFragment extends Fragment {
         }
     };
     class DataThread extends Thread{
-        @Override
+    @Override
         public void run() {
             while(true){
                 handler.sendEmptyMessage(0);
@@ -261,8 +260,6 @@ public class PulseFragment extends Fragment {
             }
         }
     }
-
-
     public String getTime(){
         mNow = System.currentTimeMillis();
         mDate = new Date(mNow);

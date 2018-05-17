@@ -1,25 +1,18 @@
 package com.example.hansung.band_cctv.Retrofit;
 
-import com.example.hansung.band_cctv.Retrofit.Model.Request_Alarm;
 import com.example.hansung.band_cctv.Retrofit.Model.Request_App_member;
 import com.example.hansung.band_cctv.Retrofit.Model.Request_Band_member;
-import com.example.hansung.band_cctv.Retrofit.Model.Request_DB;
 import com.example.hansung.band_cctv.Retrofit.Model.Request_Location;
-import com.example.hansung.band_cctv.Retrofit.Model.Request_Login;
 import com.example.hansung.band_cctv.Retrofit.Model.Request_Login2;
-import com.example.hansung.band_cctv.Retrofit.Model.Request_Motor;
 import com.example.hansung.band_cctv.Retrofit.Model.Request_Token;
-import com.example.hansung.band_cctv.Retrofit.Model.Request_exit_PI;
 import com.example.hansung.band_cctv.Retrofit.Model.Response_Band_Info;
 import com.example.hansung.band_cctv.Retrofit.Model.Response_Check;
-import com.example.hansung.band_cctv.Retrofit.Model.Response_Detect;
 import com.example.hansung.band_cctv.Retrofit.Model.Response_Info;
 import com.example.hansung.band_cctv.Retrofit.Model.Response_Location;
 import com.example.hansung.band_cctv.Retrofit.Model.Response_Login;
 import com.example.hansung.band_cctv.Retrofit.Model.Response_MaxIndex;
 import com.example.hansung.band_cctv.Retrofit.Model.Response_Sensor;
 import com.example.hansung.band_cctv.Retrofit.Model.Response_Token;
-import com.example.hansung.band_cctv.Retrofit.Model.Response_User_Index;
 
 import java.util.List;
 
@@ -34,31 +27,18 @@ public interface RetroApiService {
     //final String Base_URL = "http://172.30.1.31:4000";
 
     //@@회원가입
-    @POST("/insertdb")
-    Call<Response_Check> InsertDB(@Body Request_DB request_db);
-
     @POST("/insert_app_member")
     Call<Response_Check> Insert_App_Member(@Body Request_App_member request_App_member);
 
     @POST("/insert_band_member")
     Call<Response_Check> Insert_Band_Member(@Body Request_Band_member request_band_member);
 
+    //@@앱유저 정보가져오기
     @GET("/getinfo")
     Call<List<Response_Info>> GetInfo(@Query("id") String id);
-
+    //@@밴드유저 정보가져오기
     @GET("/getbanduserinfo")
     Call<List<Response_Band_Info>> GetInfo_Band(@Query("index") int index);
-
-    @GET("/appuserinfo_index")
-    Call<Response_User_Index> GetInfo_index(@Query("id") String id);
-
-    //@@아이디중복체크
-    @GET("/checkid")
-    Call<Response_Check> CheckID(@Query("id") String id);
-
-    //@@아이디,비밀번호 일치 확인
-    @POST("/logincheck")
-    Call<Response_Login> LoginID(@Body Request_Login request_login);
 
     //@@로그인할때 아이디,비밀번호 일치확인
     @POST("/logincheck2")
@@ -72,21 +52,6 @@ public interface RetroApiService {
     @GET("/getmaxindex")
     Call<Response_MaxIndex> GetMaxIndex();
 
-    //@@PI프로세스 죽이기
-    @POST("/exit")
-    Call<Request_exit_PI> Exit_PI(@Body Request_exit_PI request_exit_pi);
-
-    //@@모터제어
-    @POST("/post")
-    Call<Request_Motor> Motor_Controller(@Body Request_Motor request_motor);
-
-    @POST("/post1")
-    Call<Request_Motor> Motor_Controller2(@Body Request_Motor request_motor);
-
-    //@@위험알람
-    @POST("/alarm")
-    Call<Request_Alarm> Send_Alarm(@Body Request_Alarm request_alarm);
-
     //@@좌표값넣기
     @POST("/location_info")
     Call<Response_Check> Put_Location(@Body Request_Location request_location);
@@ -95,10 +60,7 @@ public interface RetroApiService {
     @GET("/location_info")
     Call<List<Response_Location>> Get_Location();
 
-    //@@움직임체크
-    @GET("/detect")
-    Call<Response_Detect> Detect();
-
+    //fcm
     @POST("/fcmtoken")
     Call<Response_Check> UserToken(@Body Request_Token request_token);
 

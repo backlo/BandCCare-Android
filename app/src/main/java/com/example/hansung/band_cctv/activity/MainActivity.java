@@ -19,10 +19,11 @@ import android.widget.Toast;
 
 import com.example.hansung.band_cctv.MyPagerAdapter;
 import com.example.hansung.band_cctv.R;
-import com.example.hansung.band_cctv.Retrofit.Model.Request_exit_PI;
+import com.example.hansung.band_cctv.Retrofit2.Model2.Request_exit_PI;
 import com.example.hansung.band_cctv.Retrofit.Model.Response_Token;
 import com.example.hansung.band_cctv.Retrofit.RetroCallback;
 import com.example.hansung.band_cctv.Retrofit.RetroClient;
+import com.example.hansung.band_cctv.Retrofit2.RetroClient2;
 import com.example.hansung.band_cctv.login.LoginActivity;
 
 import java.util.ArrayList;
@@ -33,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
     public static MainActivity instance;
     // public static MyHandler myHandler;
     private DrawerLayout mDrawerLayout;
+    RetroClient2 retroClient2;
     RetroClient retroClient;
 
     SharedPreferences sharedPreferences;
@@ -59,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         noalarmmap = new HashMap<>();
         noalarmmap.put("alarm",noalarm);
+        retroClient2 = RetroClient2.getInstance().createBaseApi2();
         retroClient = RetroClient.getInstance().createBaseApi();
 
         sharedPreferences = getSharedPreferences("logininfo", MODE_PRIVATE);
@@ -91,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
         parameter.put("exit", exit);
         parameter2.put("exit", noexit);
 
-        retroClient.Exit_PI(parameter2, new RetroCallback() {
+        retroClient2.Exit_PI(parameter2, new RetroCallback() {
             @Override
             public void onError(Throwable t) {
 
@@ -108,7 +111,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        retroClient.Send_Alarm(noalarmmap, new RetroCallback() {
+        retroClient2.Send_Alarm(noalarmmap, new RetroCallback() {
             @Override
             public void onError(Throwable t) {
 
@@ -206,7 +209,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         Log.e("main ondestroy", "destroy");
-        retroClient.Exit_PI(parameter, new RetroCallback() {
+        retroClient2.Exit_PI(parameter, new RetroCallback() {
             @Override
             public void onError(Throwable t) {
 

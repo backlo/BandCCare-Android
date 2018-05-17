@@ -1,4 +1,4 @@
-package com.example.hansung.band_cctv.Retrofit.Model;
+package com.example.hansung.band_cctv.Retrofit2.Model2;
 
 public class Response_Detect {
     public String detect;

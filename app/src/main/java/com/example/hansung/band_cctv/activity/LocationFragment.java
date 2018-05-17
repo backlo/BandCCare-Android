@@ -7,8 +7,6 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
@@ -83,9 +81,9 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
         find_location = (Button)view.findViewById(R.id.find_location);
 
         atLocationChange();
-        LocationThread thread = new LocationThread();
-        thread.setDaemon(true);
-        thread.start();
+//        LocationThread thread = new LocationThread();
+//        thread.setDaemon(true);
+//        thread.start();
 
         find_location.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -222,30 +220,30 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
             }
         });
     }
-
-    Handler handler = new Handler(){
-        @Override
-        public void handleMessage(Message msg) {
-            if(msg.what == 0 ){
-                getLocationinfo();
-                mapUpdate();
-                textView.setText(getLocationinfo());
-
-            }
-        }
-    };
-    class LocationThread extends Thread{
-        @Override
-        public void run() {
-            while(true){
-                handler.sendEmptyMessage(0);
-                try{
-                    Thread.sleep(3500);
-                }catch (InterruptedException e){
-                    e.printStackTrace();
-                }
-            }
-        }
-    }
+//
+//    Handler handler = new Handler(){
+//        @Override
+//        public void handleMessage(Message msg) {
+//            if(msg.what == 0 ){
+//                getLocationinfo();
+//                mapUpdate();
+//                textView.setText(getLocationinfo());
+//
+//            }
+//        }
+//    };
+//    class LocationThread extends Thread{
+//        @Override
+//        public void run() {
+//            while(true){
+//                handler.sendEmptyMessage(0);
+//                try{
+//                    Thread.sleep(3500);
+//                }catch (InterruptedException e){
+//                    e.printStackTrace();
+//                }
+//            }
+//        }
+//    }
 }
 

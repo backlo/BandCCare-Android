@@ -2,19 +2,13 @@ package com.example.hansung.band_cctv.Retrofit;
 
 import android.util.Log;
 
-import com.example.hansung.band_cctv.Retrofit.Model.Request_Alarm;
 import com.example.hansung.band_cctv.Retrofit.Model.Request_App_member;
 import com.example.hansung.band_cctv.Retrofit.Model.Request_Band_member;
-import com.example.hansung.band_cctv.Retrofit.Model.Request_DB;
 import com.example.hansung.band_cctv.Retrofit.Model.Request_Location;
-import com.example.hansung.band_cctv.Retrofit.Model.Request_Login;
 import com.example.hansung.band_cctv.Retrofit.Model.Request_Login2;
-import com.example.hansung.band_cctv.Retrofit.Model.Request_Motor;
 import com.example.hansung.band_cctv.Retrofit.Model.Request_Token;
-import com.example.hansung.band_cctv.Retrofit.Model.Request_exit_PI;
 import com.example.hansung.band_cctv.Retrofit.Model.Response_Band_Info;
 import com.example.hansung.band_cctv.Retrofit.Model.Response_Check;
-import com.example.hansung.band_cctv.Retrofit.Model.Response_Detect;
 import com.example.hansung.band_cctv.Retrofit.Model.Response_Info;
 import com.example.hansung.band_cctv.Retrofit.Model.Response_Location;
 import com.example.hansung.band_cctv.Retrofit.Model.Response_Login;
@@ -57,23 +51,6 @@ public class RetroClient {
             throw new RuntimeException("Api service is null!");
         }
         return retrofit.create(service);
-    }
-
-    public void InsertDB(HashMap<String, Object> parameters, final RetroCallback callback) {
-        apiService.InsertDB(new Request_DB(parameters)).enqueue(new Callback<Response_Check>() {
-            @Override
-            public void onResponse(Call<Response_Check> call, Response<Response_Check> response) {
-                if (response.isSuccessful()) {
-                    callback.onSuccess(response.code(), response.body());
-                } else {
-                    callback.onFailure(response.code());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Response_Check> call, Throwable t) {
-            }
-        });
     }
 
     public void Insert_App_Member(HashMap<String, Object> parameters, final RetroCallback callback){
@@ -133,42 +110,6 @@ public class RetroClient {
         });
     }
 
-    public void CheckID(String id, final RetroCallback callback) {
-        apiService.CheckID(id).enqueue(new Callback<Response_Check>() {
-            @Override
-            public void onResponse(Call<Response_Check> call, Response<Response_Check> response) {
-                if (response.isSuccessful()) {
-                    callback.onSuccess(response.code(), response.body());
-                } else {
-                    callback.onFailure(response.code());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Response_Check> call, Throwable t) {
-
-            }
-        });
-    }
-
-    public void LoginID(HashMap<String, Object> parameters, final RetroCallback callback) {
-        apiService.LoginID(new Request_Login(parameters)).enqueue(new Callback<Response_Login>() {
-            @Override
-            public void onResponse(Call<Response_Login> call, Response<Response_Login> response) {
-                if (response.isSuccessful()) {
-                    callback.onSuccess(response.code(), response.body());
-                } else {
-                    callback.onFailure(response.code());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Response_Login> call, Throwable t) {
-
-            }
-        });
-    }
-
     public void GetSensor(int index, final RetroCallback callback) {
         apiService.GetSensor(index).enqueue(new Callback<Response_Sensor>() {
             @Override
@@ -202,82 +143,6 @@ public class RetroClient {
             @Override
             public void onFailure(Call<Response_MaxIndex> call, Throwable t) {
                 Log.e("maxindex onfailure",t.toString());
-            }
-        });
-    }
-
-    public void Exit_PI(HashMap<String, Object> parameters,final RetroCallback callback){
-        apiService.Exit_PI(new Request_exit_PI(parameters)).enqueue(new Callback<Request_exit_PI>() {
-            @Override
-            public void onResponse(Call<Request_exit_PI> call, Response<Request_exit_PI> response) {
-                if (response.isSuccessful()) {
-                    Log.e("Exit PI onsuccess","success");
-                    callback.onSuccess(response.code(), response.body());
-                } else {
-                    callback.onFailure(response.code());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Request_exit_PI> call, Throwable t) {
-
-            }
-        });
-    }
-
-    public void Send_Alarm(HashMap<String ,Object> parameters , final RetroCallback callback){
-        apiService.Send_Alarm(new Request_Alarm(parameters)).enqueue(new Callback<Request_Alarm>() {
-            @Override
-            public void onResponse(Call<Request_Alarm> call, Response<Request_Alarm> response) {
-                if (response.isSuccessful()) {
-                    Log.e("Exit PI onsuccess","success");
-                    callback.onSuccess(response.code(), response.body());
-                } else {
-                    callback.onFailure(response.code());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Request_Alarm> call, Throwable t) {
-
-            }
-        });
-    }
-
-    public void Motor_Controller(HashMap<String,Object> parameters,final RetroCallback callback){
-        apiService.Motor_Controller(new Request_Motor(parameters)).enqueue(new Callback<Request_Motor>() {
-            @Override
-            public void onResponse(Call<Request_Motor> call, Response<Request_Motor> response) {
-                if (response.isSuccessful()) {
-                    Log.e("Motor ctl success","success");
-                    callback.onSuccess(response.code(), response.body());
-                } else {
-                    callback.onFailure(response.code());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Request_Motor> call, Throwable t) {
-
-            }
-        });
-    }
-
-    public void Motor_Controller2(HashMap<String, Object> parameters, final RetroCallback callback){
-        apiService.Motor_Controller2(new Request_Motor(parameters)).enqueue(new Callback<Request_Motor>() {
-            @Override
-            public void onResponse(Call<Request_Motor> call, Response<Request_Motor> response) {
-                if (response.isSuccessful()) {
-                    Log.e("Motor ctl success","success");
-                    callback.onSuccess(response.code(), response.body());
-                } else {
-                    callback.onFailure(response.code());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Request_Motor> call, Throwable t) {
-
             }
         });
     }
@@ -354,25 +219,6 @@ public class RetroClient {
             }
             @Override
             public void onFailure(Call<Response_Check> call, Throwable t) {
-
-            }
-        });
-    }
-
-    public void Detect(final RetroCallback callback){
-        apiService.Detect().enqueue(new Callback<Response_Detect>() {
-            @Override
-            public void onResponse(Call<Response_Detect> call, Response<Response_Detect> response) {
-                if (response.isSuccessful()) {
-                    Log.e("Detect success","success");
-                    callback.onSuccess(response.code(), response.body());
-                } else {
-                    callback.onFailure(response.code());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Response_Detect> call, Throwable t) {
 
             }
         });

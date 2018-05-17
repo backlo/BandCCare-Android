@@ -12,7 +12,7 @@ import android.widget.RelativeLayout;
 
 import com.example.hansung.band_cctv.R;
 import com.example.hansung.band_cctv.Retrofit.RetroCallback;
-import com.example.hansung.band_cctv.Retrofit.RetroClient;
+import com.example.hansung.band_cctv.Retrofit2.RetroClient2;
 import com.example.hansung.band_cctv.util.RtspViewPlayer;
 
 import java.util.HashMap;
@@ -37,7 +37,7 @@ public class VideoFragment extends Fragment {
     Button left_btn2;
     Button right_btn2;
 
-    RetroClient retroClient;
+    RetroClient2 retroClient2;
 
     public static VideoFragment getInstance() {
         if (instance == null)
@@ -57,7 +57,7 @@ public class VideoFragment extends Fragment {
 
         left_btn2 = view.findViewById(R.id.left_btn2);
 
-        retroClient = RetroClient.getInstance().createBaseApi();
+        retroClient2 = RetroClient2.getInstance().createBaseApi2();
 
         right = "right";
         left = "left";
@@ -77,7 +77,7 @@ public class VideoFragment extends Fragment {
             public boolean onTouch(View v, MotionEvent event) {
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
-                        retroClient.Motor_Controller(parameter_left, new RetroCallback() {
+                        retroClient2.Motor_Controller(parameter_left, new RetroCallback() {
                             @Override
                             public void onError(Throwable t) {
 
@@ -94,7 +94,7 @@ public class VideoFragment extends Fragment {
                             }
                         });
                     case MotionEvent.ACTION_UP:
-                        retroClient.Motor_Controller(parameter_stop, new RetroCallback() {
+                        retroClient2.Motor_Controller(parameter_stop, new RetroCallback() {
                             @Override
                             public void onError(Throwable t) {
 
@@ -122,7 +122,7 @@ public class VideoFragment extends Fragment {
             public boolean onTouch(View v, MotionEvent event) {
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
-                        retroClient.Motor_Controller(parameter_right, new RetroCallback() {
+                        retroClient2.Motor_Controller(parameter_right, new RetroCallback() {
                             @Override
                             public void onError(Throwable t) {
 
@@ -139,7 +139,7 @@ public class VideoFragment extends Fragment {
                             }
                         });
                     case MotionEvent.ACTION_UP:
-                        retroClient.Motor_Controller(parameter_stop, new RetroCallback() {
+                        retroClient2.Motor_Controller(parameter_stop, new RetroCallback() {
                             @Override
                             public void onError(Throwable t) {
 
