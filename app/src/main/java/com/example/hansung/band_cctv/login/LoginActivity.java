@@ -17,6 +17,7 @@ import com.example.hansung.band_cctv.R;
 import com.example.hansung.band_cctv.Retrofit.Model.Response_Login;
 import com.example.hansung.band_cctv.Retrofit.RetroCallback;
 import com.example.hansung.band_cctv.Retrofit.RetroClient;
+import com.example.hansung.band_cctv.ServiceThread.SV_Data;
 import com.example.hansung.band_cctv.activity.MainActivity;
 import com.google.firebase.iid.FirebaseInstanceId;
 
@@ -42,6 +43,8 @@ public class LoginActivity extends AppCompatActivity {
     HashMap<String, Object> parameter;
     ImageView username_img;
     ImageView password_img;
+
+    SV_Data sv_data;
 
     public static LoginActivity getInstance() {
         if (instance == null)
@@ -153,6 +156,7 @@ public class LoginActivity extends AppCompatActivity {
                               intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             startActivity(intent);
 
+
                             editor.putString("id",editText_id.getText().toString());
                             editor.putString("pw",editText_pw.getText().toString());
                             editor.commit();
@@ -200,55 +204,6 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        login_band_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // 서버 안통할때용 코드 (지우지마세요!)
-
-//                isAppUser = false;
-//                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-//                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//
-//                intent.putExtra("isAppUser", isAppUser);
-//                startActivity(intent);
-//                Toast.makeText(LoginActivity.this, "" + isAppUser, Toast.LENGTH_SHORT).show();
-
-                parameter.put("AppUserInfo_id", editText_id.getText().toString());
-                parameter.put("AppUserInfo_password", editText_pw.getText().toString());
-
-                Log.e("input id", "id->" + editText_id.getText().toString());
-                Log.e("input password", "password->" + editText_pw.getText().toString());
-                retroClient.Login(parameter, new RetroCallback() {
-                    @Override
-                    public void onError(Throwable t) {
-
-                    }
-
-                    @Override
-                    public void onSuccess(int code, Object receivedData) {
-                        Response_Login data = (Response_Login) receivedData;
-                        Log.e("login get data", "data->" + data.getSuccess());
-                        if (data.getSuccess().equals("success")) {
-                            isAppUser = false;
-                            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                            Toast.makeText(LoginActivity.this, "로그인성공", Toast.LENGTH_SHORT).show();
-                              intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                            intent.putExtra("isAppUser", isAppUser);
-                            startActivity(intent);
-                        } else if (data.getSuccess().equals("nomatch")) {
-                            Toast.makeText(LoginActivity.this, "비밀번호 혹은 아이디를 확인하세요", Toast.LENGTH_SHORT).show();
-                        } else {
-                            Toast.makeText(LoginActivity.this, "해당아이디가 없습니다.", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(int code) {
-
-                    }
-                });
-            }
-        });
 
         signUp_btn.setOnClickListener(new View.OnClickListener() {
             @Override

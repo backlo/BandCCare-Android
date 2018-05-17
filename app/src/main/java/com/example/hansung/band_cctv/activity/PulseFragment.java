@@ -92,6 +92,7 @@ public class PulseFragment extends Fragment {
         today_tv.setText(getTime);
 
 
+
         DataThread thread = new DataThread();
         thread.setDaemon(true);
         thread.start();
@@ -104,7 +105,7 @@ public class PulseFragment extends Fragment {
             public void onSuccess(int code, Object receivedData) {
                 data = (Response_MaxIndex)receivedData;
                 maxIndex = data.getMax();
-                startIndex = maxIndex-2;
+                startIndex = maxIndex-3;
             }
             @Override
             public void onFailure(int code) {
@@ -162,7 +163,6 @@ public class PulseFragment extends Fragment {
         yRAxis.setDrawLabels(false);
         yRAxis.setDrawAxisLine(false);
         yRAxis.setDrawGridLines(false);
-
         Description description = new Description();
         description.setText("현재시간(분:초)");
 
@@ -219,20 +219,20 @@ public class PulseFragment extends Fragment {
         xAxis.setAxisMinimum(0);
         dataview.setText(String.valueOf(getData()));
     }
-//
-//    class Myhandler extends Handler{
-//        @Override
-//        public void handleMessage(Message msg) {
-//            if(msg.what == 2 ){
-//                StartgetData();
-//                chartUpdate(startIndex);
-//                Log.e("심박테이블 Index ->", String.valueOf(startIndex));
-//                xindex++;
-//                startIndex++;
-//                xindexstart++;
-//            }
-//        }
-//    }
+
+    class Myhandler extends Handler{
+        @Override
+        public void handleMessage(Message msg) {
+            if(msg.what == 2 ){
+                StartgetData();
+                chartUpdate(startIndex);
+                Log.e("심박테이블 Index ->", String.valueOf(startIndex));
+                xindex++;
+                startIndex++;
+                xindexstart++;
+            }
+        }
+    }
 
      Handler handler = new Handler(){
         @Override
@@ -247,7 +247,7 @@ public class PulseFragment extends Fragment {
             }
         }
     };
-    class DataThread extends Thread{
+    public class DataThread extends Thread{
     @Override
         public void run() {
             while(true){

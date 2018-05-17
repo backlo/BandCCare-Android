@@ -19,11 +19,12 @@ import android.widget.Toast;
 
 import com.example.hansung.band_cctv.MyPagerAdapter;
 import com.example.hansung.band_cctv.R;
-import com.example.hansung.band_cctv.Retrofit2.Model2.Request_exit_PI;
 import com.example.hansung.band_cctv.Retrofit.Model.Response_Token;
 import com.example.hansung.band_cctv.Retrofit.RetroCallback;
 import com.example.hansung.band_cctv.Retrofit.RetroClient;
+import com.example.hansung.band_cctv.Retrofit2.Model2.Request_exit_PI;
 import com.example.hansung.band_cctv.Retrofit2.RetroClient2;
+import com.example.hansung.band_cctv.ServiceThread.SV_Data;
 import com.example.hansung.band_cctv.login.LoginActivity;
 
 import java.util.ArrayList;
@@ -207,6 +208,8 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
+        Intent intent2 = new Intent(getApplicationContext(),SV_Data.class);
+        startService(intent2);
         super.onDestroy();
         Log.e("main ondestroy", "destroy");
         retroClient2.Exit_PI(parameter, new RetroCallback() {
