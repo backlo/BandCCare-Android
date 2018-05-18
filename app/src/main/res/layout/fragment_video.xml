@@ -13,7 +13,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:weightSum="4"
         android:orientation="vertical">
 
 
@@ -30,31 +29,50 @@
 
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="100dp"
-            android:layout_marginRight="100dp"
-            android:layout_marginTop="20dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:layout_weight="1"
             android:background="@drawable/round"
             android:orientation="horizontal"
             android:paddingBottom="10dp"
             android:paddingTop="10dp">
+            <!--android:layout_marginLeft="100dp"-->
+            <!--android:layout_marginRight="100dp">-->
 
             <Button
                 android:id="@+id/left_btn1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="50dp"
                 android:layout_weight="1"
-                android:background="@drawable/btn_left" />
+                android:background="@drawable/btn_left"/>
+                <!--android:layout_marginRight="50dp"/>-->
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="L_center"
+                android:id="@+id/left_center_btn1"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="center"
+                android:id="@+id/center_btn1"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="R_center"
+                android:id="@+id/right_center_btn1"/>
 
             <Button
                 android:id="@+id/right_btn1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="50dp"
                 android:layout_weight="1"
-                android:background="@drawable/btn_right" />
+                android:background="@drawable/btn_right"/>
+            <!--android:layout_marginLeft="50dp"/>-->
+
         </LinearLayout>
     </LinearLayout>
 

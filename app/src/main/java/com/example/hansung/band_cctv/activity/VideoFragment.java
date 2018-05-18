@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -26,13 +25,21 @@ public class VideoFragment extends Fragment {
 
     public String right;
     public String left;
-    public String stop;
+    public String center;
+    public String right_center;
+    public String left_center;
+
     HashMap<String, Object> parameter_right;
     HashMap<String, Object> parameter_left;
-    HashMap<String, Object> parameter_stop;
+    HashMap<String, Object> parameter_center;
+    HashMap<String, Object> parameter_right_center;
+    HashMap<String, Object> parameter_left_center;
 
     Button left_btn1;
     Button right_btn1;
+    Button right_center_btn1;
+    Button left_center_btn1;
+    Button center_btn1;
 
     Button left_btn2;
     Button right_btn2;
@@ -54,110 +61,140 @@ public class VideoFragment extends Fragment {
 
         left_btn1 = view.findViewById(R.id.left_btn1);
         right_btn1 = view.findViewById(R.id.right_btn1);
+        right_center_btn1 = view.findViewById(R.id.right_center_btn1);
+        left_center_btn1 = view.findViewById(R.id.left_center_btn1);
+        center_btn1 = view.findViewById(R.id.center_btn1);
 
         left_btn2 = view.findViewById(R.id.left_btn2);
+        right_btn2 = view.findViewById(R.id.right_btn2);
 
         retroClient2 = RetroClient2.getInstance().createBaseApi2();
 
         right = "right";
         left = "left";
-        stop = "stop";
+        right_center = "right_center";
+        left_center = "left_center";
+        center = "center";
 
         parameter_left = new HashMap<>();
         parameter_right = new HashMap<>();
-        parameter_stop = new HashMap<>();
-
+        parameter_center = new HashMap<>();
+        parameter_left_center = new HashMap<>();
+        parameter_right_center = new HashMap<>();
 
         parameter_right.put("rsl",right);
         parameter_left.put("rsl",left);
-        parameter_stop.put("rsl",stop);
+        parameter_center.put("rsl",center);
+        parameter_right_center.put("rsl",right_center);
+        parameter_left_center.put("rsl",left_center);
 
-        left_btn1.setOnTouchListener(new View.OnTouchListener() {
+        left_btn1.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                switch (event.getAction()) {
-                    case MotionEvent.ACTION_DOWN:
-                        retroClient2.Motor_Controller(parameter_left, new RetroCallback() {
-                            @Override
-                            public void onError(Throwable t) {
+            public void onClick(View v) {
+                retroClient2.Motor_Controller(parameter_left, new RetroCallback() {
+                    @Override
+                    public void onError(Throwable t) {
 
-                            }
+                    }
 
-                            @Override
-                            public void onSuccess(int code, Object receivedData) {
+                    @Override
+                    public void onSuccess(int code, Object receivedData) {
 
-                            }
+                    }
 
-                            @Override
-                            public void onFailure(int code) {
+                    @Override
+                    public void onFailure(int code) {
 
-                            }
-                        });
-                    case MotionEvent.ACTION_UP:
-                        retroClient2.Motor_Controller(parameter_stop, new RetroCallback() {
-                            @Override
-                            public void onError(Throwable t) {
-
-                            }
-
-                            @Override
-                            public void onSuccess(int code, Object receivedData) {
-
-                            }
-
-                            @Override
-                            public void onFailure(int code) {
-
-                            }
-                        });
-
-
-                }
-                return false;
+                    }
+                });
             }
         });
 
-        right_btn1.setOnTouchListener(new View.OnTouchListener() {
+        left_center_btn1.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                switch (event.getAction()) {
-                    case MotionEvent.ACTION_DOWN:
-                        retroClient2.Motor_Controller(parameter_right, new RetroCallback() {
-                            @Override
-                            public void onError(Throwable t) {
+            public void onClick(View v) {
+                retroClient2.Motor_Controller(parameter_left_center, new RetroCallback() {
+                    @Override
+                    public void onError(Throwable t) {
 
-                            }
+                    }
 
-                            @Override
-                            public void onSuccess(int code, Object receivedData) {
+                    @Override
+                    public void onSuccess(int code, Object receivedData) {
 
-                            }
+                    }
 
-                            @Override
-                            public void onFailure(int code) {
+                    @Override
+                    public void onFailure(int code) {
 
-                            }
-                        });
-                    case MotionEvent.ACTION_UP:
-                        retroClient2.Motor_Controller(parameter_stop, new RetroCallback() {
-                            @Override
-                            public void onError(Throwable t) {
+                    }
+                });
+            }
+        });
 
-                            }
+        center_btn1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                retroClient2.Motor_Controller(parameter_center, new RetroCallback() {
+                    @Override
+                    public void onError(Throwable t) {
 
-                            @Override
-                            public void onSuccess(int code, Object receivedData) {
+                    }
 
-                            }
+                    @Override
+                    public void onSuccess(int code, Object receivedData) {
 
-                            @Override
-                            public void onFailure(int code) {
+                    }
 
-                            }
-                        });
+                    @Override
+                    public void onFailure(int code) {
 
-                }
-                return false;
+                    }
+                });
+            }
+        });
+
+        right_center_btn1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                retroClient2.Motor_Controller(parameter_right_center, new RetroCallback() {
+                    @Override
+                    public void onError(Throwable t) {
+
+                    }
+
+                    @Override
+                    public void onSuccess(int code, Object receivedData) {
+
+                    }
+
+                    @Override
+                    public void onFailure(int code) {
+
+                    }
+                });
+            }
+        });
+
+        right_btn1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                retroClient2.Motor_Controller(parameter_right, new RetroCallback() {
+                    @Override
+                    public void onError(Throwable t) {
+
+                    }
+
+                    @Override
+                    public void onSuccess(int code, Object receivedData) {
+
+                    }
+
+                    @Override
+                    public void onFailure(int code) {
+
+                    }
+                });
             }
         });
 
