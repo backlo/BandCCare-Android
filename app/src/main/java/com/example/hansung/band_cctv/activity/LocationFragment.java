@@ -7,6 +7,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
@@ -17,19 +18,27 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.example.hansung.band_cctv.R;
+import com.example.hansung.band_cctv.Retrofit.Model.Response_Location;
+import com.example.hansung.band_cctv.Retrofit.RetroCallback;
 import com.example.hansung.band_cctv.Retrofit.RetroClient;
 import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import pub.devrel.easypermissions.AfterPermissionGranted;
+import pub.devrel.easypermissions.EasyPermissions;
 
 public class LocationFragment extends Fragment implements OnMapReadyCallback {
     private static LocationFragment instance;
@@ -38,7 +47,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
 
     private MapView mapView = null;
     private LatLng myPhoneLocation;
-    private com.google.android.gms.maps.MapFragment mapFragment;
+    private GoogleMap gMap;
     private Location location;
     private HashMap<String, Double> locationmap;
     private Marker currentLocationMaker;
@@ -60,21 +69,45 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
 
     }
 
-
     @SuppressWarnings("MissingPermission")
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        final View view = inflater.inflate(R.layout.fragment_location, container, false);
+        View view = inflater.inflate(R.layout.fragment_location, container, false);
         retroClient = RetroClient.getInstance().createBaseApi();
         locationmap = new HashMap<>();
-        mapView = (MapView)view.findViewById(R.id.mymap);
-
-            atLocationChange();
+        mapView = (MapView)view.findViewById(R.id.map);
+        //mapView.getMapAsync(this);
+        atLocationChange();
 //        LocationThread thread = new LocationThread();
 //        thread.setDaemon(true);
 //        thread.start();
+        find_location = (Button)view.findViewById(R.id.band_location_btn);
+
+        find_location.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                retroClient.Get_Location(new RetroCallback() {
+                    @Override
+                    public void onError(Throwable t) {
+
+                    }
+
+                    @Override
+                    public void onSuccess(int code, Object receivedData) {
+                        ArrayList<Response_Location> data = (ArrayList<Response_Location>)receivedData;
+                        Log.e("DB에서 받은좌표",""+data.get(0).getLongitude()+","+data.get(0).getLatitude());
+                    }
+
+                    @Override
+                    public void onFailure(int code) {
+
+                    }
+                });
+            }
+        });
+
 
         return view;
     }
@@ -83,14 +116,24 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
     @AfterPermissionGranted(RC_LOCATION)
     @Override
     public void onMapReady(final GoogleMap googleMap) {
-        LatLng curretnlocation = new LatLng(35,127);
-        MarkerOptions markerOptions = new MarkerOptions();
-        markerOptions.position(curretnlocation);
-        markerOptions.title("현재위치");
-        markerOptions.snippet("오케이");
-        googleMap.addMarker(markerOptions);
-        googleMap.animateCamera(CameraUpdateFactory.zoomTo(15));
+        gMap = googleMap;
+        String[] perms = {Manifest.permission.ACCESS_FINE_LOCATION};
+        if (EasyPermissions.hasPermissions(getActivity(), perms)) {
+            gFusedLocationClient.getLastLocation().addOnCompleteListener(getActivity(), new OnCompleteListener<Location>() {
+                @Override
+                public void onComplete(@NonNull Task<Location> task) {
+                    if (task.isSuccessful() && task.getResult() != null) {
+                        location = task.getResult();
 
+                        myPhoneLocation = new LatLng(location.getLatitude(), location.getLongitude());
+                        Log.e("location info ->",""+myPhoneLocation);
+                        googleMap.addMarker(new MarkerOptions().position(myPhoneLocation).title("나의위치").alpha(0.7f).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET))).showInfoWindow();
+                        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(myPhoneLocation, 14));
+                        googleMap.animateCamera(CameraUpdateFactory.zoomTo(16), 2000, null);
+                    }
+                }
+            });
+        } else{}
     }
 
     @Override
@@ -142,9 +185,16 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
                 longitude = location.getLongitude();
                 latitude = location.getLatitude();
 
+
                 String provider = location.getProvider();
                 Log.e("test", "위치정보 : " + provider + "\n위도 : " + longitude  + "\n경도:" + latitude);
-                myPhoneLocation = new LatLng(latitude, longitude);
+                gMap.clear();
+                myPhoneLocation = new LatLng(location.getLatitude(), location.getLongitude());
+                Log.e("location info ->",""+myPhoneLocation);
+                gMap.addMarker(new MarkerOptions().position(myPhoneLocation).title("나의위치").alpha(0.7f).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET))).showInfoWindow();
+                gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(myPhoneLocation, 16));
+
+                mapUpdate();
             }
 
             @Override
@@ -181,27 +231,21 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
         return String.valueOf(longitude+","+latitude);
     }
 
-//    public void mapUpdate(){
-//        locationmap.put("latitude",latitude);
-//        locationmap.put("longitude",longitude);
-//        retroClient.Put_Location(locationmap, new RetroCallback() {
-//            @Override
-//            public void onError(Throwable t) {
-//
-//            }
-//
-//            @Override
-//            public void onSuccess(int code, Object receivedData) {
-//                Log.e("test","디비에들어감");
-//
-//            }
-//
-//            @Override
-//            public void onFailure(int code) {
-//
-//            }
-//        });
-//    }
+    public void mapUpdate(){
+        locationmap.put("latitude",latitude);
+        locationmap.put("longitude",longitude);
+        retroClient.Put_Location(locationmap, new RetroCallback() {
+            @Override
+            public void onError(Throwable t) {
+            }
+            @Override
+            public void onSuccess(int code, Object receivedData) {
+            }
+            @Override
+            public void onFailure(int code) {
+            }
+        });
+    }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -209,6 +253,9 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
         if(mapView != null){
             mapView.onCreate(savedInstanceState);
         }
+        mapView = (MapView) mapView.findViewById(R.id.map);
+        gFusedLocationClient = LocationServices.getFusedLocationProviderClient(getActivity());
+        mapView.getMapAsync(this);
     }
 //
 //    Handler handler = new Handler(){

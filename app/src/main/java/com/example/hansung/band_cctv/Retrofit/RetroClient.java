@@ -199,7 +199,7 @@ public class RetroClient {
 
             @Override
             public void onFailure(Call<List<Response_Location>> call, Throwable t) {
-
+                Log.e("location get","onfail->"+t.toString());
             }
         });
     }
@@ -219,7 +219,7 @@ public class RetroClient {
             }
             @Override
             public void onFailure(Call<Response_Check> call, Throwable t) {
-
+                    Log.e("location put","onfail->"+t.toString());
             }
         });
     }

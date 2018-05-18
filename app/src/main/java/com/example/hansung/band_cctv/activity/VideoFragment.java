@@ -28,12 +28,14 @@ public class VideoFragment extends Fragment {
     public String center;
     public String right_center;
     public String left_center;
+    public String stop;
 
     HashMap<String, Object> parameter_right;
     HashMap<String, Object> parameter_left;
     HashMap<String, Object> parameter_center;
     HashMap<String, Object> parameter_right_center;
     HashMap<String, Object> parameter_left_center;
+    HashMap<String, Object> parameter_stop;
 
     Button left_btn1;
     Button right_btn1;
@@ -75,10 +77,12 @@ public class VideoFragment extends Fragment {
         right_center = "right_center";
         left_center = "left_center";
         center = "center";
+        stop = "stop";
 
         parameter_left = new HashMap<>();
         parameter_right = new HashMap<>();
         parameter_center = new HashMap<>();
+        parameter_stop = new HashMap<>();
         parameter_left_center = new HashMap<>();
         parameter_right_center = new HashMap<>();
 
