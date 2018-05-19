@@ -31,7 +31,7 @@ public class SV_Data extends Service{
         @Override
         public void handleMessage(Message msg) {
 
-            if(msg.what == 0){
+            if(msg.what == 5){
                 Log.e("okokok","adfiuewhfkjasnc");
             }
 

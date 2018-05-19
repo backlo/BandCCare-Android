@@ -3,15 +3,12 @@ package com.example.hansung.band_cctv;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.util.Log;
-import android.widget.Toast;
 
 import com.example.hansung.band_cctv.activity.BlankFragment;
 import com.example.hansung.band_cctv.activity.LocationFragment;
 import com.example.hansung.band_cctv.activity.MainActivity;
 import com.example.hansung.band_cctv.activity.PulseFragment;
 import com.example.hansung.band_cctv.activity.VideoFragment;
-import com.example.hansung.band_cctv.login.LoginActivity;
 
 public class MyPagerAdapter extends FragmentPagerAdapter {
     MainActivity mainActivity = MainActivity.getInstance();

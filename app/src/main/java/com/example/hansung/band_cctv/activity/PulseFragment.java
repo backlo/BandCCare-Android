@@ -62,12 +62,24 @@ public class PulseFragment extends Fragment {
     int result;
     String time_result;
     TextView today_tv;
+    ArrayList<LineDataSet> dataSets;
 
 
     public static PulseFragment getInstance() {
         if (instance == null)
             instance = new PulseFragment();
         return instance;
+    }
+
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        DataThread thread = new DataThread();
+        thread.setDaemon(true);
+        thread.start();
+        Log.e("onstart@@@@@@","@@@@@@@@@@");
     }
 
     @Override
@@ -84,18 +96,18 @@ public class PulseFragment extends Fragment {
         GlideDrawableImageViewTarget gifImage = new GlideDrawableImageViewTarget(rabbit);
         Glide.with(this).load(R.drawable.heart).into(gifImage);
 
+        Log.e("thread oncreateview","@@@@@@@@@@");
+
         long now = System.currentTimeMillis();
         Date date = new Date(now);
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy년 MM월 dd일");
         String getTime = sdf.format(date);
         today_tv = view.findViewById(R.id.today_tv);
         today_tv.setText(getTime);
-
-
-
-        DataThread thread = new DataThread();
-        thread.setDaemon(true);
-        thread.start();
+//
+//        DataThread thread = new DataThread();
+//        thread.setDaemon(true);
+//        thread.start();
 
         retroClient.GetMaxIndex(new RetroCallback() {
             @Override
@@ -113,7 +125,7 @@ public class PulseFragment extends Fragment {
         });
 
         entries = new ArrayList<>();
-        //entries.add(new Entry(0,0));
+        entries.add(new Entry(0,0));
 
         LineDataSet lineDataSet = new LineDataSet(entries, "심박수(heart rate)");
         lineDataSet.setLineWidth(1);
@@ -128,7 +140,7 @@ public class PulseFragment extends Fragment {
         lineDataSet.setDrawValues(false);
         lineDataSet.setDrawFilled(false);
 
-        ArrayList<LineDataSet> dataSets = new ArrayList<>();
+        dataSets = new ArrayList<>();
         dataSets.add(lineDataSet);
 
         IAxisValueFormatter myformat = new HourAxisValueFormatter();
@@ -251,6 +263,7 @@ public class PulseFragment extends Fragment {
     @Override
         public void run() {
             while(true){
+                Log.e("thread","@@@@@@@@@@");
                 handler.sendEmptyMessage(0);
                 try{
                     Thread.sleep(2000);

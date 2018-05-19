@@ -169,7 +169,6 @@ public class LoginActivity extends AppCompatActivity {
                             sharedPreferences = getSharedPreferences("logininfo", MODE_PRIVATE);
                             id = sharedPreferences.getString("id", "null");
 
-
                             HashMap<String, Object> tokenmap = new HashMap<>();
                             tokenmap.put("user_id",id);
                             tokenmap.put("user_token",FirebaseInstanceId.getInstance().getToken());

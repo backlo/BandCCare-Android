@@ -32,7 +32,7 @@ public class SV_Thread extends Thread{
             public void onSuccess(int code, Object receivedData) {
                 Response_MaxIndex data = (Response_MaxIndex) receivedData;
                 maxindex = data.getMax();
-                startindex = maxindex - 3;
+                startindex = maxindex - 30;
             }
 
             @Override
@@ -82,7 +82,7 @@ public class SV_Thread extends Thread{
     public void run() {
         while(true){
             Log.e("okokok", String.valueOf(getData()));
-            handler.sendEmptyMessage(0);
+            handler.sendEmptyMessage(5);
             try {
                 startindex++;
                 Thread.sleep(2000);

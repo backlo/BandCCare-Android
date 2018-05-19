@@ -24,7 +24,6 @@ import retrofit2.http.Query;
 
 public interface RetroApiService {
     final String Base_URL = "http://192.168.0.6:4000";
-    //final String Base_URL = "http://172.30.1.31:4000";
 
     //@@회원가입
     @POST("/insert_app_member")
@@ -36,6 +35,7 @@ public interface RetroApiService {
     //@@앱유저 정보가져오기
     @GET("/getinfo")
     Call<List<Response_Info>> GetInfo(@Query("id") String id);
+
     //@@밴드유저 정보가져오기
     @GET("/getbanduserinfo")
     Call<List<Response_Band_Info>> GetInfo_Band(@Query("index") int index);
