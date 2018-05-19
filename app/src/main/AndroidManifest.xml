@@ -33,6 +33,10 @@
 
         <activity android:name=".activity.MainActivity">
 
+            <intent-filter>
+                <action android:name="OPEN_ACTIVITY"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
 
         </activity>
 

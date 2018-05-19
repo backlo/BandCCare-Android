@@ -57,7 +57,7 @@ public class CustomFirebaseMessagingService extends FirebaseMessagingService {
 
         PendingIntent contentIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT);
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-
+        Log.e("sendNotification","this");
         NotificationCompat.Builder nBuilder = new NotificationCompat.Builder(this,"0")
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setContentTitle(dataMap.get("title"))
