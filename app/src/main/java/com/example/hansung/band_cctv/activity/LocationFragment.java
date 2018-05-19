@@ -183,7 +183,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
 
                 String provider = location.getProvider();
                 Log.e("test", "위치정보 : " + provider + "\n위도 : " + longitude + "\n경도:" + latitude);
-                userLocationMarker.remove();
+            //    userLocationMarker.remove();
                 myPhoneLocation = new LatLng(location.getLatitude(), location.getLongitude());
                 Log.e("location info ->", "" + myPhoneLocation);
                 userLocationMarker = gMap.addMarker(new MarkerOptions().position(myPhoneLocation).title("나의위치").alpha(0.7f).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET)));

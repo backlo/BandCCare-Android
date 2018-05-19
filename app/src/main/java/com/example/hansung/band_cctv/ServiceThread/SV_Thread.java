@@ -17,11 +17,12 @@ public class SV_Thread extends Thread{
     int startindex;
     int sensordata;
     int result;
+    public boolean state1;
 
     public SV_Thread(Handler handler) {
         retroClient = RetroClient.getInstance().createBaseApi();
 
-
+        state1  = true;
         retroClient.GetMaxIndex(new RetroCallback() {
             @Override
             public void onError(Throwable t) {
@@ -80,7 +81,7 @@ public class SV_Thread extends Thread{
 
     @Override
     public void run() {
-        while(true){
+        while(state1 == true){
             Log.e("okokok", String.valueOf(getData()));
             handler.sendEmptyMessage(5);
             try {

@@ -77,7 +77,6 @@
 
         <service android:name=".ServiceThread.SV_Data"/>
 
-
     </application>
 
 </manifest>
