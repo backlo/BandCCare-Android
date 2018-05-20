@@ -13,7 +13,7 @@ import retrofit2.http.POST;
 
 public interface RetroApiService2{
     //final String Base_URL2 = "http://192.168.0.6:5000";
-    final String Base_URL2 = "http://192.168.0.18:4000";
+    final String Base_URL2 = "http://192.168.0.6:5000";
 
 
     //@@PI프로세스 죽이기

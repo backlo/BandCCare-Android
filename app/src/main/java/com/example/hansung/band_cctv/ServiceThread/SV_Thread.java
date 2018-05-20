@@ -7,6 +7,10 @@ import com.example.hansung.band_cctv.Retrofit.Model.Response_MaxIndex;
 import com.example.hansung.band_cctv.Retrofit.Model.Response_Sensor;
 import com.example.hansung.band_cctv.Retrofit.RetroCallback;
 import com.example.hansung.band_cctv.Retrofit.RetroClient;
+import com.example.hansung.band_cctv.Retrofit2.RetroClient2;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class SV_Thread extends Thread{
 
@@ -18,6 +22,8 @@ public class SV_Thread extends Thread{
     int sensordata;
     int result;
     public boolean state1;
+
+    RetroClient2 retroClient2;
 
     public SV_Thread(Handler handler) {
         retroClient = RetroClient.getInstance().createBaseApi();
@@ -33,7 +39,7 @@ public class SV_Thread extends Thread{
             public void onSuccess(int code, Object receivedData) {
                 Response_MaxIndex data = (Response_MaxIndex) receivedData;
                 maxindex = data.getMax();
-                startindex = maxindex - 30;
+                startindex = maxindex - 3;
             }
 
             @Override
@@ -65,6 +71,7 @@ public class SV_Thread extends Thread{
         retroClient.GetSensor(startindex, new RetroCallback() {
             Response_Sensor data;
 
+
             @Override
             public void onError(Throwable t) {}
 
@@ -81,12 +88,37 @@ public class SV_Thread extends Thread{
 
     @Override
     public void run() {
+        int count =0;
         while(state1 == true){
             Log.e("okokok", String.valueOf(getData()));
+            retroClient2 = RetroClient2.getInstance().createBaseApi2();
+            if (getData() > 150 || getData() < 40){
+                count++;
+                if(count == 5){
+                    HashMap<String, Object> alarmmap = new HashMap<>();
+                    alarmmap.put("alarm","alarm");
+                    retroClient2.Send_Alarm(alarmmap, new RetroCallback() {
+                        @Override
+                        public void onError(Throwable t) {
+
+                        }
+                        @Override
+                        public void onSuccess(int code, Object receivedData) {
+                            Log.e("alarm","알람");
+                        }
+
+                        @Override
+                        public void onFailure(int code) {
+                        }
+                    });
+                    count++;
+                }
+            }
+
             handler.sendEmptyMessage(5);
             try {
-                startindex++;
-                Thread.sleep(2000);
+                startindex+=2;
+                Thread.sleep(4000);
             }catch (Exception e){
             }
         }

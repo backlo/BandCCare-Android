@@ -2,6 +2,7 @@ package com.example.hansung.band_cctv.activity;
 
 import android.app.Activity;
 import android.app.ActivityManager;
+import android.app.Service;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -58,6 +59,8 @@ public class MainActivity extends AppCompatActivity {
     HashMap<String, Object> parameter2;
     String noalarm = "noalarm";
     HashMap<String, Object> noalarmmap;
+    PulseFragment pulseFragment= PulseFragment.getInstance();
+
 
     public static MainActivity getInstance() {
         if (instance == null)
@@ -121,6 +124,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
 
         retroClient2.Send_Alarm(noalarmmap, new RetroCallback() {
             @Override
@@ -192,7 +196,10 @@ public class MainActivity extends AppCompatActivity {
                         break;
 
                     case R.id.navigation_logout:
-                        stopService(intent2);
+                        if(isServiceRunningCheck() == true) {
+                            stopService(intent2);
+                        }
+                        pulseFragment.stopThread();
                         intent = new Intent(getApplicationContext(), LoginActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent);
@@ -216,25 +223,36 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Log.e("main ondestroy", "destroy");
-        retroClient2.Exit_PI(parameter, new RetroCallback() {
-            @Override
-            public void onError(Throwable t) {
+    }
 
-            }
+    @Override
+    protected void onStart() {
+        Log.e("zxc","start");
+        super.onStart();
+    }
 
-            @Override
-            public void onSuccess(int code, Object receivedData) {
-                Request_exit_PI data = (Request_exit_PI) receivedData;
-                Log.e("exit data@@", data.getExit());
-            }
+    @Override
+    protected void onRestart() {
+        stopService(intent2);
+        super.onRestart();
+    }
 
-            @Override
-            public void onFailure(int code) {
+    @Override
+    protected void onResume() {
+        Log.e("zxc","resume");
+        super.onResume();
+    }
 
-            }
-        });
+    @Override
+    protected void onPause() {
+        Log.e("zxc","pause");
+        super.onPause();
+    }
 
+    @Override
+    protected void onStop() {
+        Log.e("zxc","stop");
+        super.onStop();
     }
 
     @Override
@@ -274,12 +292,28 @@ public class MainActivity extends AppCompatActivity {
         alert_ex.setNegativeButton("취소", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-
             }
         });
         alert_ex.setPositiveButton("종료", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
+                retroClient2.Exit_PI(parameter, new RetroCallback() {
+                    @Override
+                    public void onError(Throwable t) {
+
+                    }
+
+                    @Override
+                    public void onSuccess(int code, Object receivedData) {
+                        Request_exit_PI data = (Request_exit_PI) receivedData;
+                        Log.e("exit data@@", data.getExit());
+                    }
+
+                    @Override
+                    public void onFailure(int code) {
+                    }
+                });
+
                 if(!isServiceRunningCheck()) {
                     Log.e("okok","중복 아님요~");
                     startService(intent2);
@@ -287,6 +321,7 @@ public class MainActivity extends AppCompatActivity {
                 else{
                     Log.e("okok","중복 임요~");
                 }
+                pulseFragment.stopThread();
                 finishAffinity();
             }
         });
@@ -295,9 +330,28 @@ public class MainActivity extends AppCompatActivity {
         alert.show();
     }
 
-
     @Override
     protected void onUserLeaveHint() {
+
+        Log.e("main ondestroy", "destroy");
+        retroClient2.Exit_PI(parameter, new RetroCallback() {
+            @Override
+            public void onError(Throwable t) {
+
+            }
+
+            @Override
+            public void onSuccess(int code, Object receivedData) {
+                Request_exit_PI data = (Request_exit_PI) receivedData;
+                Log.e("exit data@@", data.getExit());
+            }
+
+            @Override
+            public void onFailure(int code) {
+            }
+        });
+        pulseFragment.stopThread();
+
         Log.e("okok","홈키 눌렀다!!");
         if(!isServiceRunningCheck()) {
             Log.e("okok","중복 아님요~");
@@ -312,13 +366,11 @@ public class MainActivity extends AppCompatActivity {
     public boolean isServiceRunningCheck() {
         ActivityManager manager = (ActivityManager) this.getSystemService(Activity.ACTIVITY_SERVICE);
         for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
-            Log.e("okok111111",service.service.getClassName());
             if ("com.example.hansung.band_cctv.ServiceThread.SV_Data".equals(service.service.getClassName())) {
                 return true;
             }
         }
         return false;
     }
-
 }
 

@@ -76,11 +76,35 @@ public class PulseFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-
         DataThread thread = new DataThread();
         thread.setDaemon(true);
         thread.start();
-        Log.e("onstart@@@@@@","@@@@@@@@@@");
+        Log.e("zxcvb","@@@@@@@@@@");
+    }
+
+    @Override
+    public void onResume() {
+        Log.e("zxcvb", "onresume");
+        super.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        Log.e("zxcvb", "onpause");
+        super.onPause();
+    }
+
+    @Override
+    public void onStop() {
+        Log.e("zxcvb", "onstop");
+        super.onStop();
+    }
+
+    @Override
+    public void onDestroyView() {
+        Log.e("zxcvb", "ondestroy");
+        //  state = false;
+        super.onDestroyView();
     }
 
     @Override
@@ -105,6 +129,7 @@ public class PulseFragment extends Fragment {
         String getTime = sdf.format(date);
         today_tv = view.findViewById(R.id.today_tv);
         today_tv.setText(getTime);
+
 //
 //        DataThread thread = new DataThread();
 //        thread.setDaemon(true);
@@ -233,7 +258,7 @@ public class PulseFragment extends Fragment {
         dataview.setText(String.valueOf(getData()));
     }
 
-    class Myhandler extends Handler{
+    /*class Myhandler extends Handler{
         @Override
         public void handleMessage(Message msg) {
             if(msg.what == 2 ){
@@ -245,7 +270,7 @@ public class PulseFragment extends Fragment {
                 xindexstart++;
             }
         }
-    }
+    }*/
 
      Handler handler = new Handler(){
         @Override
@@ -255,7 +280,7 @@ public class PulseFragment extends Fragment {
                 chartUpdate(startIndex);
                 Log.e("심박테이블 Index ->", String.valueOf(startIndex));
                 xindex++;
-                startIndex++;
+                startIndex+=2;
                 xindexstart++;
             }
         }
@@ -272,7 +297,7 @@ public class PulseFragment extends Fragment {
                 Log.e("thread", "@@@@@@@@@@");
                 handler.sendEmptyMessage(0);
                 try {
-                    Thread.sleep(2000);
+                    Thread.sleep(4000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -308,12 +333,7 @@ public class PulseFragment extends Fragment {
         }
     }
 
-    @Override
-    public void onDestroyView() {
-        Log.e("okokok", "야임마!!");
+    public void stopThread(){
         state = false;
-        super.onDestroyView();
     }
-
-
 }
