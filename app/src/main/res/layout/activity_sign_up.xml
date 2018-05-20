@@ -6,6 +6,7 @@
     android:orientation="vertical"
     android:gravity="center"
     tools:context=".login.SignUpActivity"
+    android:background="@color/colorPrimary"
     android:theme="@style/AppTheme"
     >
 
@@ -23,15 +24,22 @@
             android:id="@+id/pre_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="10dp"
             android:layout_weight="1"
-            android:text="이전" />
+            android:background="@drawable/login_btn"
+            android:text="이전"
+            android:textColor="@color/colorAccent" />
 
         <Button
             android:id="@+id/next_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="10dp"
             android:layout_weight="1"
-            android:text="다음" />
+
+            android:background="@drawable/login_btn"
+            android:text="다음"
+            android:textColor="@color/colorPrimary" />
     </LinearLayout>
 
 </LinearLayout>

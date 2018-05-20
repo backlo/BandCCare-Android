@@ -256,6 +256,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
             public void onError(Throwable t) {
 
             }
+            //
 
             @Override
             public void onSuccess(int code, Object receivedData) {
