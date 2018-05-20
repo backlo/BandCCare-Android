@@ -12,12 +12,21 @@ import android.util.Log;
 public class SV_Data extends Service{
 
         MyHandler myHandler;
+        SV_Thread sv_thread;
+
 
     public SV_Data() {
+        Log.e("okokok","생성자 생성!!");
+
+    }
+
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
         myHandler = new MyHandler();
-        SV_Thread sv_thread = new SV_Thread(myHandler);
+        sv_thread = new SV_Thread(myHandler);
         sv_thread.setDaemon(true);
         sv_thread.start();
+        return super.onStartCommand(intent, flags, startId);
     }
 
     @Nullable
@@ -31,11 +40,16 @@ public class SV_Data extends Service{
         @Override
         public void handleMessage(Message msg) {
 
-            if(msg.what == 0){
+            if(msg.what == 5){
                 Log.e("okokok","adfiuewhfkjasnc");
             }
 
         }
     }
 
+    @Override
+    public void onDestroy() {
+        sv_thread.state1 = false;
+        super.onDestroy();
+    }
 }

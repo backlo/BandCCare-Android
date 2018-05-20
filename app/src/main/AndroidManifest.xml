@@ -33,12 +33,18 @@
 
         <activity android:name=".activity.MainActivity">
 
+            <intent-filter>
+                <action android:name="OPEN_ACTIVITY"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+
         </activity>
 
         <activity
             android:name=".login.LoginActivity"
             android:label="@string/title_activity_login"
             android:theme="@style/AppTheme.NoActionBar">
+
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -72,8 +78,8 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT"/>
             </intent-filter>
         </service>
-        <service android:name=".ServiceThread.SV_Data"/>
 
+        <service android:name=".ServiceThread.SV_Data"/>
 
     </application>
 

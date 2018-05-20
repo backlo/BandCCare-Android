@@ -14,7 +14,6 @@ import com.example.hansung.band_cctv.activity.VideoFragment;
 import com.example.hansung.band_cctv.login.LoginActivity;
 
 public class MyPagerAdapter extends FragmentPagerAdapter {
-    MainActivity mainActivity = MainActivity.getInstance();
 
     private static int PAGE_NUM = 3;
 
@@ -27,11 +26,8 @@ public class MyPagerAdapter extends FragmentPagerAdapter {
 
         switch (position) {
             case 0:
-                if (mainActivity.getIsAppUser()) {
-                    return VideoFragment.getInstance();
-                } else {
-                    return BlankFragment.getInstance();
-                }
+                //return VideoFragment.getInstance();
+                return BlankFragment.getInstance();
             case 1:
                 return PulseFragment.getInstance();
             case 2:
@@ -45,11 +41,7 @@ public class MyPagerAdapter extends FragmentPagerAdapter {
     public String getPageTitle(int position) {
         switch (position) {
             case 0:
-                if (mainActivity.getIsAppUser()) {
-                    return "VIDEO";
-                } else {
-                    return "BLANK";
-                }
+                return "VIDEO";
             case 1:
                 return "PULSE";
             case 2:
@@ -62,11 +54,7 @@ public class MyPagerAdapter extends FragmentPagerAdapter {
     public int getIcon(int position) {
         switch (position) {
             case 0:
-                if (mainActivity.getIsAppUser()) {
-                    return R.drawable.tab_video;
-                } else {
-                    return R.mipmap.ic_launcher;
-                }
+                return R.drawable.tab_video;
             case 1:
                 return R.drawable.tab_pulse;
             case 2:

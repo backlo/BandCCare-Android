@@ -26,17 +26,17 @@ public class CustomFirebaseMessagingService extends FirebaseMessagingService {
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
         retroClient2 = RetroClient2.getInstance().createBaseApi2();
-        Map<String, String> pushDataMap = remoteMessage.getData();
-        sendalaramdata();
-        sendNotification(pushDataMap);
-    }
 
-    public void sendalaramdata(){
+        Map<String, String> pushDataMap = remoteMessage.getData();
+
+        Log.e("alarm","메세지333333!!!!");
         HashMap<String, Object> alarmmap = new HashMap<>();
         alarmmap.put("alarm","alarm");
         retroClient2.Send_Alarm(alarmmap, new RetroCallback() {
             @Override
             public void onError(Throwable t) {
+                Log.e("alarm","123123123!!!!");
+
             }
             @Override
             public void onSuccess(int code, Object receivedData) {
@@ -45,10 +45,13 @@ public class CustomFirebaseMessagingService extends FirebaseMessagingService {
 
             @Override
             public void onFailure(int code) {
+                Log.e("alarm","okokokok!!!!");
 
             }
         });
 
+
+        sendNotification(pushDataMap);
     }
 
     private void sendNotification(Map<String, String> dataMap) {
@@ -57,6 +60,7 @@ public class CustomFirebaseMessagingService extends FirebaseMessagingService {
 
         PendingIntent contentIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT);
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+        Log.e("sendNotification","this");
 
         NotificationCompat.Builder nBuilder = new NotificationCompat.Builder(this,"0")
                 .setSmallIcon(R.mipmap.ic_launcher)

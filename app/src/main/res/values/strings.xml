@@ -29,10 +29,8 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <!--String related to navigation Drawer-->
-    <string name="nav_menu_item1">App User Info</string>
-    <string name="nav_menu_item2">Band User Info</string>
-    <string name="nav_menu_item3">Device Info</string>
+    <string name="nav_menu_myPage">My Page</string>
     <string name="nav_menu_logout">Logout</string>
-    <string name="drawer_header_text">Drawer Header</string>
+    <string name="drawer_header_text">보호자 전용 어플입니다.</string>
 
 </resources>

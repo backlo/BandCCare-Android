@@ -9,13 +9,16 @@
     android:theme="@style/AppTheme"
     tools:context=".activity.LocationFragment">
 
-    <!--<com.google.android.gms.maps.MapView-->
-        <!--android:id="@+id/map"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="450dp"-->
-        <!--android:name="com.google.android.gms.maps.MapFragment"/>-->
+    <com.google.android.gms.maps.MapView
+        android:id="@+id/map"
+        android:layout_width="match_parent"
+        android:layout_height="500dp"
+        android:name="com.google.android.gms.maps.MapFragment"/>
 
-
-
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="착용자 위치 찾기"
+        android:id="@+id/band_location_btn"/>
 
 </LinearLayout>

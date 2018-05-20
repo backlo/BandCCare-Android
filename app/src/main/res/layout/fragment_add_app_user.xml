@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginTop="20dp"
+    android:background="@color/colorPrimary"
     android:gravity="center"
     android:orientation="vertical"
     android:padding="20dp"
@@ -26,7 +27,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="30dp"
-                android:text="본인(APP 사용자) 정보를 입력하세요." />
+                android:layout_gravity="center_horizontal"
+                android:text="보호자 정보를 입력하세요."
+                android:textColor="@color/white" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -37,7 +40,9 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="ID" />
+                    android:text="I D"
+
+                    android:textColor="@color/white" />
 
                 <EditText
                     android:id="@+id/id_et"
@@ -56,7 +61,8 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Password" />
+                    android:text="P A S S W O R D"
+                    android:textColor="@color/white" />
 
                 <EditText
                     android:id="@+id/pw_et"
@@ -75,7 +81,9 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Phone Number" />
+                    android:textColor="@color/white"
+
+                    android:text="P H O N E  N U M B E R" />
 
                 <EditText
                     android:id="@+id/phone_et"
@@ -94,7 +102,9 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Birthday" />
+                    android:textColor="@color/white"
+
+                    android:text="D A T E  O F  B I R T H" />
 
                 <EditText
                     android:id="@+id/birthday_et"

@@ -49,6 +49,7 @@ public class PulseFragment extends Fragment {
     public Response_MaxIndex data;
     public static int maxIndex;
     public static int startIndex;
+    public boolean state = true;
 
     RetroClient retroClient;
     public int xindexstart = 0;
@@ -62,12 +63,48 @@ public class PulseFragment extends Fragment {
     int result;
     String time_result;
     TextView today_tv;
+    ArrayList<LineDataSet> dataSets;
 
 
     public static PulseFragment getInstance() {
         if (instance == null)
             instance = new PulseFragment();
         return instance;
+    }
+
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        DataThread thread = new DataThread();
+        thread.setDaemon(true);
+        thread.start();
+        Log.e("zxcvb","@@@@@@@@@@");
+    }
+
+    @Override
+    public void onResume() {
+        Log.e("zxcvb", "onresume");
+        super.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        Log.e("zxcvb", "onpause");
+        super.onPause();
+    }
+
+    @Override
+    public void onStop() {
+        Log.e("zxcvb", "onstop");
+        super.onStop();
+    }
+
+    @Override
+    public void onDestroyView() {
+        Log.e("zxcvb", "ondestroy");
+        //  state = false;
+        super.onDestroyView();
     }
 
     @Override
@@ -84,6 +121,8 @@ public class PulseFragment extends Fragment {
         GlideDrawableImageViewTarget gifImage = new GlideDrawableImageViewTarget(rabbit);
         Glide.with(this).load(R.drawable.heart).into(gifImage);
 
+        Log.e("thread oncreateview","@@@@@@@@@@");
+
         long now = System.currentTimeMillis();
         Date date = new Date(now);
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy년 MM월 dd일");
@@ -91,11 +130,10 @@ public class PulseFragment extends Fragment {
         today_tv = view.findViewById(R.id.today_tv);
         today_tv.setText(getTime);
 
-
-
-        DataThread thread = new DataThread();
-        thread.setDaemon(true);
-        thread.start();
+//
+//        DataThread thread = new DataThread();
+//        thread.setDaemon(true);
+//        thread.start();
 
         retroClient.GetMaxIndex(new RetroCallback() {
             @Override
@@ -113,7 +151,7 @@ public class PulseFragment extends Fragment {
         });
 
         entries = new ArrayList<>();
-        //entries.add(new Entry(0,0));
+        entries.add(new Entry(0,0));
 
         LineDataSet lineDataSet = new LineDataSet(entries, "심박수(heart rate)");
         lineDataSet.setLineWidth(1);
@@ -128,7 +166,7 @@ public class PulseFragment extends Fragment {
         lineDataSet.setDrawValues(false);
         lineDataSet.setDrawFilled(false);
 
-        ArrayList<LineDataSet> dataSets = new ArrayList<>();
+        dataSets = new ArrayList<>();
         dataSets.add(lineDataSet);
 
         IAxisValueFormatter myformat = new HourAxisValueFormatter();
@@ -220,7 +258,7 @@ public class PulseFragment extends Fragment {
         dataview.setText(String.valueOf(getData()));
     }
 
-    class Myhandler extends Handler{
+    /*class Myhandler extends Handler{
         @Override
         public void handleMessage(Message msg) {
             if(msg.what == 2 ){
@@ -232,7 +270,7 @@ public class PulseFragment extends Fragment {
                 xindexstart++;
             }
         }
-    }
+    }*/
 
      Handler handler = new Handler(){
         @Override
@@ -242,25 +280,32 @@ public class PulseFragment extends Fragment {
                 chartUpdate(startIndex);
                 Log.e("심박테이블 Index ->", String.valueOf(startIndex));
                 xindex++;
-                startIndex++;
+                startIndex+=2;
                 xindexstart++;
             }
         }
     };
-    public class DataThread extends Thread{
-    @Override
+    public class DataThread extends Thread {
+        public DataThread() {
+            state = true;
+            Log.e("okokok", "나 또불림!!!!!!!");
+        }
+
+        @Override
         public void run() {
-            while(true){
+            while (state == true) {
+                Log.e("thread", "@@@@@@@@@@");
                 handler.sendEmptyMessage(0);
-                try{
-                    Thread.sleep(2000);
-                }catch (InterruptedException e){
+                try {
+                    Thread.sleep(4000);
+                } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
             }
         }
     }
-    public String getTime(){
+
+    public String getTime() {
         mNow = System.currentTimeMillis();
         mDate = new Date(mNow);
         return dateFormat.format(mDate);
@@ -288,4 +333,7 @@ public class PulseFragment extends Fragment {
         }
     }
 
+    public void stopThread(){
+        state = false;
+    }
 }
