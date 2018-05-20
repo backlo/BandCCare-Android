@@ -29,8 +29,6 @@ public class LoginActivity extends AppCompatActivity {
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
 
-    public static Boolean isAppUser;
-
     RetroClient retroClient;
     Intent intent1;
 
@@ -66,70 +64,22 @@ public class LoginActivity extends AppCompatActivity {
         editText_pw = findViewById(R.id.login_pw_et);
 
         Button signUp_btn = findViewById(R.id.signUp_btn);
-        Button login_app_btn = findViewById(R.id.login_app_btn);
-        Button login_band_btn = findViewById(R.id.login_band_btn);
-
-        username_img = (ImageView) findViewById(R.id.username_img);
-        password_img = (ImageView) findViewById(R.id.password_img);
-
-        editText_id.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (editText_id.getText().toString().length() == 0) {
-                    username_img.setImageResource(R.drawable.username);
-                } else {
-                    username_img.setImageResource(R.drawable.username_full);
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-        editText_pw.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (editText_pw.getText().toString().length() == 0) {
-                    password_img.setImageResource(R.drawable.password);
-                } else {
-                    password_img.setImageResource(R.drawable.password_full);
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
+        Button login_btn = findViewById(R.id.login_btn);
 
         retroClient = RetroClient.getInstance().createBaseApi();
 
         parameter.put("AppUserInfo_id", editText_id.getText().toString());
         parameter.put("AppUserInfo_password", editText_pw.getText().toString());
 
-        login_app_btn.setOnClickListener(new View.OnClickListener() {
+        login_btn.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
                 // 서버 안통할때 용 코드 (지우지마세용)
-
-//                isAppUser = true;
-//                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-//                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//                intent.putExtra("isAppUser", isAppUser);
-//                startActivity(intent);
-//                Toast.makeText(LoginActivity.this, "" + isAppUser, Toast.LENGTH_SHORT).show();
+/*
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);*/
 
                 parameter.put("AppUserInfo_id", editText_id.getText().toString());
                 parameter.put("AppUserInfo_password", editText_pw.getText().toString());
@@ -148,11 +98,7 @@ public class LoginActivity extends AppCompatActivity {
                        Response_Login data = (Response_Login) receivedData;
                         Log.e("login get data", "data->" + data.getSuccess());
                         if (data.getSuccess().equals("success")) {
-                            isAppUser = true;
-                            Toast.makeText(LoginActivity.this, "" + isAppUser, Toast.LENGTH_SHORT).show();
-
                             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                            intent.putExtra("isAppUser", isAppUser);
                               intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             startActivity(intent);
 
@@ -168,6 +114,7 @@ public class LoginActivity extends AppCompatActivity {
                             }
                             sharedPreferences = getSharedPreferences("logininfo", MODE_PRIVATE);
                             id = sharedPreferences.getString("id", "null");
+
 
                             HashMap<String, Object> tokenmap = new HashMap<>();
                             tokenmap.put("user_id",id);

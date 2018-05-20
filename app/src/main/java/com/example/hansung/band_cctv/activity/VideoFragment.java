@@ -214,4 +214,3 @@ public class VideoFragment extends Fragment {
         return view;
     }
 }
-

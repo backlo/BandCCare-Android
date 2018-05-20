@@ -49,7 +49,6 @@ public class PulseFragment extends Fragment {
     public Response_MaxIndex data;
     public static int maxIndex;
     public static int startIndex;
-    public boolean state = true;
 
     RetroClient retroClient;
     public int xindexstart = 0;
@@ -63,24 +62,12 @@ public class PulseFragment extends Fragment {
     int result;
     String time_result;
     TextView today_tv;
-    ArrayList<LineDataSet> dataSets;
 
 
     public static PulseFragment getInstance() {
         if (instance == null)
             instance = new PulseFragment();
         return instance;
-    }
-
-
-    @Override
-    public void onStart() {
-        super.onStart();
-
-        DataThread thread = new DataThread();
-        thread.setDaemon(true);
-        thread.start();
-        Log.e("onstart@@@@@@","@@@@@@@@@@");
     }
 
     @Override
@@ -97,18 +84,18 @@ public class PulseFragment extends Fragment {
         GlideDrawableImageViewTarget gifImage = new GlideDrawableImageViewTarget(rabbit);
         Glide.with(this).load(R.drawable.heart).into(gifImage);
 
-        Log.e("thread oncreateview","@@@@@@@@@@");
-
         long now = System.currentTimeMillis();
         Date date = new Date(now);
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy년 MM월 dd일");
         String getTime = sdf.format(date);
         today_tv = view.findViewById(R.id.today_tv);
         today_tv.setText(getTime);
-//
-//        DataThread thread = new DataThread();
-//        thread.setDaemon(true);
-//        thread.start();
+
+
+
+        DataThread thread = new DataThread();
+        thread.setDaemon(true);
+        thread.start();
 
         retroClient.GetMaxIndex(new RetroCallback() {
             @Override
@@ -126,7 +113,8 @@ public class PulseFragment extends Fragment {
         });
 
         entries = new ArrayList<>();
-        entries.add(new Entry(0,0));
+        //entries.add(new Entry(0,0));
+
 
         LineDataSet lineDataSet = new LineDataSet(entries, "심박수(heart rate)");
         lineDataSet.setLineWidth(1);
@@ -140,8 +128,7 @@ public class PulseFragment extends Fragment {
         lineDataSet.setDrawHighlightIndicators(true);
         lineDataSet.setDrawValues(false);
         lineDataSet.setDrawFilled(false);
-
-        dataSets = new ArrayList<>();
+        ArrayList<LineDataSet> dataSets = new ArrayList<>();
         dataSets.add(lineDataSet);
 
         IAxisValueFormatter myformat = new HourAxisValueFormatter();
@@ -153,7 +140,7 @@ public class PulseFragment extends Fragment {
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setTextColor(Color.BLACK);
         xAxis.setAvoidFirstLastClipping(true);
-        xAxis.setAxisMaximum(maxIndex+100);
+        //xAxis.setAxisMaximum(200);
         xAxis.setDrawAxisLine(true);
         xAxis.setAxisMinimum(0);
         xAxis.setValueFormatter(myformat);
@@ -176,6 +163,7 @@ public class PulseFragment extends Fragment {
         yRAxis.setDrawLabels(false);
         yRAxis.setDrawAxisLine(false);
         yRAxis.setDrawGridLines(false);
+
         Description description = new Description();
         description.setText("현재시간(분:초)");
 
@@ -184,10 +172,9 @@ public class PulseFragment extends Fragment {
         lineChart.setAutoScaleMinMaxEnabled(true);
         lineChart.notifyDataSetChanged();
         lineChart.setDescription(description);
-        //lineChart.moveViewTo(maxIndex,getData(),YAxis.AxisDependency.LEFT);
-        lineChart.setBackgroundColor(Color.parseColor("#FFBCB6B3"));
+        lineChart.setBackgroundColor(Color.parseColor("#FFFFFFFF"));
         lineChart.animateY(2000, Easing.EasingOption.EaseInElastic);
-        lineChart.zoom((float) 1.2,1,0,0);
+        lineChart.zoom((float) 1.2, 1, 0, 0);
 
         return view;
     }
@@ -247,7 +234,7 @@ public class PulseFragment extends Fragment {
         }
     }
 
-     Handler handler = new Handler(){
+    Handler handler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
             if(msg.what == 0 ){
@@ -260,27 +247,20 @@ public class PulseFragment extends Fragment {
             }
         }
     };
-    public class DataThread extends Thread {
-        public DataThread() {
-            state = true;
-            Log.e("okokok", "나 또불림!!!!!!!");
-        }
-
+    public class DataThread extends Thread{
         @Override
         public void run() {
-            while (state == true) {
-                Log.e("thread", "@@@@@@@@@@");
+            while(true){
                 handler.sendEmptyMessage(0);
-                try {
+                try{
                     Thread.sleep(2000);
-                } catch (InterruptedException e) {
+                }catch (InterruptedException e){
                     e.printStackTrace();
                 }
             }
         }
     }
-
-    public String getTime() {
+    public String getTime(){
         mNow = System.currentTimeMillis();
         mDate = new Date(mNow);
         return dateFormat.format(mDate);
@@ -307,13 +287,5 @@ public class PulseFragment extends Fragment {
             return mDataFormat.format(mDate);
         }
     }
-
-    @Override
-    public void onDestroyView() {
-        Log.e("okokok", "야임마!!");
-        state = false;
-        super.onDestroyView();
-    }
-
 
 }

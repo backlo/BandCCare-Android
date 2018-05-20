@@ -11,6 +11,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -89,27 +91,9 @@ public class InfoActivity extends AppCompatActivity {
                 int id = menuItem.getItemId();
                 Intent intent;
                 switch (id) {
-                    case R.id.navigation_item1:
-                        Toast.makeText(InfoActivity.this, "App user info", Toast.LENGTH_LONG).show();
+                    case R.id.navigation_myPage:
                         intent = new Intent(getApplicationContext(), InfoActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-                        intent.putExtra("info", 1);
-                        startActivity(intent);
-                        break;
-
-                    case R.id.navigation_item2:
-                        Toast.makeText(InfoActivity.this, "band user info", Toast.LENGTH_LONG).show();
-                        intent = new Intent(getApplicationContext(), InfoActivity.class);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-                        intent.putExtra("info", 2);
-                        startActivity(intent);
-                        break;
-
-                    case R.id.navigation_item3:
-                        Toast.makeText(InfoActivity.this, "device info", Toast.LENGTH_LONG).show();
-                        intent = new Intent(getApplicationContext(), InfoActivity.class);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-                        intent.putExtra("info", 3);
                         startActivity(intent);
                         break;
 
@@ -118,6 +102,7 @@ public class InfoActivity extends AppCompatActivity {
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent);
                         break;
+
                 }
                 return true;
             }
@@ -153,7 +138,6 @@ public class InfoActivity extends AppCompatActivity {
                         Log.e("band user phone->", "" + bandInfoArrayList.get(0).getBandUserInfo_phone());
                         Log.e("band user sex->", "" + bandInfoArrayList.get(0).getBandUserInfo_sex());
 
-
                         app_info_id = infoArrayList.get(0).getAppUserInfo_id();
 
                         app_id_tv.setText(infoArrayList.get(0).AppUserInfo_id);
@@ -171,6 +155,7 @@ public class InfoActivity extends AppCompatActivity {
                     public void onFailure(int code) {
                     }
                 });
+
 
 
                 camera_tv = (TextView) findViewById(R.id.camera_tv);
