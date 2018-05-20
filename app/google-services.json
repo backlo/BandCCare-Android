@@ -15,6 +15,22 @@
       },
       "oauth_client": [
         {
+          "client_id": "597021784266-44glqqn24617smudoqmc8ufj6f1etgn0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.hansung.band_cctv",
+            "certificate_hash": "96eed733f97234d482cd7bb229d5b1d21a43c68c"
+          }
+        },
+        {
+          "client_id": "597021784266-gprq3o2fj2dk1mdu9j9lpcitbglbf5fo.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.hansung.band_cctv",
+            "certificate_hash": "41d47f41333f7158c11e7329432180596c2621d1"
+          }
+        },
+        {
           "client_id": "597021784266-l3b6c79vq9ko7q3tgbb9jde63r2kdusj.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
@@ -27,9 +43,11 @@
           "client_type": 3
         }
       ],
-      "api_key": [{
-        "current_key": "AIzaSyDqgtx2k_lGw9EUaJUQsMqxPS8BTqR0zkU"
-      }],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBapSPc6-oKIZdKwWTRtVA5AEEH8VdKVDw"
+        }
+      ],
       "services": {
         "analytics_service": {
           "status": 1
