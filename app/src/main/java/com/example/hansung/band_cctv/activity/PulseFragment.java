@@ -176,6 +176,7 @@ public class PulseFragment extends Fragment {
         yRAxis.setDrawLabels(false);
         yRAxis.setDrawAxisLine(false);
         yRAxis.setDrawGridLines(false);
+
         Description description = new Description();
         description.setText("현재시간(분:초)");
 
@@ -184,8 +185,7 @@ public class PulseFragment extends Fragment {
         lineChart.setAutoScaleMinMaxEnabled(true);
         lineChart.notifyDataSetChanged();
         lineChart.setDescription(description);
-        //lineChart.moveViewTo(maxIndex,getData(),YAxis.AxisDependency.LEFT);
-        lineChart.setBackgroundColor(Color.parseColor("#FFBCB6B3"));
+        lineChart.setBackgroundColor(Color.parseColor("#FFFFFFFF"));
         lineChart.animateY(2000, Easing.EasingOption.EaseInElastic);
         lineChart.zoom((float) 1.2,1,0,0);
 
