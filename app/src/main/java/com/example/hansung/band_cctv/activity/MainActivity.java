@@ -1,14 +1,18 @@
 package com.example.hansung.band_cctv.activity;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -37,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
     public static Boolean isAppUser;
     public static boolean sv_state = true;
     public static MainActivity instance;
-    // public static MyHandler myHandler;
+
     private DrawerLayout mDrawerLayout;
     RetroClient2 retroClient2;
     RetroClient retroClient;
@@ -71,6 +75,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         noalarmmap = new HashMap<>();
         noalarmmap.put("alarm", noalarm);
+        checkDalogAlert();
         retroClient2 = RetroClient2.getInstance().createBaseApi2();
         retroClient = RetroClient.getInstance().createBaseApi();
         intent2 = new Intent(getApplicationContext(), SV_Data.class);
@@ -139,7 +144,6 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-        //myHandler = new MyHandler();
         mPagerAdapter = new MyPagerAdapter(getSupportFragmentManager());
         mViewPager = findViewById(R.id.viewpager);
         mViewPager.setAdapter(mPagerAdapter);
@@ -192,47 +196,10 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
- /*   public class MyHandler extends Handler {
-
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-        }
-    }*/
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-    }
-
-    @Override
-    protected void onStart() {
-        Log.e("zxc","start");
-        super.onStart();
-    }
-
     @Override
     protected void onRestart() {
         stopService(intent2);
         super.onRestart();
-    }
-
-    @Override
-    protected void onResume() {
-        Log.e("zxc","resume");
-        super.onResume();
-    }
-
-    @Override
-    protected void onPause() {
-        Log.e("zxc","pause");
-        super.onPause();
-    }
-
-    @Override
-    protected void onStop() {
-        Log.e("zxc","stop");
-        super.onStop();
     }
 
     @Override
@@ -351,6 +318,31 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         return false;
+    }
+
+    public void checkDalogAlert(){
+
+        if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.CALL_PHONE) == PackageManager.PERMISSION_DENIED ||
+                ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_DENIED ||
+                ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED ||
+                ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.GET_ACCOUNTS) == PackageManager.PERMISSION_DENIED) {
+
+            new android.app.AlertDialog.Builder(this).setTitle("알림").setMessage("권한을 허용해주셔야 앱을 이용할 수 있습니다.")
+                    .setPositiveButton("종료", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                            finish();
+                        }
+                    }).setNegativeButton("권한 설정", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                    Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).setData(Uri.parse("package:" + getApplicationContext().getPackageName()));
+                    getApplicationContext().startActivity(intent);
+                }
+            }).setCancelable(false).show();
+
+        } else {
+        }
     }
 }
 

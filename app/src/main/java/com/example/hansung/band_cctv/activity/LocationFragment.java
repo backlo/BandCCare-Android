@@ -1,26 +1,15 @@
 package com.example.hansung.band_cctv.activity;
 
 import android.Manifest;
-import android.annotation.TargetApi;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
-import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,7 +20,6 @@ import com.example.hansung.band_cctv.R;
 import com.example.hansung.band_cctv.Retrofit.Model.Response_Location;
 import com.example.hansung.band_cctv.Retrofit.RetroCallback;
 import com.example.hansung.band_cctv.Retrofit.RetroClient;
-import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -53,12 +41,11 @@ import pub.devrel.easypermissions.EasyPermissions;
 
 import static android.content.Context.LOCATION_SERVICE;
 
-public class LocationFragment extends Fragment implements OnMapReadyCallback {
+public class LocationFragment extends Fragment implements OnMapReadyCallback{
     private static LocationFragment instance;
 
     RetroClient retroClient;
 
-    private GoogleApiClient mGoogleApiClient;
     private MapView mapView = null;
     private LatLng myPhoneLocation;
     private LatLng banduserLocation;
@@ -67,8 +54,6 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
     private HashMap<String, Double> locationmap;
     private Marker currentLocationMaker;
     private Marker userLocationMarker;
-    private AppCompatActivity mActivity;
-    boolean askPermissionOnceAgain = false;
 
     double longitude;
     double latitude;
@@ -76,8 +61,6 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
 
     private FusedLocationProviderClient gFusedLocationClient;
     private static final int RC_LOCATION = 1;
-    private static final int GPS_ENABLE_REQUEST_CODE = 2001;
-    private static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 2002;
 
     public static LocationFragment getInstance() {
         if (instance == null)
@@ -128,8 +111,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
     @Override
     public void onMapReady(final GoogleMap googleMap) {
         gMap = googleMap;
-        showDialogForLocationServiceSetting();
-        Log.e("onmapready", "onmapready");
+        Log.e("map", "onmapready");
         String[] perms = {Manifest.permission.ACCESS_FINE_LOCATION};
         if (EasyPermissions.hasPermissions(getActivity(), perms)) {
             gFusedLocationClient.getLastLocation().addOnCompleteListener(getActivity(), new OnCompleteListener<Location>() {
@@ -199,10 +181,12 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
             public void onLocationChanged(Location location) {
                 longitude = location.getLongitude();
                 latitude = location.getLatitude();
-
+                Log.e("map", "atlocationchange");
                 String provider = location.getProvider();
                 Log.e("test", "위치정보 : " + provider + "\n위도 : " + longitude + "\n경도:" + latitude);
-            //    userLocationMarker.remove();
+                if(myPhoneLocation != null){
+                    userLocationMarker.remove();
+                }
                 myPhoneLocation = new LatLng(location.getLatitude(), location.getLongitude());
                 Log.e("location info ->", "" + myPhoneLocation);
                 userLocationMarker = gMap.addMarker(new MarkerOptions().position(myPhoneLocation).title("나의위치").alpha(0.7f).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET)));
@@ -244,15 +228,11 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
     public void getLocation() {
         retroClient.Get_Location(new RetroCallback() {
             @Override
-            public void onError(Throwable t) {
-
-            }
-            //
-
+            public void onError(Throwable t){}
             @Override
             public void onSuccess(int code, Object receivedData) {
                 ArrayList<Response_Location> data = (ArrayList<Response_Location>) receivedData;
-                Log.e("test!!!!", "" + data.get(0).getLatitude() + "," + data.get(0).getLongitude());
+                Log.e("BandUserGPS: ", "" + data.get(0).getLatitude() + "," + data.get(0).getLongitude());
                 banduserLocation = new LatLng(data.get(0).getLatitude(), data.get(0).getLongitude());
             }
 
@@ -286,163 +266,4 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
         }
     }
 
-    private void showDialogForLocationServiceSetting() {
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        builder.setTitle("위치 서비스 비활성화");
-        builder.setMessage("앱을 사용하기 위해서는 위치 서비스가 필요합니다.\n"
-                + "위치 설정을 수정하실래요?");
-        builder.setCancelable(true);
-        builder.setPositiveButton("설정", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int id) {
-                Intent callGPSSettingIntent
-                        = new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                startActivityForResult(callGPSSettingIntent, GPS_ENABLE_REQUEST_CODE);
-            }
-        });
-        builder.setNegativeButton("취소", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int id) {
-                dialog.cancel();
-            }
-        });
-        builder.create().show();
-    }
-
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        switch (requestCode) {
-
-            case GPS_ENABLE_REQUEST_CODE:
-
-                //사용자가 GPS 활성 시켰는지 검사
-                if (checkLocationServicesStatus()) {
-                    if (checkLocationServicesStatus()) {
-
-                        if (mGoogleApiClient.isConnected() == false) {
-
-                            mGoogleApiClient.connect();
-                        }
-                        return;
-                    }
-                }
-
-                break;
-        }
-    }
-
-    public boolean checkLocationServicesStatus() {
-        LocationManager locationManager = (LocationManager)getActivity().getSystemService(LOCATION_SERVICE);
-
-        return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
-                || locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
-    }
-
-    @TargetApi(Build.VERSION_CODES.M)
-    private void checkPermissions() {
-        boolean fineLocationRationale = ActivityCompat
-                .shouldShowRequestPermissionRationale(getActivity(),
-                        Manifest.permission.ACCESS_FINE_LOCATION);
-        int hasFineLocationPermission = ContextCompat.checkSelfPermission(getActivity(),
-                Manifest.permission.ACCESS_FINE_LOCATION);
-
-        if (hasFineLocationPermission == PackageManager
-                .PERMISSION_DENIED && fineLocationRationale)
-            showDialogForPermission("앱을 실행하려면 퍼미션을 허가하셔야합니다.");
-
-        else if (hasFineLocationPermission
-                == PackageManager.PERMISSION_DENIED && !fineLocationRationale) {
-            showDialogForPermissionSetting("퍼미션 거부 + Don't ask again(다시 묻지 않음) " +
-                    "체크 박스를 설정한 경우로 설정에서 퍼미션 허가해야합니다.");
-        } else if (hasFineLocationPermission == PackageManager.PERMISSION_GRANTED) {
-
-
-            if ( mGoogleApiClient.isConnected() == false) {
-
-                mGoogleApiClient.connect();
-            }
-        }
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int permsRequestCode,
-                                           @NonNull String[] permissions,
-                                           @NonNull int[] grantResults) {
-
-        if (permsRequestCode
-                == PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION && grantResults.length > 0) {
-
-            boolean permissionAccepted = grantResults[0] == PackageManager.PERMISSION_GRANTED;
-
-            if (permissionAccepted) {
-
-
-                if ( mGoogleApiClient.isConnected() == false) {
-                    mGoogleApiClient.connect();
-                }
-
-
-
-            } else {
-
-                checkPermissions();
-            }
-        }
-    }
-
-
-    @TargetApi(Build.VERSION_CODES.M)
-    private void showDialogForPermission(String msg) {
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        builder.setTitle("알림");
-        builder.setMessage(msg);
-        builder.setCancelable(false);
-        builder.setPositiveButton("예", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                ActivityCompat.requestPermissions(getActivity(),
-                        new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
-                        PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION);
-            }
-        });
-
-        builder.setNegativeButton("아니오", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                getActivity().finish();
-            }
-        });
-        builder.create().show();
-    }
-
-    private void showDialogForPermissionSetting(String msg) {
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        builder.setTitle("알림");
-        builder.setMessage(msg);
-        builder.setCancelable(true);
-        builder.setPositiveButton("예", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-
-                askPermissionOnceAgain = true;
-
-                Intent myAppSettings = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
-                        Uri.parse("package:" + mActivity.getPackageName()));
-                myAppSettings.addCategory(Intent.CATEGORY_DEFAULT);
-                myAppSettings.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                mActivity.startActivity(myAppSettings);
-            }
-        });
-        builder.setNegativeButton("아니오", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                getActivity().finish();
-            }
-        });
-        builder.create().show();
-    }
-
 }
-

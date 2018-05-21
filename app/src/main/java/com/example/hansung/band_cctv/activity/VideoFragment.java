@@ -3,6 +3,7 @@ package com.example.hansung.band_cctv.activity;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -212,5 +213,12 @@ public class VideoFragment extends Fragment {
         surfaceView_second.addView(playView_second);
 
         return view;
+    }
+
+    @Override
+    public void onStart() {
+        Log.e("mapview1","mapView");
+        super.onStart();
+
     }
 }

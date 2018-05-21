@@ -60,10 +60,8 @@ public class PulseFragment extends Fragment {
     List<Entry> entries;
 
     TextView dataview;
-    TextView timeTextView;
     int result;
     int last_pulse;
-    String time_result;
     TextView today_tv;
     ArrayList<LineDataSet> dataSets;
     ArrayList<Response_lastPulse> lastPulseArrayList;
@@ -82,7 +80,7 @@ public class PulseFragment extends Fragment {
         DataThread thread = new DataThread();
         thread.setDaemon(true);
         thread.start();
-        Log.e("zxcvb","@@@@@@@@@@");
+        Log.e("mapview2","mapView");
     }
 
     @Override
@@ -105,11 +103,6 @@ public class PulseFragment extends Fragment {
         String getTime = sdf.format(date);
         today_tv = view.findViewById(R.id.today_tv);
         today_tv.setText(getTime);
-
-//
-//        DataThread thread = new DataThread();
-//        thread.setDaemon(true);
-//        thread.start();
 
         retroClient.GetMaxIndex(new RetroCallback() {
             @Override
@@ -154,7 +147,7 @@ public class PulseFragment extends Fragment {
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setTextColor(Color.BLACK);
         xAxis.setAvoidFirstLastClipping(true);
-        xAxis.setAxisMaximum(0);
+        xAxis.setAxisMaximum(maxIndex+100);
         xAxis.setDrawAxisLine(true);
         xAxis.setAxisMinimum(0);
         xAxis.setValueFormatter(myformat);
@@ -250,9 +243,6 @@ public class PulseFragment extends Fragment {
                 Log.e("심박테이블 Index ->", String.valueOf(startIndex));
                 xindex++;
                 startIndex+=2;
-//                Log.e("심박테이블 Index ->", String.valueOf(startIndex));
-//                xindex++;
-//                startIndex++;
                 xindexstart++;
             }
         }
@@ -290,17 +280,13 @@ public class PulseFragment extends Fragment {
 
         public HourAxisValueFormatter(){
             this.mDataFormat = new SimpleDateFormat("mm:ss", Locale.KOREAN);
-            //this.mDataFormat = DateFormat.getTimeInstance();
             this.mDate = new Date();
         }
 
         @Override
         public String getFormattedValue(float value, AxisBase axis) {
-            // convertedTimestamp = originalTimestamp - referenceTimestamp
             long originalTimestamp = ref + (long)value * 2000;
             mDate.setTime(originalTimestamp);
-            // Retrieve original timestamp
-            // Convert timestamp to hour:minute
             return mDataFormat.format(mDate);
         }
     }

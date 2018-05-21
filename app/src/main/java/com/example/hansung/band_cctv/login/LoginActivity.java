@@ -175,13 +175,15 @@ public class LoginActivity extends AppCompatActivity {
             if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.CALL_PHONE) == PackageManager.PERMISSION_DENIED ||
                     ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_DENIED ||
                     ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED ||
-                    ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.GET_ACCOUNTS) == PackageManager.PERMISSION_DENIED) {
+                    ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.GET_ACCOUNTS) == PackageManager.PERMISSION_DENIED ||
+                    ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.CAMERA) == PackageManager.PERMISSION_DENIED) {
 
                 ActivityCompat.requestPermissions(LoginActivity.this, new String[]{
                                 Manifest.permission.GET_ACCOUNTS,
                                 Manifest.permission.CALL_PHONE,
                                 Manifest.permission.ACCESS_FINE_LOCATION,
-                                Manifest.permission.READ_EXTERNAL_STORAGE},
+                                Manifest.permission.READ_EXTERNAL_STORAGE,
+                                Manifest.permission.CAMERA},
                         0);
             }
         } else{
