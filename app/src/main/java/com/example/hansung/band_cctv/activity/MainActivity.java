@@ -46,7 +46,8 @@ public class MainActivity extends AppCompatActivity {
     RetroClient2 retroClient2;
     RetroClient retroClient;
     Intent intent2;
-
+    SharedPreferences login_pre;
+    SharedPreferences.Editor login_editor;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
 
@@ -73,6 +74,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        login_pre = getSharedPreferences("logininfo", MODE_PRIVATE);
+        login_editor = login_pre.edit();
         noalarmmap = new HashMap<>();
         noalarmmap.put("alarm", noalarm);
         checkDalogAlert();
@@ -187,6 +190,9 @@ public class MainActivity extends AppCompatActivity {
                             stopService(intent2);
                             Log.e("okok","중복 임요~");
                         }
+                        login_editor.putBoolean("autoLogin", false);
+                        login_editor.clear();
+                        login_editor.commit();
                         intent = new Intent(getApplicationContext(), LoginActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent);

@@ -30,6 +30,8 @@ public class InfoActivity extends AppCompatActivity {
     private DrawerLayout mDrawerLayout;
     SharedPreferences sharedPreferences;
     RetroClient retroClient;
+    SharedPreferences login_pre;
+    SharedPreferences.Editor login_editor;
     public static int sendindex;
     public static ArrayList<Response_Info> infoArrayList;
     public static ArrayList<Response_Band_Info> bandInfoArrayList;
@@ -53,7 +55,8 @@ public class InfoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_info);
-
+        login_pre = getSharedPreferences("logininfo", MODE_PRIVATE);
+        login_editor = login_pre.edit();
         app_id_tv = (TextView) findViewById(R.id.app_id_tv);
         app_phone_tv = (TextView) findViewById(R.id.app_phone_tv);
         app_birth_tv = (TextView) findViewById(R.id.app_birth_tv);
@@ -98,6 +101,9 @@ public class InfoActivity extends AppCompatActivity {
                         break;
 
                     case R.id.navigation_logout:
+                        login_editor.putBoolean("autoLogin", false);
+                        login_editor.clear();
+                        login_editor.commit();
                         intent = new Intent(getApplicationContext(), LoginActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent);

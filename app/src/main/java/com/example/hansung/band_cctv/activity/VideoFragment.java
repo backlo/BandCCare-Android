@@ -204,13 +204,13 @@ public class VideoFragment extends Fragment {
             }
         });
 
-        playView_first = new RtspViewPlayer(getContext(),"rtsp://192.168.0.2:8091/rtsp");
+     /*   playView_first = new RtspViewPlayer(getContext(),"rtsp://192.168.0.2:8091/rtsp");
         surfaceView_first = (RelativeLayout)view.findViewById(R.id.surface_video1);
         surfaceView_first.addView(playView_first);
 
         playView_second = new RtspViewPlayer(getContext(),"rtsp://192.168.0.2:8091/rtsp1");
         surfaceView_second = (RelativeLayout)view.findViewById(R.id.surface_video2);
-        surfaceView_second.addView(playView_second);
+        surfaceView_second.addView(playView_second);*/
 
         return view;
     }

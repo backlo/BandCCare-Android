@@ -80,6 +80,7 @@ public class LoginActivity extends AppCompatActivity {
                     autoLogin = false;
                     login_editor.clear();
                     login_editor.commit();
+
                 }
                 login_editor.putBoolean("autoLogin", autoLogin);
                 login_editor.commit();
@@ -110,10 +111,15 @@ public class LoginActivity extends AppCompatActivity {
 
     public void login() {
         // 서버 안통할때 용 코드 (지우지마세용)
-/*
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);*/
+        if (autoLogin) {
+            login_editor.putString("id", id);
+            login_editor.putString("pw", pw);
+            login_editor.commit();
+        }
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+                /*
         parameter.put("AppUserInfo_id", id);
         parameter.put("AppUserInfo_password", pw);
         Log.e("input id", "id->" + id);
@@ -178,7 +184,7 @@ public class LoginActivity extends AppCompatActivity {
 
             }
         });
-
+*/
     }
 }
 
