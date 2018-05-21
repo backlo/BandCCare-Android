@@ -3,14 +3,13 @@ package com.example.hansung.band_cctv.ServiceThread;
 import android.os.Handler;
 import android.util.Log;
 
-import com.example.hansung.band_cctv.Retrofit.Model.Response_MaxIndex;
-import com.example.hansung.band_cctv.Retrofit.Model.Response_Sensor;
+import com.example.hansung.band_cctv.Retrofit.Model.Response_lastPulse;
 import com.example.hansung.band_cctv.Retrofit.RetroCallback;
 import com.example.hansung.band_cctv.Retrofit.RetroClient;
 import com.example.hansung.band_cctv.Retrofit2.RetroClient2;
 
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 
 public class SV_Thread extends Thread{
 
@@ -29,59 +28,63 @@ public class SV_Thread extends Thread{
         retroClient = RetroClient.getInstance().createBaseApi();
 
         state1  = true;
-        retroClient.GetMaxIndex(new RetroCallback() {
-            @Override
-            public void onError(Throwable t) {
 
-            }
-
-            @Override
-            public void onSuccess(int code, Object receivedData) {
-                Response_MaxIndex data = (Response_MaxIndex) receivedData;
-                maxindex = data.getMax();
-                startindex = maxindex - 3;
-            }
-
-            @Override
-            public void onFailure(int code) {
-
-            }
-        });
-
-        retroClient.GetSensor(startindex, new RetroCallback() {
-            @Override
-            public void onError(Throwable t) {
-
-            }
-
-            @Override
-            public void onSuccess(int code, Object receivedData) {
-                Response_Sensor data = (Response_Sensor) receivedData;
-                sensordata = data.getSensor_data();
-            }
-
-            @Override
-            public void onFailure(int code) {
-
-            }
-        });
+//        retroClient.GetSensor(startindex, new RetroCallback() {
+//            @Override
+//            public void onError(Throwable t) {
+//
+//            }
+//
+//            @Override
+//            public void onSuccess(int code, Object receivedData) {
+//                Response_Sensor data = (Response_Sensor) receivedData;
+//                sensordata = data.getSensor_data();
+//            }
+//
+//            @Override
+//            public void onFailure(int code) {
+//
+//            }
+//        });
         this.handler = handler;
     }
-    public int getData() {
-        retroClient.GetSensor(startindex, new RetroCallback() {
-            Response_Sensor data;
+//    public int getData() {
+//        retroClient.GetSensor(startindex, new RetroCallback() {
+//            Response_Sensor data;
+//
+//
+//            @Override
+//            public void onError(Throwable t) {}
+//
+//            @Override
+//            public void onSuccess(int code, Object receivedData) {
+//                data = (Response_Sensor) receivedData;
+//                result = data.getSensor_data();
+//            }
+//            @Override
+//            public void onFailure(int code) {}
+//        });
+//        return result;
+//    }
 
-
+    public int getData2(){
+        retroClient.LastPulse(new RetroCallback() {
+            ArrayList<Response_lastPulse> lastPulseArrayList;
             @Override
-            public void onError(Throwable t) {}
+            public void onError(Throwable t) {
+
+            }
 
             @Override
             public void onSuccess(int code, Object receivedData) {
-                data = (Response_Sensor) receivedData;
-                result = data.getSensor_data();
+                lastPulseArrayList = (ArrayList<Response_lastPulse>)receivedData;
+                result = lastPulseArrayList.get(0).getSensor_data();
             }
+
             @Override
-            public void onFailure(int code) {}
+            public void onFailure(int code) {
+
+            }
         });
         return result;
     }
@@ -90,9 +93,9 @@ public class SV_Thread extends Thread{
     public void run() {
         int count =0;
         while(state1 == true){
-            Log.e("okokok", String.valueOf(getData()));
+            Log.e("okokok", String.valueOf(getData2()));
             retroClient2 = RetroClient2.getInstance().createBaseApi2();
-            if (getData() > 150 || getData() < 40){
+            if (getData2() > 150 || getData2() < 40){
                 count++;
                 if(count == 5){
                     HashMap<String, Object> alarmmap = new HashMap<>();
@@ -117,8 +120,7 @@ public class SV_Thread extends Thread{
 
             handler.sendEmptyMessage(5);
             try {
-                startindex+=2;
-                Thread.sleep(4000);
+                Thread.sleep(3000);
             }catch (Exception e){
             }
         }

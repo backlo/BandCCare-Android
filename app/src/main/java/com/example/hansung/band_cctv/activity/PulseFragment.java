@@ -18,6 +18,7 @@ import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
 import com.example.hansung.band_cctv.R;
 import com.example.hansung.band_cctv.Retrofit.Model.Response_MaxIndex;
 import com.example.hansung.band_cctv.Retrofit.Model.Response_Sensor;
+import com.example.hansung.band_cctv.Retrofit.Model.Response_lastPulse;
 import com.example.hansung.band_cctv.Retrofit.RetroCallback;
 import com.example.hansung.band_cctv.Retrofit.RetroClient;
 import com.github.mikephil.charting.animation.Easing;
@@ -61,9 +62,11 @@ public class PulseFragment extends Fragment {
     TextView dataview;
     TextView timeTextView;
     int result;
+    int last_pulse;
     String time_result;
     TextView today_tv;
     ArrayList<LineDataSet> dataSets;
+    ArrayList<Response_lastPulse> lastPulseArrayList;
 
 
     public static PulseFragment getInstance() {
@@ -95,8 +98,6 @@ public class PulseFragment extends Fragment {
         ImageView rabbit = view.findViewById(R.id.heart_img);
         GlideDrawableImageViewTarget gifImage = new GlideDrawableImageViewTarget(rabbit);
         Glide.with(this).load(R.drawable.heart).into(gifImage);
-
-        Log.e("thread oncreateview","@@@@@@@@@@");
 
         long now = System.currentTimeMillis();
         Date date = new Date(now);
@@ -153,7 +154,7 @@ public class PulseFragment extends Fragment {
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setTextColor(Color.BLACK);
         xAxis.setAvoidFirstLastClipping(true);
-        xAxis.setAxisMaximum(maxIndex+100);
+        xAxis.setAxisMaximum(0);
         xAxis.setDrawAxisLine(true);
         xAxis.setAxisMinimum(0);
         xAxis.setValueFormatter(myformat);
@@ -192,21 +193,6 @@ public class PulseFragment extends Fragment {
         return view;
     }
 
-    public void StartgetData() {
-        retroClient.GetSensor(startIndex, new RetroCallback() {
-            @Override
-            public void onError(Throwable t) {
-            }
-            @Override
-            public void onSuccess(int code, Object receivedData) {
-                Response_Sensor data = (Response_Sensor) receivedData;
-                Log.e("심박테이블 데이터 ->", String.valueOf(data.getSensor_data()));
-            }
-            @Override
-            public void onFailure(int code) {
-            }
-        });
-    }
     public int getData() {
         retroClient.GetSensor(startIndex, new RetroCallback() {
             Response_Sensor data;
@@ -223,25 +209,50 @@ public class PulseFragment extends Fragment {
         return result;
     }
 
+    public int getData2(){
+        retroClient.LastPulse(new RetroCallback() {
+            @Override
+            public void onError(Throwable t) {
+
+            }
+
+            @Override
+            public void onSuccess(int code, Object receivedData) {
+                lastPulseArrayList = (ArrayList<Response_lastPulse>)receivedData;
+                last_pulse = lastPulseArrayList.get(0).getSensor_data();
+            }
+
+            @Override
+            public void onFailure(int code) {
+
+            }
+        });
+        return last_pulse;
+    }
+
+
+
 
     public void chartUpdate(int x){
-        entries.add(new Entry(0+xindexstart,getData()));
+        entries.add(new Entry(0+xindexstart,getData2()));
         lineChart.notifyDataSetChanged();
         lineChart.invalidate();
         //xAxis.setAxisMaximum((float) (maxIndex+xindex));
         xAxis.setAxisMinimum(0);
-        dataview.setText(String.valueOf(getData()));
+        dataview.setText(String.valueOf(getData2()));
     }
 
      Handler handler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
             if(msg.what == 0 ){
-                StartgetData();
                 chartUpdate(startIndex);
                 Log.e("심박테이블 Index ->", String.valueOf(startIndex));
                 xindex++;
                 startIndex+=2;
+//                Log.e("심박테이블 Index ->", String.valueOf(startIndex));
+//                xindex++;
+//                startIndex++;
                 xindexstart++;
             }
         }
@@ -258,7 +269,7 @@ public class PulseFragment extends Fragment {
                 Log.e("thread", "@@@@@@@@@@");
                 handler.sendEmptyMessage(0);
                 try {
-                    Thread.sleep(4000);
+                    Thread.sleep(3000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
