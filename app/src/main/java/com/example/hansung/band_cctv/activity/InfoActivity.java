@@ -156,8 +156,6 @@ public class InfoActivity extends AppCompatActivity {
                     }
                 });
 
-
-
                 camera_tv = (TextView) findViewById(R.id.camera_tv);
                 band_tv = (TextView) findViewById(R.id.band_tv);
             }

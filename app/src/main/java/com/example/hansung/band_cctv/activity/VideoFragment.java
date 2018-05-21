@@ -215,6 +215,37 @@ public class VideoFragment extends Fragment {
         return view;
     }
 
+
+    @Override
+    public void onResume() {
+        Log.e("zxcvb Video", "Video onResume()");
+        super.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        Log.e("zxcvb Video", "Video onPause()");
+        super.onPause();
+    }
+
+    @Override
+    public void onStop() {
+        Log.e("zxcvb Video", "Video onStop()");
+        super.onStop();
+    }
+
+    @Override
+    public void onDestroy() {
+        Log.e("zxcvb Video", "Video onDestroy()");
+        super.onDestroy();
+    }
+
+    @Override
+    public void onDestroyView() {
+        Log.e("zxcvb Video", "Video onDestroyView()");
+        super.onDestroyView();
+    }
+
     @Override
     public void onStart() {
         Log.e("mapview1","mapView");

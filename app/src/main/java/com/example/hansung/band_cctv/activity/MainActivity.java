@@ -147,6 +147,7 @@ public class MainActivity extends AppCompatActivity {
         mPagerAdapter = new MyPagerAdapter(getSupportFragmentManager());
         mViewPager = findViewById(R.id.viewpager);
         mViewPager.setAdapter(mPagerAdapter);
+        mViewPager.setOffscreenPageLimit(3);
 
         TabLayout mTab = findViewById(R.id.tabs);
         mTab.setupWithViewPager(mViewPager);
@@ -178,12 +179,14 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(intent);
                         break;
 
-
                     case R.id.navigation_logout:
-                        if(isServiceRunningCheck() == true) {
-                            stopService(intent2);
+                        if(!isServiceRunningCheck()) {
+                            Log.e("okok","중복 아님요~");
                         }
-                        pulseFragment.stopThread();
+                        else{
+                            stopService(intent2);
+                            Log.e("okok","중복 임요~");
+                        }
                         intent = new Intent(getApplicationContext(), LoginActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent);
@@ -195,6 +198,25 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+ /*   public class MyHandler extends Handler {
+
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+        }
+    }*/
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
+
+    @Override
+    protected void onStart() {
+        Log.e("zxc","start");
+        super.onStart();
+    }
+
 
     @Override
     protected void onRestart() {
@@ -268,7 +290,6 @@ public class MainActivity extends AppCompatActivity {
                 else{
                     Log.e("okok","중복 임요~");
                 }
-                pulseFragment.stopThread();
                 finishAffinity();
             }
         });
@@ -297,7 +318,8 @@ public class MainActivity extends AppCompatActivity {
             public void onFailure(int code) {
             }
         });
-        pulseFragment.stopThread();
+        /*pulseFragment.stopThread();
+        locationFragment.stopThread();*/
 
         Log.e("okok","홈키 눌렀다!!");
         if(!isServiceRunningCheck()) {

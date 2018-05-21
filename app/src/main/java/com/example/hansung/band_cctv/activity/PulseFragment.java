@@ -81,6 +81,39 @@ public class PulseFragment extends Fragment {
         thread.setDaemon(true);
         thread.start();
         Log.e("mapview2","mapView");
+        Log.e("zxcvb","Pulse onStart()");
+    }
+
+    @Override
+    public void onResume() {
+        Log.e("zxcvb", "Pulse onResume()");
+        super.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        Log.e("zxcvb", "Pulse onPause()");
+        super.onPause();
+    }
+
+    @Override
+    public void onStop() {
+        Log.e("zxcvb", "Pulse onStop()");
+        state = false;
+        super.onStop();
+    }
+
+    @Override
+    public void onDestroy() {
+        Log.e("zxcvb", "Pulse onDestroy()");
+        super.onDestroy();
+    }
+
+    @Override
+    public void onDestroyView() {
+        Log.e("zxcvb", "Pulse onDestroyView()");
+        //state = false;
+        super.onDestroyView();
     }
 
     @Override
@@ -221,6 +254,9 @@ public class PulseFragment extends Fragment {
         });
         return last_pulse;
     }
+
+
+
 
     public void chartUpdate(int x){
         entries.add(new Entry(0+xindexstart,getData2()));

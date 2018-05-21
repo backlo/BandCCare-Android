@@ -54,6 +54,8 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback{
     private HashMap<String, Double> locationmap;
     private Marker currentLocationMaker;
     private Marker userLocationMarker;
+    boolean askPermissionOnceAgain = false;
+    public static boolean state2 = true;
 
     double longitude;
     double latitude;
@@ -77,6 +79,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        Log.e("zxcvb","Location onCreateView()");
         View view = inflater.inflate(R.layout.fragment_location, container, false);
         retroClient = RetroClient.getInstance().createBaseApi();
         locationmap = new HashMap<>();
@@ -84,9 +87,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback{
         //mapView.getMapAsync(this);
 
         atLocationChange();
-        LocationThread thread = new LocationThread();
-        thread.setDaemon(true);
-        thread.start();
+
 
         find_location = (Button) view.findViewById(R.id.band_location_btn);
         find_location.setOnClickListener(new View.OnClickListener() {
@@ -134,12 +135,18 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback{
 
     @Override
     public void onStart() {
+        Log.e("zxcvb","Location onStart()");
+        LocationThread thread = new LocationThread();
+        thread.setDaemon(true);
+        thread.start();
         super.onStart();
         mapView.onStart();
     }
 
     @Override
     public void onStop() {
+        Log.e("zxcvb","Location onStop()");
+        state2 = false;
         super.onStop();
         mapView.onStop();
     }
@@ -152,12 +159,14 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback{
 
     @Override
     public void onResume() {
+        Log.e("zxcvb","Location onResume()");
         super.onResume();
         mapView.onResume();
     }
 
     @Override
     public void onPause() {
+        Log.e("zxcvb","Location onPause()");
         super.onPause();
         mapView.onPause();
     }
@@ -170,8 +179,15 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback{
 
     @Override
     public void onDestroy() {
+        Log.e("zxcvb","Location onDestroy()");
         super.onDestroy();
         mapView.onLowMemory();
+    }
+    @Override
+    public void onDestroyView() {
+        Log.e("zxcvb", "Location onDestroyView");
+        state2 = false;
+        super.onDestroyView();
     }
 
     @SuppressWarnings("MissingPermission")
@@ -184,6 +200,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback{
                 Log.e("map", "atlocationchange");
                 String provider = location.getProvider();
                 Log.e("test", "위치정보 : " + provider + "\n위도 : " + longitude + "\n경도:" + latitude);
+                //    userLocationMarker.remove();
                 if(myPhoneLocation != null){
                     userLocationMarker.remove();
                 }
@@ -243,6 +260,12 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback{
         });
     }
 
+    public void stopThread(){
+        state2 = false;
+    }
+
+
+
     Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -255,7 +278,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback{
     class LocationThread extends Thread {
         @Override
         public void run() {
-            while (true) {
+            while (state2 == true) {
                 handler.sendEmptyMessage(7);
                 try {
                     Thread.sleep(6000);
@@ -265,5 +288,5 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback{
             }
         }
     }
-
 }
+
