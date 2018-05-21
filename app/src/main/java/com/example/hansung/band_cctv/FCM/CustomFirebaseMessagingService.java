@@ -22,14 +22,16 @@ import java.util.Map;
 
 public class CustomFirebaseMessagingService extends FirebaseMessagingService {
     RetroClient2 retroClient2;
+    String title;
+    String body;
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
         retroClient2 = RetroClient2.getInstance().createBaseApi2();
 
         Map<String, String> pushDataMap = remoteMessage.getData();
+        Log.e("fcm get data",""+pushDataMap.get("touch_data"));
 
-        Log.e("alarm","메세지333333!!!!");
         HashMap<String, Object> alarmmap = new HashMap<>();
         alarmmap.put("alarm","alarm");
         retroClient2.Send_Alarm(alarmmap, new RetroCallback() {
@@ -58,14 +60,23 @@ public class CustomFirebaseMessagingService extends FirebaseMessagingService {
         Intent intent = new Intent(this, MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
+
         PendingIntent contentIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT);
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-        Log.e("sendNotification","this");
-
+        if(dataMap != null){
+            if(dataMap.get("check").equals("notouch")){
+                title = "BandCCare";
+                body = "밴드 미착용 감지";
+        }
+        if(dataMap.get("check").equals("heart")){
+                title = "BandCCare";
+                body = "심박수 이상 감지";
+            }
+        }
         NotificationCompat.Builder nBuilder = new NotificationCompat.Builder(this,"0")
-                .setSmallIcon(R.mipmap.ic_launcher)
-                .setContentTitle(dataMap.get("title"))
-                .setContentText(dataMap.get("msg"))
+                .setSmallIcon(R.drawable.sos)
+                .setContentTitle(title)
+                .setContentText(body)
                 .setAutoCancel(true)
                 .setSound(defaultSoundUri)
                 .setVibrate(new long[]{1000, 1000})
@@ -73,6 +84,6 @@ public class CustomFirebaseMessagingService extends FirebaseMessagingService {
                 .setContentIntent(contentIntent);
 
         NotificationManager nManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        nManager.notify(0 /* ID of notification */, nBuilder.build());
+        nManager.notify(1 /* ID of notification */, nBuilder.build());
     }
 }

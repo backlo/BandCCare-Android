@@ -151,7 +151,6 @@ public class PulseFragment extends Fragment {
         xAxis.setDrawAxisLine(true);
         xAxis.setAxisMinimum(0);
         xAxis.setValueFormatter(myformat);
-        xAxis.setAxisMinimum(maxIndex);
         xAxis.enableGridDashedLine(15, 100, 5);
 
         LimitLine min = new LimitLine(50, " 최소심박수");
@@ -222,9 +221,6 @@ public class PulseFragment extends Fragment {
         });
         return last_pulse;
     }
-
-
-
 
     public void chartUpdate(int x){
         entries.add(new Entry(0+xindexstart,getData2()));
