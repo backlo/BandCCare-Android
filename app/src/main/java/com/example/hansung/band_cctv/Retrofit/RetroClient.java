@@ -15,6 +15,7 @@ import com.example.hansung.band_cctv.Retrofit.Model.Response_Login;
 import com.example.hansung.band_cctv.Retrofit.Model.Response_MaxIndex;
 import com.example.hansung.band_cctv.Retrofit.Model.Response_Sensor;
 import com.example.hansung.band_cctv.Retrofit.Model.Response_Token;
+import com.example.hansung.band_cctv.Retrofit.Model.Response_lastPulse;
 
 import java.util.HashMap;
 import java.util.List;
@@ -257,6 +258,25 @@ public class RetroClient {
 
             @Override
             public void onFailure(Call<List<Response_Token>> call, Throwable t) {
+
+            }
+        });
+    }
+
+    public void LastPulse(final RetroCallback callback){
+        apiService.LastPulse().enqueue(new Callback<List<Response_lastPulse>>() {
+            @Override
+            public void onResponse(Call<List<Response_lastPulse>> call, Response<List<Response_lastPulse>> response) {
+                if (response.isSuccessful()) {
+                    Log.e( "Get Token success","success");
+                    callback.onSuccess(response.code(), response.body());
+                } else {
+                    callback.onFailure(response.code());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Response_lastPulse>> call, Throwable t) {
 
             }
         });

@@ -13,6 +13,7 @@ import com.example.hansung.band_cctv.Retrofit.Model.Response_Login;
 import com.example.hansung.band_cctv.Retrofit.Model.Response_MaxIndex;
 import com.example.hansung.band_cctv.Retrofit.Model.Response_Sensor;
 import com.example.hansung.band_cctv.Retrofit.Model.Response_Token;
+import com.example.hansung.band_cctv.Retrofit.Model.Response_lastPulse;
 
 import java.util.List;
 
@@ -24,7 +25,8 @@ import retrofit2.http.Query;
 
 public interface RetroApiService {
     final String Base_URL = "http://192.168.0.6:4000";
-    //final String Base_URL = "http://113.198.82.79:80";
+    //final String Base_URL = "http://172.30.1.48:4000";
+
     //@@회원가입
     @POST("/insert_app_member")
     Call<Response_Check> Insert_App_Member(@Body Request_App_member request_App_member);
@@ -47,6 +49,9 @@ public interface RetroApiService {
     //@@센서값받기
     @GET("/getsensor")
     Call<Response_Sensor> GetSensor(@Query("index") int index);
+
+    @GET("/last_pulse")
+    Call<List<Response_lastPulse>> LastPulse();
 
     //@@테이블의 마지막 인덱스값 가져오기
     @GET("/getmaxindex")

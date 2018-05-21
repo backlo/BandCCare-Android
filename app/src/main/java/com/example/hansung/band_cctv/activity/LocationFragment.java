@@ -129,7 +129,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
     public void onMapReady(final GoogleMap googleMap) {
         gMap = googleMap;
         showDialogForLocationServiceSetting();
-        Log.e("onmapready", "onmapready");
+        Log.e("map", "onmapready");
         String[] perms = {Manifest.permission.ACCESS_FINE_LOCATION};
         if (EasyPermissions.hasPermissions(getActivity(), perms)) {
             gFusedLocationClient.getLastLocation().addOnCompleteListener(getActivity(), new OnCompleteListener<Location>() {
@@ -198,7 +198,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
             public void onLocationChanged(Location location) {
                 longitude = location.getLongitude();
                 latitude = location.getLatitude();
-
+                Log.e("map", "atlocationchange");
                 String provider = location.getProvider();
                 Log.e("test", "위치정보 : " + provider + "\n위도 : " + longitude + "\n경도:" + latitude);
             //    userLocationMarker.remove();
@@ -296,7 +296,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
     }
 
     private void showDialogForLocationServiceSetting() {
-
+        Log.e("map", "showdialogforlocationservice");
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         builder.setTitle("위치 서비스 비활성화");
         builder.setMessage("앱을 사용하기 위해서는 위치 서비스가 필요합니다.\n"
@@ -323,6 +323,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        Log.e("map", "onactivityresult");
 
         switch (requestCode) {
 
@@ -333,18 +334,17 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
                     if (checkLocationServicesStatus()) {
 
                         if (mGoogleApiClient.isConnected() == false) {
-
                             mGoogleApiClient.connect();
                         }
                         return;
                     }
                 }
-
                 break;
         }
     }
 
     public boolean checkLocationServicesStatus() {
+        Log.e("map", "checklocationservices");
         LocationManager locationManager = (LocationManager)getActivity().getSystemService(LOCATION_SERVICE);
 
         return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
@@ -353,6 +353,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
 
     @TargetApi(Build.VERSION_CODES.M)
     private void checkPermissions() {
+        Log.e("map", "checkpermission");
         boolean fineLocationRationale = ActivityCompat
                 .shouldShowRequestPermissionRationale(getActivity(),
                         Manifest.permission.ACCESS_FINE_LOCATION);
@@ -381,21 +382,15 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
     public void onRequestPermissionsResult(int permsRequestCode,
                                            @NonNull String[] permissions,
                                            @NonNull int[] grantResults) {
+        Log.e("map", "onrequestpermissionresult");
 
         if (permsRequestCode
                 == PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION && grantResults.length > 0) {
-
             boolean permissionAccepted = grantResults[0] == PackageManager.PERMISSION_GRANTED;
-
             if (permissionAccepted) {
-
-
                 if ( mGoogleApiClient.isConnected() == false) {
                     mGoogleApiClient.connect();
                 }
-
-
-
             } else {
 
                 checkPermissions();
@@ -406,7 +401,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
 
     @TargetApi(Build.VERSION_CODES.M)
     private void showDialogForPermission(String msg) {
-
+        Log.e("map", "showdialogforpermission");
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         builder.setTitle("알림");
         builder.setMessage(msg);
@@ -428,7 +423,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
     }
 
     private void showDialogForPermissionSetting(String msg) {
-
+        Log.e("map", "showdialog permission setting");
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         builder.setTitle("알림");
         builder.setMessage(msg);
@@ -452,6 +447,5 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
         });
         builder.create().show();
     }
-
 }
 

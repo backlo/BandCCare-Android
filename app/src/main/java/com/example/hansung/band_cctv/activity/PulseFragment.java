@@ -121,8 +121,6 @@ public class PulseFragment extends Fragment {
         GlideDrawableImageViewTarget gifImage = new GlideDrawableImageViewTarget(rabbit);
         Glide.with(this).load(R.drawable.heart).into(gifImage);
 
-        Log.e("thread oncreateview","@@@@@@@@@@");
-
         long now = System.currentTimeMillis();
         Date date = new Date(now);
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy년 MM월 dd일");
@@ -201,6 +199,7 @@ public class PulseFragment extends Fragment {
         yRAxis.setDrawLabels(false);
         yRAxis.setDrawAxisLine(false);
         yRAxis.setDrawGridLines(false);
+
         Description description = new Description();
         description.setText("현재시간(분:초)");
 
@@ -209,8 +208,7 @@ public class PulseFragment extends Fragment {
         lineChart.setAutoScaleMinMaxEnabled(true);
         lineChart.notifyDataSetChanged();
         lineChart.setDescription(description);
-        //lineChart.moveViewTo(maxIndex,getData(),YAxis.AxisDependency.LEFT);
-        lineChart.setBackgroundColor(Color.parseColor("#FFBCB6B3"));
+        lineChart.setBackgroundColor(Color.parseColor("#FFFFFFFF"));
         lineChart.animateY(2000, Easing.EasingOption.EaseInElastic);
         lineChart.zoom((float) 1.2,1,0,0);
 
@@ -272,7 +270,7 @@ public class PulseFragment extends Fragment {
         }
     }*/
 
-     Handler handler = new Handler(){
+    Handler handler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
             if(msg.what == 0 ){
@@ -280,7 +278,7 @@ public class PulseFragment extends Fragment {
                 chartUpdate(startIndex);
                 Log.e("심박테이블 Index ->", String.valueOf(startIndex));
                 xindex++;
-                startIndex+=2;
+                startIndex++;
                 xindexstart++;
             }
         }
