@@ -11,13 +11,17 @@
     <com.google.android.gms.maps.MapView
         android:id="@+id/map"
         android:layout_width="match_parent"
-        android:layout_height="500dp"
+        android:layout_height="400dp"
+        android:layout_marginBottom="30dp"
         android:name="com.google.android.gms.maps.MapFragment"/>
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="착용자 위치 찾기"
+        android:background="@drawable/round"
+        android:padding="5dp"
+        android:layout_gravity="center"
+        android:text=" 착용자 위치 찾기 "
         android:id="@+id/band_location_btn"/>
 
 </LinearLayout>
