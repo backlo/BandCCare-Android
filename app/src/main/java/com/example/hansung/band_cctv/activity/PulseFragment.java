@@ -83,31 +83,6 @@ public class PulseFragment extends Fragment {
     }
 
     @Override
-    public void onResume() {
-        Log.e("zxcvb", "onresume");
-        super.onResume();
-    }
-
-    @Override
-    public void onPause() {
-        Log.e("zxcvb", "onpause");
-        super.onPause();
-    }
-
-    @Override
-    public void onStop() {
-        Log.e("zxcvb", "onstop");
-        super.onStop();
-    }
-
-    @Override
-    public void onDestroyView() {
-        Log.e("zxcvb", "ondestroy");
-        //  state = false;
-        super.onDestroyView();
-    }
-
-    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_pulse, container, false);
@@ -257,20 +232,6 @@ public class PulseFragment extends Fragment {
         xAxis.setAxisMinimum(0);
         dataview.setText(String.valueOf(getData()));
     }
-
-    /*class Myhandler extends Handler{
-        @Override
-        public void handleMessage(Message msg) {
-            if(msg.what == 2 ){
-                StartgetData();
-                chartUpdate(startIndex);
-                Log.e("심박테이블 Index ->", String.valueOf(startIndex));
-                xindex++;
-                startIndex++;
-                xindexstart++;
-            }
-        }
-    }*/
 
      Handler handler = new Handler(){
         @Override

@@ -171,35 +171,13 @@ public class MainActivity extends AppCompatActivity {
                 int id = menuItem.getItemId();
                 Intent intent;
                 switch (id) {
-                    case R.id.navigation_item1:
-                        Toast.makeText(MainActivity.this, "App user info", Toast.LENGTH_LONG).show();
+                    case R.id.navigation_myPage:
                         intent = new Intent(getApplicationContext(), InfoActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-                        intent.putExtra("info", 1);
-                        startActivity(intent);
-                        break;
-
-                    case R.id.navigation_item2:
-                        Toast.makeText(MainActivity.this, "band user info", Toast.LENGTH_LONG).show();
-                        intent = new Intent(getApplicationContext(), InfoActivity.class);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-                        intent.putExtra("info", 2);
-                        startActivity(intent);
-                        break;
-
-                    case R.id.navigation_item3:
-                        Toast.makeText(MainActivity.this, "device info", Toast.LENGTH_LONG).show();
-                        intent = new Intent(getApplicationContext(), InfoActivity.class);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-                        intent.putExtra("info", 3);
                         startActivity(intent);
                         break;
 
                     case R.id.navigation_logout:
-                        if(isServiceRunningCheck() == true) {
-                            stopService(intent2);
-                        }
-                        pulseFragment.stopThread();
                         intent = new Intent(getApplicationContext(), LoginActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent);

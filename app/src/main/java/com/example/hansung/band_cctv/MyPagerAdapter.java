@@ -26,8 +26,8 @@ public class MyPagerAdapter extends FragmentPagerAdapter {
 
         switch (position) {
             case 0:
-                //return VideoFragment.getInstance();
-                return BlankFragment.getInstance();
+                return VideoFragment.getInstance();
+                //return BlankFragment.getInstance();
             case 1:
                 return PulseFragment.getInstance();
             case 2:
