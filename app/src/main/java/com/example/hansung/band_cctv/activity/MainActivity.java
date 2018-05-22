@@ -194,7 +194,7 @@ public class MainActivity extends AppCompatActivity {
                             @Override
                             public void onSuccess(int code, Object receivedData) {
                                 Request_exit_PI data = (Request_exit_PI) receivedData;
-                                Log.e("exit data@@", data.getExit());
+                                Log.e("Logout btn Data->", data.getExit());
                             }
 
                             @Override
@@ -203,11 +203,9 @@ public class MainActivity extends AppCompatActivity {
                         });
 
                         if(!isServiceRunningCheck()) {
-                            Log.e("okok","중복 아님요~");
                         }
                         else{
                             stopService(intent2);
-                            Log.e("okok","중복 임요~");
                         }
                         editor.putBoolean("autoLogin", false);
                         editor.clear();

@@ -279,13 +279,13 @@ public class PulseFragment extends Fragment {
     public class DataThread extends Thread {
         public DataThread() {
             state = true;
-            Log.e("okokok", "나 또불림!!!!!!!");
+            Log.e("DataThread", "success");
         }
 
         @Override
         public void run() {
             while (state == true) {
-                Log.e("thread", "@@@@@@@@@@");
+                Log.e("DataThread run()", "run()");
                 handler.sendEmptyMessage(0);
                 try {
                     Thread.sleep(4000);

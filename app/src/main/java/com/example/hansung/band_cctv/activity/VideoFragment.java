@@ -218,37 +218,37 @@ public class VideoFragment extends Fragment {
 
     @Override
     public void onResume() {
-        Log.e("zxcvb Video", "Video onResume()");
+        Log.e("Video Fragment", "Video onResume()");
         super.onResume();
     }
 
     @Override
     public void onPause() {
-        Log.e("zxcvb Video", "Video onPause()");
+        Log.e("Video Fragment", "Video onPause()");
         super.onPause();
     }
 
     @Override
     public void onStop() {
-        Log.e("zxcvb Video", "Video onStop()");
+        Log.e("Video Fragment", "Video onStop()");
         super.onStop();
     }
 
     @Override
     public void onDestroy() {
-        Log.e("zxcvb Video", "Video onDestroy()");
+        Log.e("Video Fragment", "Video onDestroy()");
         super.onDestroy();
     }
 
     @Override
     public void onDestroyView() {
-        Log.e("zxcvb Video", "Video onDestroyView()");
+        Log.e("Video Fragment", "Video onDestroyView()");
         super.onDestroyView();
     }
 
     @Override
     public void onStart() {
-        Log.e("mapview1","mapView");
+        Log.e("Video Fragment","Video onStart()");
         super.onStart();
 
     }

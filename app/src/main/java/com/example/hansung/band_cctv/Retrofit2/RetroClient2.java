@@ -69,7 +69,7 @@ public class RetroClient2 {
             @Override
             public void onResponse(Call<Request_Alarm> call, Response<Request_Alarm> response) {
                 if (response.isSuccessful()) {
-                    Log.e("Exit PI onsuccess","success");
+                    Log.e("Send Alarm onsuccess","success");
                     callback.onSuccess(response.code(), response.body());
                 } else {
                     callback.onFailure(response.code());
@@ -107,7 +107,7 @@ public class RetroClient2 {
             @Override
             public void onResponse(Call<Request_Motor> call, Response<Request_Motor> response) {
                 if (response.isSuccessful()) {
-                    Log.e("Motor ctl success","success");
+                    Log.e("Motor ctl2 success","success");
                     callback.onSuccess(response.code(), response.body());
                 } else {
                     callback.onFailure(response.code());

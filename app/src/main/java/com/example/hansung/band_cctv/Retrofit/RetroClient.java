@@ -98,7 +98,7 @@ public class RetroClient {
             public void onResponse(Call<Response_Login> call, Response<Response_Login> response) {
                 if (response.isSuccessful()) {
                     callback.onSuccess(response.code(), response.body());
-                    Log.e("login success","success");
+                    Log.e("Login Success","success");
                 } else {
                     callback.onFailure(response.code());
                 }
@@ -106,7 +106,7 @@ public class RetroClient {
 
             @Override
             public void onFailure(Call<Response_Login> call, Throwable t) {
-                Log.e("login onfailure","fail->"+t.toString());
+                Log.e("Login onfailure","fail->"+t.toString());
             }
         });
     }
@@ -117,6 +117,7 @@ public class RetroClient {
             public void onResponse(Call<Response_Sensor> call, Response<Response_Sensor> response) {
                 if (response.isSuccessful()) {
                     callback.onSuccess(response.code(), response.body());
+                    Log.e("GetSensor Success","success");
                 } else {
                     callback.onFailure(response.code());
                 }
@@ -124,7 +125,7 @@ public class RetroClient {
 
             @Override
             public void onFailure(Call<Response_Sensor> call, Throwable t) {
-                Log.e("onfailure@@",t.toString());
+                Log.e("GetSensor onFailure",t.toString());
             }
         });
     }
@@ -230,7 +231,7 @@ public class RetroClient {
             @Override
             public void onResponse(Call<Response_Check> call, Response<Response_Check> response) {
                 if (response.isSuccessful()) {
-                    Log.e("Token success","success");
+                    Log.e("User Token success","success");
                     callback.onSuccess(response.code(), response.body());
                 } else {
                     callback.onFailure(response.code());
@@ -268,7 +269,7 @@ public class RetroClient {
             @Override
             public void onResponse(Call<List<Response_lastPulse>> call, Response<List<Response_lastPulse>> response) {
                 if (response.isSuccessful()) {
-                    Log.e( "Get Token success","success");
+                    Log.e( "LastPulse success","success");
                     callback.onSuccess(response.code(), response.body());
                 } else {
                     callback.onFailure(response.code());

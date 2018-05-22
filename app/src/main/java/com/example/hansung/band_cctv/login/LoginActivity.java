@@ -85,16 +85,12 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(android.widget.CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    Log.e("ssssssss","이프들어옴22");
                     autoLogin = true;
                 } else {
                     // if unChecked, removeAll
-                    Log.e("ssssssss","이ㅏ프233");
-
                     autoLogin = false;
                     //editor.clear();
                     //editor.commit();
-
                 }
                 editor.putBoolean("autoLogin", autoLogin);
                 editor.commit();
@@ -169,7 +165,7 @@ public class LoginActivity extends AppCompatActivity {
                     FirebaseInstanceId.getInstance().getToken();
 
                     if (FirebaseInstanceId.getInstance().getToken() != null) {
-                        Log.d("token", "token = " + FirebaseInstanceId.getInstance().getToken());
+                        Log.d("token at loginactivity", "token = " + FirebaseInstanceId.getInstance().getToken());
                     }
 
                     tokenmap = new HashMap<>();

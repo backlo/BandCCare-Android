@@ -37,17 +37,14 @@ public class CustomFirebaseMessagingService extends FirebaseMessagingService {
         retroClient2.Send_Alarm(alarmmap, new RetroCallback() {
             @Override
             public void onError(Throwable t) {
-                Log.e("alarm","123123123!!!!");
             }
             @Override
             public void onSuccess(int code, Object receivedData) {
-                Log.e("alarm","알람");
+                Log.e("send alarm","messagingservice");
             }
 
             @Override
             public void onFailure(int code) {
-                Log.e("alarm","okokokok!!!!");
-
             }
         });
         sendNotification(pushDataMap);

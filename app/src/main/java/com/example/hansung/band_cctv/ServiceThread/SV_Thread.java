@@ -93,7 +93,7 @@ public class SV_Thread extends Thread{
     public void run() {
         int count =0;
         while(state1 == true){
-            Log.e("okokok", String.valueOf(getData2()));
+            Log.e("심박수 ->", String.valueOf(getData2()));
             retroClient2 = RetroClient2.getInstance().createBaseApi2();
             if (getData2() > 90 || getData2() < 50){
                 count++;
@@ -107,7 +107,7 @@ public class SV_Thread extends Thread{
                         }
                         @Override
                         public void onSuccess(int code, Object receivedData) {
-                            Log.e("alarm","알람");
+                            Log.e("Alarm onSuccess","alarm 전송 성공");
                         }
 
                         @Override

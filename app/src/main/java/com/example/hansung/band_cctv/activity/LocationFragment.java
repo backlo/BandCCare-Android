@@ -79,7 +79,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        Log.e("zxcvb","Location onCreateView()");
+        Log.e("location map","Location onCreateView()");
         View view = inflater.inflate(R.layout.fragment_location, container, false);
         retroClient = RetroClient.getInstance().createBaseApi();
         locationmap = new HashMap<>();
@@ -135,7 +135,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback{
 
     @Override
     public void onStart() {
-        Log.e("zxcvb","Location onStart()");
+        Log.e("location fragment","Location onStart()");
         LocationThread thread = new LocationThread();
         thread.setDaemon(true);
         thread.start();
@@ -145,7 +145,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback{
 
     @Override
     public void onStop() {
-        Log.e("zxcvb","Location onStop()");
+        Log.e("location fragment","Location onStop()");
         state2 = false;
         super.onStop();
         mapView.onStop();
@@ -159,14 +159,14 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback{
 
     @Override
     public void onResume() {
-        Log.e("zxcvb","Location onResume()");
+        Log.e("location fragment","Location onResume()");
         super.onResume();
         mapView.onResume();
     }
 
     @Override
     public void onPause() {
-        Log.e("zxcvb","Location onPause()");
+        Log.e("location fragment","Location onPause()");
         super.onPause();
         mapView.onPause();
     }
@@ -179,13 +179,13 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback{
 
     @Override
     public void onDestroy() {
-        Log.e("zxcvb","Location onDestroy()");
+        Log.e("location fragment","Location onDestroy()");
         super.onDestroy();
         mapView.onLowMemory();
     }
     @Override
     public void onDestroyView() {
-        Log.e("zxcvb", "Location onDestroyView");
+        Log.e("location fragment", "Location onDestroyView");
         state2 = false;
         super.onDestroyView();
     }

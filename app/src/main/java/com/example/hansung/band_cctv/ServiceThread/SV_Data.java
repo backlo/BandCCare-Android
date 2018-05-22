@@ -16,7 +16,7 @@ public class SV_Data extends Service{
 
 
     public SV_Data() {
-        Log.e("okokok","생성자 생성!!");
+        Log.e("SV_Data","생성자 생성!!");
 
     }
 
@@ -41,7 +41,7 @@ public class SV_Data extends Service{
         public void handleMessage(Message msg) {
 
             if(msg.what == 5){
-                Log.e("okokok","adfiuewhfkjasnc");
+                Log.e("SV_Data MyHandler","ok");
             }
 
         }
