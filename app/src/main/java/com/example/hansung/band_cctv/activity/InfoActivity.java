@@ -11,10 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.hansung.band_cctv.R;
 import com.example.hansung.band_cctv.Retrofit.Model.Response_Band_Info;
@@ -29,9 +26,10 @@ public class InfoActivity extends AppCompatActivity {
 
     private DrawerLayout mDrawerLayout;
     SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
     RetroClient retroClient;
-    SharedPreferences login_pre;
-    SharedPreferences.Editor login_editor;
+ //   SharedPreferences login_pre;
+  //  SharedPreferences.Editor login_editor;
     public static int sendindex;
     public static ArrayList<Response_Info> infoArrayList;
     public static ArrayList<Response_Band_Info> bandInfoArrayList;
@@ -55,8 +53,8 @@ public class InfoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_info);
-        login_pre = getSharedPreferences("logininfo", MODE_PRIVATE);
-        login_editor = login_pre.edit();
+        sharedPreferences = getSharedPreferences("info", MODE_PRIVATE);
+        editor = sharedPreferences.edit();
         app_id_tv = (TextView) findViewById(R.id.app_id_tv);
         app_phone_tv = (TextView) findViewById(R.id.app_phone_tv);
         app_birth_tv = (TextView) findViewById(R.id.app_birth_tv);
@@ -72,7 +70,7 @@ public class InfoActivity extends AppCompatActivity {
 
         retroClient = RetroClient.getInstance().createBaseApi();
 
-        sharedPreferences = getSharedPreferences("logininfo", MODE_PRIVATE);
+        sharedPreferences = getSharedPreferences("info", MODE_PRIVATE);
         id = sharedPreferences.getString("id", "null");
         String pw = sharedPreferences.getString("pw", "null");
         Log.e("shared info!!!!", "id->" + id + "," + "pw->" + pw);
@@ -101,9 +99,9 @@ public class InfoActivity extends AppCompatActivity {
                         break;
 
                     case R.id.navigation_logout:
-                        login_editor.putBoolean("autoLogin", false);
-                        login_editor.clear();
-                        login_editor.commit();
+                        editor.putBoolean("autoLogin", false);
+                        editor.clear();
+                        editor.commit();
                         intent = new Intent(getApplicationContext(), LoginActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent);

@@ -46,8 +46,8 @@ public class MainActivity extends AppCompatActivity {
     RetroClient2 retroClient2;
     RetroClient retroClient;
     Intent intent2;
-    SharedPreferences login_pre;
-    SharedPreferences.Editor login_editor;
+    //SharedPreferences login_pre;
+    //SharedPreferences.Editor login_editor;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
 
@@ -74,8 +74,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        login_pre = getSharedPreferences("logininfo", MODE_PRIVATE);
-        login_editor = login_pre.edit();
+        sharedPreferences = getSharedPreferences("info", MODE_PRIVATE);
+        editor = sharedPreferences.edit();
         noalarmmap = new HashMap<>();
         noalarmmap.put("alarm", noalarm);
         checkDalogAlert();
@@ -83,8 +83,10 @@ public class MainActivity extends AppCompatActivity {
         retroClient = RetroClient.getInstance().createBaseApi();
         intent2 = new Intent(getApplicationContext(), SV_Data.class);
 
-        sharedPreferences = getSharedPreferences("logininfo", MODE_PRIVATE);
+        sharedPreferences = getSharedPreferences("info", MODE_PRIVATE);
         id = sharedPreferences.getString("id", "null");
+
+        Log.e("main",""+id);
         retroClient.GetToken(id, new RetroCallback() {
             @Override
             public void onError(Throwable t) {
@@ -94,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onSuccess(int code, Object receivedData) {
                 ArrayList<Response_Token> data = (ArrayList<Response_Token>) receivedData;
-                Log.e("get token", data.get(0).getUser_token());
+                //Log.e("get token", data.get(0).getUser_token());
             }
 
             @Override
@@ -190,9 +192,9 @@ public class MainActivity extends AppCompatActivity {
                             stopService(intent2);
                             Log.e("okok","중복 임요~");
                         }
-                        login_editor.putBoolean("autoLogin", false);
-                        login_editor.clear();
-                        login_editor.commit();
+                        editor.putBoolean("autoLogin", false);
+                        editor.clear();
+                        editor.commit();
                         intent = new Intent(getApplicationContext(), LoginActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent);

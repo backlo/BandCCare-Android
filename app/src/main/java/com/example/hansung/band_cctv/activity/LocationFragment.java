@@ -252,7 +252,6 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback{
                 Log.e("BandUserGPS: ", "" + data.get(0).getLatitude() + "," + data.get(0).getLongitude());
                 banduserLocation = new LatLng(data.get(0).getLatitude(), data.get(0).getLongitude());
             }
-
             @Override
             public void onFailure(int code) {
                 Log.e("location fail", "onfail");

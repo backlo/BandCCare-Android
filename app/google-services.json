@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "597021784266-2vpn7dqpuo71tau54s8c6arpcrcqd9j7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.hansung.band_cctv",
+            "certificate_hash": "c5301594313dec69962ff86800ae9b3a3e1d3df9"
+          }
+        },
+        {
           "client_id": "597021784266-44glqqn24617smudoqmc8ufj6f1etgn0.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

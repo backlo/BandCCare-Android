@@ -95,7 +95,7 @@ public class SV_Thread extends Thread{
         while(state1 == true){
             Log.e("okokok", String.valueOf(getData2()));
             retroClient2 = RetroClient2.getInstance().createBaseApi2();
-            if (getData2() > 150 || getData2() < 40){
+            if (getData2() > 90 || getData2() < 50){
                 count++;
                 if(count == 5){
                     HashMap<String, Object> alarmmap = new HashMap<>();

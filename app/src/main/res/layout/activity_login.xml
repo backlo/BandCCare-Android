@@ -9,7 +9,7 @@
     android:orientation="vertical"
     android:padding="20dp"
     android:theme="@style/AppTheme"
-    tools:context=".LoginActivity">
+    tools:context=".login.LoginActivity">
 
     <ImageView
         android:layout_width="match_parent"

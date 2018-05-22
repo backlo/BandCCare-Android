@@ -180,20 +180,20 @@ public class PulseFragment extends Fragment {
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setTextColor(Color.BLACK);
         xAxis.setAvoidFirstLastClipping(true);
-        xAxis.setAxisMaximum(maxIndex+100);
+        xAxis.setAxisMaximum(100);
         xAxis.setDrawAxisLine(true);
         xAxis.setAxisMinimum(0);
         xAxis.setValueFormatter(myformat);
         xAxis.enableGridDashedLine(15, 100, 5);
 
         LimitLine min = new LimitLine(50, " 최소심박수");
-        LimitLine max = new LimitLine(170, "최대심박수");
+        LimitLine max = new LimitLine(90, "최대심박수");
         min.setLineColor(Color.GRAY);
         min.setTextColor(Color.BLACK);
         max.setLineColor(Color.GRAY);
         max.setTextColor(Color.BLACK);
         YAxis yLAxis = lineChart.getAxisLeft();
-        yLAxis.setAxisMaximum(200);
+        yLAxis.setAxisMaximum(150);
         yLAxis.setTextColor(Color.BLACK);
         yLAxis.addLimitLine(min);
         yLAxis.addLimitLine(max);
@@ -213,7 +213,7 @@ public class PulseFragment extends Fragment {
         lineChart.setDescription(description);
         lineChart.setBackgroundColor(Color.parseColor("#FFFFFFFF"));
         lineChart.animateY(2000, Easing.EasingOption.EaseInElastic);
-        lineChart.zoom((float) 1.2,1,0,0);
+        lineChart.zoom((float) 2.0,1,0,0);
 
         return view;
     }
@@ -255,9 +255,6 @@ public class PulseFragment extends Fragment {
         return last_pulse;
     }
 
-
-
-
     public void chartUpdate(int x){
         entries.add(new Entry(0+xindexstart,getData2()));
         lineChart.notifyDataSetChanged();
@@ -291,7 +288,7 @@ public class PulseFragment extends Fragment {
                 Log.e("thread", "@@@@@@@@@@");
                 handler.sendEmptyMessage(0);
                 try {
-                    Thread.sleep(3000);
+                    Thread.sleep(4000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
