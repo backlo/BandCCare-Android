@@ -30,7 +30,7 @@ public class CustomFirebaseMessagingService extends FirebaseMessagingService {
         retroClient2 = RetroClient2.getInstance().createBaseApi2();
 
         Map<String, String> pushDataMap = remoteMessage.getData();
-        Log.e("fcm get data",""+pushDataMap.get("touch_data"));
+        Log.e("fcm get data",""+pushDataMap.get("detect"));
 
         HashMap<String, Object> alarmmap = new HashMap<>();
         alarmmap.put("alarm","alarm");
@@ -38,7 +38,6 @@ public class CustomFirebaseMessagingService extends FirebaseMessagingService {
             @Override
             public void onError(Throwable t) {
                 Log.e("alarm","123123123!!!!");
-
             }
             @Override
             public void onSuccess(int code, Object receivedData) {
@@ -51,8 +50,6 @@ public class CustomFirebaseMessagingService extends FirebaseMessagingService {
 
             }
         });
-
-
         sendNotification(pushDataMap);
     }
 
@@ -68,9 +65,10 @@ public class CustomFirebaseMessagingService extends FirebaseMessagingService {
                 title = "BandCCare";
                 body = "밴드 미착용 감지";
         }
-        if(dataMap.get("check").equals("heart")){
-                title = "BandCCare";
-                body = "심박수 이상 감지";
+
+        if(dataMap.get("check").equals("heart") && dataMap.get("detect").equals("false")){
+                title = "심박수 이상 감지";
+                body = "움직임이 감지되지 않았습니다.";
             }
         }
         NotificationCompat.Builder nBuilder = new NotificationCompat.Builder(this,"0")
@@ -82,7 +80,6 @@ public class CustomFirebaseMessagingService extends FirebaseMessagingService {
                 .setVibrate(new long[]{1000, 1000})
                 .setLights(Color.WHITE, 1500, 1500)
                 .setContentIntent(contentIntent);
-
         NotificationManager nManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         nManager.notify(1 /* ID of notification */, nBuilder.build());
     }

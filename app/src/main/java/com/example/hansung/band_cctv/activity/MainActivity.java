@@ -185,6 +185,23 @@ public class MainActivity extends AppCompatActivity {
                         break;
 
                     case R.id.navigation_logout:
+                        retroClient2.Exit_PI(parameter, new RetroCallback() {
+                            @Override
+                            public void onError(Throwable t) {
+
+                            }
+
+                            @Override
+                            public void onSuccess(int code, Object receivedData) {
+                                Request_exit_PI data = (Request_exit_PI) receivedData;
+                                Log.e("exit data@@", data.getExit());
+                            }
+
+                            @Override
+                            public void onFailure(int code) {
+                            }
+                        });
+
                         if(!isServiceRunningCheck()) {
                             Log.e("okok","중복 아님요~");
                         }

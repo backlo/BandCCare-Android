@@ -82,6 +82,14 @@
                     android:background="#00000000"
                     android:textColor="#FFFFFF"
                     android:text="등록" />
+
+                <EditText
+                    android:id="@+id/bandId_et"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:inputType="textPersonName" />
             </LinearLayout>
 
             <LinearLayout
@@ -120,6 +128,14 @@
                     android:background="#00000000"
                     android:textColor="#FFFFFF"
                     android:text="등록" />
+
+                <EditText
+                    android:id="@+id/cameraId_et"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:inputType="textPersonName" />
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

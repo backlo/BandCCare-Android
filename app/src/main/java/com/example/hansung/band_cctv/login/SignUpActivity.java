@@ -111,8 +111,11 @@ public class SignUpActivity extends AppCompatActivity {
 
             appuser_parameter.put("AppUserInfo_birthday",addAppUserFragment.getuserBirthday());
 
-            appuser_parameter.put("AppUserInfo_camera_id",addDeviceFragment.getQr_result_camera());
-            appuser_parameter.put("AppUserInfo_band_id",addDeviceFragment.getQr_result_band());
+            //appuser_parameter.put("AppUserInfo_camera_id",addDeviceFragment.getQr_result_camera());
+            //appuser_parameter.put("AppUserInfo_band_id",addDeviceFragment.getQr_result_band());
+
+            appuser_parameter.put("AppUserInfo_camera_id",addDeviceFragment.getCamerastring());
+            appuser_parameter.put("AppUserInfo_band_id",addDeviceFragment.getBandstring());
 
             user_password = addAppUserFragment.getuserPassword();
             user_id = addAppUserFragment.getuserId();
