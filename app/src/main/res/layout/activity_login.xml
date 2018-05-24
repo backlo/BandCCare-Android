@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#8DC54A"
+    android:background="@color/colorPrimary"
     android:gravity="center_horizontal"
     android:orientation="vertical"
     android:padding="20dp"
@@ -13,92 +13,107 @@
 
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="169dp"
-        android:layout_marginTop="30dp"
+        android:layout_height="0dp"
         android:layout_marginBottom="35dp"
-        app:srcCompat="@drawable/bandc_logo" />
+        android:layout_marginTop="30dp"
+        android:layout_weight="3"
+        app:srcCompat="@drawable/logo" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:gravity="center"
-        android:orientation="horizontal">
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:src="@drawable/login_user"
-            android:layout_marginRight="10dp" />
-
-        <EditText
-            android:id="@+id/login_id_et"
-            android:layout_width="250dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:gravity="center"
+            android:orientation="horizontal"
             android:paddingLeft="10dp"
-            android:ems="10"
-            android:hint="username"
-            android:inputType="textPersonName"
-            android:text="admin"
+            android:paddingRight="10dp">
+
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginRight="10dp"
+                android:src="@drawable/login_user" />
+
+            <EditText
+                android:id="@+id/login_id_et"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="username"
+                android:inputType="textPersonName"
+                android:paddingLeft="10dp"
+                android:text="admin"
+                android:textColor="@android:color/white" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp">
+
+            <ImageView
+                android:id="@+id/imageView3"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginRight="10dp"
+                android:src="@drawable/login_pw" />
+
+            <EditText
+                android:id="@+id/login_pw_et"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="password"
+                android:inputType="textPassword"
+                android:paddingLeft="10dp"
+                android:text="admin"
+                android:textColor="@android:color/white"
+
+                />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/login_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/login_btn"
+            android:text="Login"
+            android:textColor="@color/colorAccent" />
+
+
+        <CheckBox
+            android:id="@+id/autoLogin_check"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Remember me"
             android:textColor="@android:color/white" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:gravity="center"
-        android:orientation="horizontal">
-
-        <ImageView
-            android:id="@+id/imageView3"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:src="@drawable/login_pw"
-            android:layout_marginRight="10dp"/>
-
-        <EditText
-            android:id="@+id/login_pw_et"
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            android:paddingLeft="10dp"
-            android:ems="10"
-            android:hint="password"
-            android:inputType="textPassword"
-            android:text="admin"
-            android:textColor="@android:color/white"
-
-            />
-    </LinearLayout>
-
-
-
-    <Button
-        android:id="@+id/login_btn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginLeft="20dp"
-        android:background="@drawable/login_btn"
-        android:text="Login"
-
-        android:textColor="@color/colorAccent" />
-
-
-    <CheckBox
-        android:id="@+id/autoLogin_check"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_margin="10dp"
-        android:text="Remember me"
-        android:textColor="@android:color/white" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:layout_marginTop="15dp"
         android:gravity="center"
         android:orientation="horizontal">

@@ -27,20 +27,14 @@ import java.util.HashMap;
 public class LoginActivity extends AppCompatActivity {
 
     private static LoginActivity instance;
-   // SharedPreferences login_pre;
-   // SharedPreferences.Editor login_editor;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
     RetroClient retroClient;
-    EditText editText_id;
-    EditText editText_pw;
+    EditText editText_id, editText_pw;
     Button login_btn;
     String id, pw;
     Boolean autoLogin = false;
-    HashMap<String, Object> tokenmap;
-
-
-    HashMap<String, Object> parameter;
+    HashMap<String, Object> tokenmap, parameter;
 
     public static LoginActivity getInstance() {
         if (instance == null)
@@ -54,9 +48,6 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        //login_pre = getSharedPreferences("logininfo", MODE_PRIVATE);
-        //login_editor = login_pre.edit();
-
         sharedPreferences = getSharedPreferences("info", MODE_PRIVATE);
         editor = sharedPreferences.edit();
 
@@ -69,12 +60,7 @@ public class LoginActivity extends AppCompatActivity {
         retroClient = RetroClient.getInstance().createBaseApi();
 
         android.widget.CheckBox autoLogin_ck = findViewById(R.id.autoLogin_check);
-        // 1.sharedPreference를 통해 사용자의 자동로그인 설정 확인
         if (sharedPreferences.getBoolean("autoLogin", false)) {
-            //자동 로그인 사용자라면 바로 로그인 버튼을 눌리게 한다.
-          //  id = sharedPreferences.getString("id", null);
-          //  login();
-
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
@@ -87,10 +73,7 @@ public class LoginActivity extends AppCompatActivity {
                 if (isChecked) {
                     autoLogin = true;
                 } else {
-                    // if unChecked, removeAll
                     autoLogin = false;
-                    //editor.clear();
-                    //editor.commit();
                 }
                 editor.putBoolean("autoLogin", autoLogin);
                 editor.commit();
@@ -101,10 +84,8 @@ public class LoginActivity extends AppCompatActivity {
         login_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 id = editText_id.getText().toString();
                 pw = editText_pw.getText().toString();
-
                 login();
 
             }
@@ -123,14 +104,9 @@ public class LoginActivity extends AppCompatActivity {
 
     public void login() {
         // 서버 안통할때 용 코드 (지우지마세용)
-//        if (autoLogin) {
-//            login_editor.putString("id", id);
-//            login_editor.putString("pw", pw);
-//            login_editor.commit();
-//        }
-//        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-//        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//        startActivity(intent);
+       /* Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);*/
 
         parameter.put("AppUserInfo_id", id);
         parameter.put("AppUserInfo_password", pw);
@@ -151,12 +127,9 @@ public class LoginActivity extends AppCompatActivity {
                 editor.putString("id", id);
                 editor.commit();
                 if (data.getSuccess().equals("success")) {
-
-                    //editor.putString("id", id);
                     if (autoLogin) {
-                     // editor.putString("id", id);
                         editor.putString("pw", pw);
-                       editor.commit();
+                        editor.commit();
                     }
                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

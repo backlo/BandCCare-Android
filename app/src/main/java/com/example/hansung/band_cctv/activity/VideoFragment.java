@@ -210,7 +210,6 @@ public class VideoFragment extends Fragment {
 
         playView_second = new RtspViewPlayer(getContext(),"rtsp://192.168.0.2:8091/rtsp1");
         surfaceView_second = (RelativeLayout)view.findViewById(R.id.surface_video2);
-        surfaceView_second.addView(playView_second);
 
         return view;
     }
