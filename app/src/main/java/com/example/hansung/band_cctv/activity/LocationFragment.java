@@ -74,22 +74,22 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback{
 
     }
 
-    @SuppressWarnings("MissingPermission")
+    // @SuppressWarnings("MissingPermission")
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        Log.e("location map","Location onCreateView()");
+        Log.e("map","Location onCreateView()");
         View view = inflater.inflate(R.layout.fragment_location, container, false);
         retroClient = RetroClient.getInstance().createBaseApi();
         locationmap = new HashMap<>();
-        mapView = (MapView) view.findViewById(R.id.map);
+        mapView = view.findViewById(R.id.map);
         //mapView.getMapAsync(this);
 
         atLocationChange();
 
 
-        find_location = (Button) view.findViewById(R.id.band_location_btn);
+        find_location = view.findViewById(R.id.band_location_btn);
         find_location.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -135,7 +135,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback{
 
     @Override
     public void onStart() {
-        Log.e("location fragment","Location onStart()");
+        Log.e("location map fragment","Location onStart()");
         LocationThread thread = new LocationThread();
         thread.setDaemon(true);
         thread.start();
@@ -145,7 +145,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback{
 
     @Override
     public void onStop() {
-        Log.e("location fragment","Location onStop()");
+        Log.e("location map fragment","Location onStop()");
         state2 = false;
         super.onStop();
         mapView.onStop();
@@ -237,7 +237,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback{
         if (mapView != null) {
             mapView.onCreate(savedInstanceState);
         }
-        mapView = (MapView) mapView.findViewById(R.id.map);
+        mapView = mapView.findViewById(R.id.map);
         gFusedLocationClient = LocationServices.getFusedLocationProviderClient(getActivity());
         mapView.getMapAsync(this);
     }

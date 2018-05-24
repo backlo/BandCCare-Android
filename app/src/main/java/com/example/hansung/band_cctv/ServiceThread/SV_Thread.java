@@ -114,13 +114,13 @@ public class SV_Thread extends Thread{
                         public void onFailure(int code) {
                         }
                     });
-                    count++;
+                    count = 0;
                 }
             }
 
             handler.sendEmptyMessage(5);
             try {
-                Thread.sleep(3000);
+                Thread.sleep(4000);
             }catch (Exception e){
             }
         }

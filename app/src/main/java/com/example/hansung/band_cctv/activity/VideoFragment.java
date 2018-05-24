@@ -38,6 +38,14 @@ public class VideoFragment extends Fragment {
     HashMap<String, Object> parameter_left_center;
     HashMap<String, Object> parameter_stop;
 
+
+    HashMap<String, Object> parameter_right2;
+    HashMap<String, Object> parameter_left2;
+    HashMap<String, Object> parameter_center2;
+    HashMap<String, Object> parameter_right_center2;
+    HashMap<String, Object> parameter_left_center2;
+    HashMap<String, Object> parameter_stop2;
+
     Button left_btn1;
     Button right_btn1;
     Button right_center_btn1;
@@ -46,6 +54,9 @@ public class VideoFragment extends Fragment {
 
     Button left_btn2;
     Button right_btn2;
+    Button right_center_btn2;
+    Button left_center_btn2;
+    Button center_btn2;
 
     RetroClient2 retroClient2;
 
@@ -71,6 +82,9 @@ public class VideoFragment extends Fragment {
 
         left_btn2 = view.findViewById(R.id.left_btn2);
         right_btn2 = view.findViewById(R.id.right_btn2);
+        right_center_btn2 = view.findViewById(R.id.right_center_btn2);
+        left_center_btn2 = view.findViewById(R.id.left_center_btn2);
+        center_btn2 = view.findViewById(R.id.center_btn2);
 
         retroClient2 = RetroClient2.getInstance().createBaseApi2();
 
@@ -88,11 +102,26 @@ public class VideoFragment extends Fragment {
         parameter_left_center = new HashMap<>();
         parameter_right_center = new HashMap<>();
 
+
+        parameter_left2 = new HashMap<>();
+        parameter_right2 = new HashMap<>();
+        parameter_center2 = new HashMap<>();
+        parameter_stop2 = new HashMap<>();
+        parameter_left_center2 = new HashMap<>();
+        parameter_right_center2 = new HashMap<>();
+
         parameter_right.put("rsl",right);
         parameter_left.put("rsl",left);
         parameter_center.put("rsl",center);
         parameter_right_center.put("rsl",right_center);
         parameter_left_center.put("rsl",left_center);
+
+        parameter_right2.put("rsl",right);
+        parameter_left2.put("rsl",left);
+        parameter_center2.put("rsl",center);
+        parameter_right_center2.put("rsl",right_center);
+        parameter_left_center2.put("rsl",left_center);
+
 
         left_btn1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -204,12 +233,123 @@ public class VideoFragment extends Fragment {
             }
         });
 
+        left_btn2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                retroClient2.Motor_Controller2(parameter_left2, new RetroCallback() {
+                    @Override
+                    public void onError(Throwable t) {
+
+                    }
+
+                    @Override
+                    public void onSuccess(int code, Object receivedData) {
+
+                    }
+
+                    @Override
+                    public void onFailure(int code) {
+
+                    }
+                });
+            }
+        });
+
+        left_center_btn2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                retroClient2.Motor_Controller2(parameter_left_center2, new RetroCallback() {
+                    @Override
+                    public void onError(Throwable t) {
+
+                    }
+
+                    @Override
+                    public void onSuccess(int code, Object receivedData) {
+
+                    }
+
+                    @Override
+                    public void onFailure(int code) {
+
+                    }
+                });
+            }
+        });
+
+        center_btn2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                retroClient2.Motor_Controller2(parameter_center2, new RetroCallback() {
+                    @Override
+                    public void onError(Throwable t) {
+
+                    }
+
+                    @Override
+                    public void onSuccess(int code, Object receivedData) {
+
+                    }
+
+                    @Override
+                    public void onFailure(int code) {
+
+                    }
+                });
+            }
+        });
+
+        right_center_btn2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                retroClient2.Motor_Controller2(parameter_right_center2, new RetroCallback() {
+                    @Override
+                    public void onError(Throwable t) {
+
+                    }
+
+                    @Override
+                    public void onSuccess(int code, Object receivedData) {
+
+                    }
+
+                    @Override
+                    public void onFailure(int code) {
+
+                    }
+                });
+            }
+        });
+
+        right_btn2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                retroClient2.Motor_Controller2(parameter_right2, new RetroCallback() {
+                    @Override
+                    public void onError(Throwable t) {
+
+                    }
+
+                    @Override
+                    public void onSuccess(int code, Object receivedData) {
+
+                    }
+
+                    @Override
+                    public void onFailure(int code) {
+
+                    }
+                });
+            }
+        });
+
         playView_first = new RtspViewPlayer(getContext(),"rtsp://192.168.0.2:8091/rtsp");
-        surfaceView_first = (RelativeLayout)view.findViewById(R.id.surface_video1);
+        surfaceView_first = view.findViewById(R.id.surface_video1);
         surfaceView_first.addView(playView_first);
 
         playView_second = new RtspViewPlayer(getContext(),"rtsp://192.168.0.2:8091/rtsp1");
-        surfaceView_second = (RelativeLayout)view.findViewById(R.id.surface_video2);
+        surfaceView_second = view.findViewById(R.id.surface_video2);
+        surfaceView_second.addView(playView_second);
 
         return view;
     }

@@ -5,6 +5,7 @@ import android.util.Log;
 import com.example.hansung.band_cctv.Retrofit.RetroCallback;
 import com.example.hansung.band_cctv.Retrofit2.Model2.Request_Alarm;
 import com.example.hansung.band_cctv.Retrofit2.Model2.Request_Motor;
+import com.example.hansung.band_cctv.Retrofit2.Model2.Request_Motor2;
 import com.example.hansung.band_cctv.Retrofit2.Model2.Request_exit_PI;
 import com.example.hansung.band_cctv.Retrofit2.Model2.Response_Detect;
 
@@ -103,11 +104,11 @@ public class RetroClient2 {
     }
 
     public void Motor_Controller2(HashMap<String, Object> parameters, final RetroCallback callback){
-        apiService2.Motor_Controller2(new Request_Motor(parameters)).enqueue(new Callback<Request_Motor>() {
+        apiService2.Motor_Controller2(new Request_Motor2(parameters)).enqueue(new Callback<Request_Motor2>() {
             @Override
-            public void onResponse(Call<Request_Motor> call, Response<Request_Motor> response) {
+            public void onResponse(Call<Request_Motor2> call, Response<Request_Motor2> response) {
                 if (response.isSuccessful()) {
-                    Log.e("Motor ctl2 success","success");
+                    Log.e("Motor2 ctl success","success");
                     callback.onSuccess(response.code(), response.body());
                 } else {
                     callback.onFailure(response.code());
@@ -115,7 +116,7 @@ public class RetroClient2 {
             }
 
             @Override
-            public void onFailure(Call<Request_Motor> call, Throwable t) {
+            public void onFailure(Call<Request_Motor2> call, Throwable t) {
 
             }
         });

@@ -55,18 +55,18 @@ public class InfoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_info);
         sharedPreferences = getSharedPreferences("info", MODE_PRIVATE);
         editor = sharedPreferences.edit();
-        app_id_tv = (TextView) findViewById(R.id.app_id_tv);
-        app_phone_tv = (TextView) findViewById(R.id.app_phone_tv);
-        app_birth_tv = (TextView) findViewById(R.id.app_birth_tv);
+        app_id_tv = findViewById(R.id.app_id_tv);
+        app_phone_tv = findViewById(R.id.app_phone_tv);
+        app_birth_tv = findViewById(R.id.app_birth_tv);
 
-        band_name_tv = (TextView) findViewById(R.id.band_name_tv);
-        band_phone_tv = (TextView) findViewById(R.id.band_phone_tv);
-        band_sex_tv = (TextView) findViewById(R.id.band_sex_tv);
-        band_birth_tv = (TextView) findViewById(R.id.band_birth_tv);
-        band_address_tv = (TextView) findViewById(R.id.band_address_tv);
+        band_name_tv = findViewById(R.id.band_name_tv);
+        band_phone_tv = findViewById(R.id.band_phone_tv);
+        band_sex_tv = findViewById(R.id.band_sex_tv);
+        band_birth_tv = findViewById(R.id.band_birth_tv);
+        band_address_tv = findViewById(R.id.band_address_tv);
 
-        camera_tv = (TextView) findViewById(R.id.camera_tv);
-        band_tv = (TextView) findViewById(R.id.band_tv);
+        camera_tv = findViewById(R.id.camera_tv);
+        band_tv = findViewById(R.id.band_tv);
 
         retroClient = RetroClient.getInstance().createBaseApi();
 
@@ -75,14 +75,14 @@ public class InfoActivity extends AppCompatActivity {
         String pw = sharedPreferences.getString("pw", "null");
         Log.e("shared info!!!!", "id->" + id + "," + "pw->" + pw);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setHomeAsUpIndicator(R.drawable.ic_menu);
         actionBar.setDisplayHomeAsUpEnabled(true);
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        mDrawerLayout = findViewById(R.id.drawer_layout);
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.navigation_view);
+        NavigationView navigationView = findViewById(R.id.navigation_view);
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(MenuItem menuItem) {
@@ -160,8 +160,8 @@ public class InfoActivity extends AppCompatActivity {
                     }
                 });
 
-                camera_tv = (TextView) findViewById(R.id.camera_tv);
-                band_tv = (TextView) findViewById(R.id.band_tv);
+                camera_tv = findViewById(R.id.camera_tv);
+                band_tv = findViewById(R.id.band_tv);
             }
 
             @Override

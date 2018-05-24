@@ -73,7 +73,6 @@ public class PulseFragment extends Fragment {
         return instance;
     }
 
-
     @Override
     public void onStart() {
         super.onStart();
@@ -153,7 +152,7 @@ public class PulseFragment extends Fragment {
         });
 
         entries = new ArrayList<>();
-        entries.add(new Entry(0,0));
+        //entries.add(new Entry(0,0));
 
         LineDataSet lineDataSet = new LineDataSet(entries, "심박수(heart rate)");
         lineDataSet.setLineWidth(1);
@@ -184,7 +183,7 @@ public class PulseFragment extends Fragment {
         xAxis.setDrawAxisLine(true);
         xAxis.setAxisMinimum(0);
         xAxis.setValueFormatter(myformat);
-        xAxis.enableGridDashedLine(15, 100, 5);
+        xAxis.enableGridDashedLine(15, 80, 15);
 
         LimitLine min = new LimitLine(50, " 최소심박수");
         LimitLine max = new LimitLine(90, "최대심박수");
@@ -193,7 +192,8 @@ public class PulseFragment extends Fragment {
         max.setLineColor(Color.GRAY);
         max.setTextColor(Color.BLACK);
         YAxis yLAxis = lineChart.getAxisLeft();
-        yLAxis.setAxisMaximum(150);
+        yLAxis.setAxisMaximum(100);
+        yLAxis.setAxisMinimum(30);
         yLAxis.setTextColor(Color.BLACK);
         yLAxis.addLimitLine(min);
         yLAxis.addLimitLine(max);
@@ -212,8 +212,9 @@ public class PulseFragment extends Fragment {
         lineChart.notifyDataSetChanged();
         lineChart.setDescription(description);
         lineChart.setBackgroundColor(Color.parseColor("#FFFFFFFF"));
-        lineChart.animateY(2000, Easing.EasingOption.EaseInElastic);
-        lineChart.zoom((float) 2.0,1,0,0);
+        lineChart.animateY(4000, Easing.EasingOption.EaseInElastic);
+        lineChart.zoom((float) 3.0,1,0,getData2());
+
 
         return view;
     }
@@ -256,7 +257,8 @@ public class PulseFragment extends Fragment {
     }
 
     public void chartUpdate(int x){
-        entries.add(new Entry(0+xindexstart,getData2()));
+
+        entries.add(new Entry(xindexstart,getData2()));
         lineChart.notifyDataSetChanged();
         lineChart.invalidate();
         //xAxis.setAxisMaximum((float) (maxIndex+xindex));
@@ -264,12 +266,12 @@ public class PulseFragment extends Fragment {
         dataview.setText(String.valueOf(getData2()));
     }
 
+
      Handler handler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
             if(msg.what == 0 ){
                 chartUpdate(startIndex);
-                Log.e("심박테이블 Index ->", String.valueOf(startIndex));
                 xindex++;
                 startIndex+=2;
                 xindexstart++;
@@ -314,7 +316,7 @@ public class PulseFragment extends Fragment {
 
         @Override
         public String getFormattedValue(float value, AxisBase axis) {
-            long originalTimestamp = ref + (long)value * 2000;
+            long originalTimestamp = ref + (long)value * 4000;
             mDate.setTime(originalTimestamp);
             return mDataFormat.format(mDate);
         }

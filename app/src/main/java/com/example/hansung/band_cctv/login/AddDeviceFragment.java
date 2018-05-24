@@ -38,8 +38,8 @@ public class AddDeviceFragment extends Fragment {
         Button band_btn = view.findViewById(R.id.band_btn);
         Button camera_btn = view.findViewById(R.id.camera_btn);
 
-        editText_band = (EditText)view.findViewById(R.id.bandId_et);
-        editText_camera = (EditText)view.findViewById(R.id.cameraId_et);
+        editText_band = view.findViewById(R.id.bandId_et);
+        editText_camera = view.findViewById(R.id.cameraId_et);
 
         editText_band.addTextChangedListener(new TextWatcher() {
             @Override

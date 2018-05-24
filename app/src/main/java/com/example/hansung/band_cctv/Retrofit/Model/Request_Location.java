@@ -7,8 +7,8 @@ public class Request_Location {
     public double longitude;
 
     public Request_Location(HashMap<String, Double> parameters){
-        this.latitude = (double) parameters.get("latitude");
-        this.longitude = (double) parameters.get("longitude");
+        this.latitude = parameters.get("latitude");
+        this.longitude = parameters.get("longitude");
     }
 
     public double getLatitude() {

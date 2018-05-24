@@ -3,6 +3,7 @@ package com.example.hansung.band_cctv.Retrofit2;
 
 import com.example.hansung.band_cctv.Retrofit2.Model2.Request_Alarm;
 import com.example.hansung.band_cctv.Retrofit2.Model2.Request_Motor;
+import com.example.hansung.band_cctv.Retrofit2.Model2.Request_Motor2;
 import com.example.hansung.band_cctv.Retrofit2.Model2.Request_exit_PI;
 import com.example.hansung.band_cctv.Retrofit2.Model2.Response_Detect;
 
@@ -12,7 +13,7 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 
 public interface RetroApiService2{
-    final String Base_URL2 = "http://192.168.0.6:5000";
+    String Base_URL2 = "http://192.168.0.6:5000";
     //final String Base_URL2 = "http://172.30.1.48:4000";
 
 
@@ -25,7 +26,7 @@ public interface RetroApiService2{
     Call<Request_Motor> Motor_Controller(@Body Request_Motor request_motor);
 
     @POST("/post1")
-    Call<Request_Motor> Motor_Controller2(@Body Request_Motor request_motor);
+    Call<Request_Motor2> Motor_Controller2(@Body Request_Motor2 request_motor);
 
     //@@위험알람
     @POST("/alarm")

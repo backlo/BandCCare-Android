@@ -32,21 +32,24 @@ public class CustomFirebaseMessagingService extends FirebaseMessagingService {
         Map<String, String> pushDataMap = remoteMessage.getData();
         Log.e("fcm get data",""+pushDataMap.get("detect"));
 
-        HashMap<String, Object> alarmmap = new HashMap<>();
-        alarmmap.put("alarm","alarm");
-        retroClient2.Send_Alarm(alarmmap, new RetroCallback() {
-            @Override
-            public void onError(Throwable t) {
-            }
-            @Override
-            public void onSuccess(int code, Object receivedData) {
-                Log.e("send alarm","messagingservice");
-            }
+        if(pushDataMap.get("check").equals("heart")){
+            HashMap<String, Object> alarmmap = new HashMap<>();
+            alarmmap.put("alarm","alarm");
+            retroClient2.Send_Alarm(alarmmap, new RetroCallback() {
+                @Override
+                public void onError(Throwable t) {
+                }
+                @Override
+                public void onSuccess(int code, Object receivedData) {
+                    Log.e("send alarm","messagingservice");
+                }
 
-            @Override
-            public void onFailure(int code) {
-            }
-        });
+                @Override
+                public void onFailure(int code) {
+                }
+            });
+        }
+
         sendNotification(pushDataMap);
     }
 

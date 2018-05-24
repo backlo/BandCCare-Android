@@ -70,11 +70,7 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onCheckedChanged(android.widget.CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    autoLogin = true;
-                } else {
-                    autoLogin = false;
-                }
+                autoLogin = isChecked;
                 editor.putBoolean("autoLogin", autoLogin);
                 editor.commit();
             }
