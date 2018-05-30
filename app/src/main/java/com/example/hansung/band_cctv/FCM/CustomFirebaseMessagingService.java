@@ -27,6 +27,7 @@ public class CustomFirebaseMessagingService extends FirebaseMessagingService {
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
+
         retroClient2 = RetroClient2.getInstance().createBaseApi2();
 
         Map<String, String> pushDataMap = remoteMessage.getData();
@@ -50,7 +51,9 @@ public class CustomFirebaseMessagingService extends FirebaseMessagingService {
             });
         }
 
+
         sendNotification(pushDataMap);
+
     }
 
     private void sendNotification(Map<String, String> dataMap) {
@@ -67,10 +70,17 @@ public class CustomFirebaseMessagingService extends FirebaseMessagingService {
         }
 
         if(dataMap.get("check").equals("heart") && dataMap.get("detect").equals("false")){
+                MainActivity.videoIsOn = true;
                 title = "심박수 이상 감지";
                 body = "움직임이 감지되지 않았습니다.";
             }
+
+            if(dataMap.get("check").equals("heart") && dataMap.get("detect").equals("true")){
+                title = "심박수 이상 감지";
+                body = "움직임이 감지되었습니다.";
+            }
         }
+
         NotificationCompat.Builder nBuilder = new NotificationCompat.Builder(this,"0")
                 .setSmallIcon(R.drawable.sos)
                 .setContentTitle(title)

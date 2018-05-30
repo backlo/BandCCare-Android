@@ -18,9 +18,12 @@ import com.example.hansung.band_cctv.Retrofit.Model.Response_Band_Info;
 import com.example.hansung.band_cctv.Retrofit.Model.Response_Info;
 import com.example.hansung.band_cctv.Retrofit.RetroCallback;
 import com.example.hansung.band_cctv.Retrofit.RetroClient;
+import com.example.hansung.band_cctv.Retrofit2.Model2.Request_exit_PI;
+import com.example.hansung.band_cctv.Retrofit2.RetroClient2;
 import com.example.hansung.band_cctv.login.LoginActivity;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class InfoActivity extends AppCompatActivity {
 
@@ -48,10 +51,18 @@ public class InfoActivity extends AppCompatActivity {
     TextView camera_tv;
     TextView band_tv;
 
+    RetroClient2 retroClient2;
+
+    HashMap<String, Object> parameter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_info);
+        parameter = new HashMap<>();
+        parameter.put("exit","exit");
+
+        final boolean videoison = MainActivity.getInstance().videoIsOn;
         sharedPreferences = getSharedPreferences("info", MODE_PRIVATE);
         editor = sharedPreferences.edit();
         app_id_tv = findViewById(R.id.app_id_tv);
@@ -98,6 +109,24 @@ public class InfoActivity extends AppCompatActivity {
                         break;
 
                     case R.id.navigation_logout:
+                        if(videoison == true){
+                            retroClient2.Exit_PI(parameter, new RetroCallback() {
+                                @Override
+                                public void onError(Throwable t) {
+
+                                }
+
+                                @Override
+                                public void onSuccess(int code, Object receivedData) {
+                                    Request_exit_PI data = (Request_exit_PI) receivedData;
+                                    Log.e("Logout btn Data->", data.getExit());
+                                }
+
+                                @Override
+                                public void onFailure(int code) {
+                                }
+                            });
+                        }
                         editor.putBoolean("autoLogin", false);
                         editor.clear();
                         editor.commit();
@@ -151,7 +180,6 @@ public class InfoActivity extends AppCompatActivity {
                         band_sex_tv.setText(bandInfoArrayList.get(0).BandUserInfo_sex);
                         band_birth_tv.setText(bandInfoArrayList.get(0).BandUserInfo_birth);
                         band_address_tv.setText(bandInfoArrayList.get(0).BandUserInfo_address);
-
                     }
 
                     @Override

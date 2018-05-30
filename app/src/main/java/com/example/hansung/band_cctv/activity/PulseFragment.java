@@ -1,6 +1,7 @@
 package com.example.hansung.band_cctv.activity;
 
 
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
@@ -40,6 +41,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import static android.content.Context.MODE_PRIVATE;
+
 public class PulseFragment extends Fragment {
     private static PulseFragment instance;
 
@@ -51,6 +54,14 @@ public class PulseFragment extends Fragment {
     public static int maxIndex;
     public static int startIndex;
     public boolean state = true;
+    String sex_f;
+    public int age;
+    public int sex;
+    SharedPreferences sharedPreferencesForPulse;
+    SharedPreferences.Editor editorForPulse;
+    int MALE = 0, FEMALE = 1;
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
 
     RetroClient retroClient;
     public int xindexstart = 0;
@@ -68,6 +79,9 @@ public class PulseFragment extends Fragment {
     int result;
     int last_pulse;
     TextView today_tv;
+    TextView banduserinfo_textview;
+    TextView banduserinfo_txt;
+
     ArrayList<LineDataSet> dataSets;
     ArrayList<Response_lastPulse> lastPulseArrayList;
 
@@ -130,6 +144,23 @@ public class PulseFragment extends Fragment {
         dataview = view.findViewById(R.id.dataview);
         lineChart = view.findViewById(R.id.linechart);
         state_textview = view.findViewById(R.id.state_textview);
+        //banduserinfo_textview = (TextView)view.findViewById(R.id.banduserinfo_txt);
+        sharedPreferencesForPulse=  getContext().getSharedPreferences("pulse", MODE_PRIVATE);
+        editorForPulse = sharedPreferencesForPulse.edit();
+        sharedPreferences = getContext().getSharedPreferences("info", MODE_PRIVATE);
+
+        age =  sharedPreferencesForPulse.getInt("age",1990);
+        sex = sharedPreferencesForPulse.getInt("sex",0);
+
+        Log.e("dfdff",""+age+""+sex);
+        if(sex == 1){
+            sex_f = "여자";
+        }else{
+            sex_f = "남자";
+        }
+
+
+
 
         ImageView rabbit = view.findViewById(R.id.heart_img);
         GlideDrawableImageViewTarget gifImage = new GlideDrawableImageViewTarget(rabbit);
@@ -185,9 +216,9 @@ public class PulseFragment extends Fragment {
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setTextColor(Color.BLACK);
         xAxis.setAvoidFirstLastClipping(true);
-        xAxis.setAxisMaximum(50);
+        xAxis.setAxisMaximum(70);
         xAxis.setDrawAxisLine(true);
-        xAxis.setAxisMinimum(0);
+        xAxis.setAxisMinimum(xindexstart);
         xAxis.setValueFormatter(myformat);
         xAxis.enableGridDashedLine(15, 80, 15);
 
@@ -219,7 +250,7 @@ public class PulseFragment extends Fragment {
         lineChart.setDescription(description);
         lineChart.setBackgroundColor(Color.parseColor("#FFFFFFFF"));
         lineChart.animateY(4000, Easing.EasingOption.EaseInElastic);
-        lineChart.zoom((float) 3.0,1,0,getData2());
+        lineChart.zoom((float) 1.4,1,0,getData2());
 
 
         return view;
@@ -271,8 +302,11 @@ public class PulseFragment extends Fragment {
         lineChart.notifyDataSetChanged();
         lineChart.invalidate();
         xAxis.setAxisMaximum((float) (xindexstart+xindex));
-        xAxis.setAxisMinimum(0);
+        xAxis.setAxisMinimum(xindexstart-3);
         dataview.setText(String.valueOf(dataString));
+
+        if(dataString>50 && dataString <90)state_textview.setText("정상");
+        else state_textview.setText("위험한 상태");
     }
 
 
@@ -281,7 +315,7 @@ public class PulseFragment extends Fragment {
         public void handleMessage(Message msg) {
             if(msg.what == 0 ){
                 chartUpdate(startIndex);
-                xindex++;
+                xindex = xindex + 0.3;
                 startIndex+=2;
                 xindexstart++;
             }
@@ -299,7 +333,7 @@ public class PulseFragment extends Fragment {
                 Log.e("DataThread run()", "run()");
                 handler.sendEmptyMessage(0);
                 try {
-                    Thread.sleep(4000);
+                    Thread.sleep(3000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -325,7 +359,7 @@ public class PulseFragment extends Fragment {
 
         @Override
         public String getFormattedValue(float value, AxisBase axis) {
-            long originalTimestamp = ref + (long)value * 4000;
+            long originalTimestamp = ref + (long)value * 3000;
             mDate.setTime(originalTimestamp);
             return mDataFormat.format(mDate);
         }

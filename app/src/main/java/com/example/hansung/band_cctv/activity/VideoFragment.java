@@ -58,8 +58,10 @@ public class VideoFragment extends Fragment {
     Button right_center_btn2;
     Button left_center_btn2;
     Button center_btn2;
+    Button exit_btn;
 
     RetroClient2 retroClient2;
+    HashMap<String ,Object> exitmap;
 
     public static VideoFragment getInstance() {
         if (instance == null)
@@ -74,6 +76,30 @@ public class VideoFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_video, container, false);
+        exitmap = new HashMap<>();
+        exitmap.put("exit","exit");
+        exit_btn = (Button)view.findViewById(R.id.exit_btn);
+        exit_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                retroClient2.Exit_PI(exitmap, new RetroCallback() {
+                    @Override
+                    public void onError(Throwable t) {
+
+                    }
+
+                    @Override
+                    public void onSuccess(int code, Object receivedData) {
+
+                    }
+
+                    @Override
+                    public void onFailure(int code) {
+
+                    }
+                });
+            }
+        });
 
         left_btn1 = view.findViewById(R.id.left_btn1);
         right_btn1 = view.findViewById(R.id.right_btn1);

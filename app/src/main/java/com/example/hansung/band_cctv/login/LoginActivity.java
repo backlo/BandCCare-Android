@@ -42,7 +42,6 @@ public class LoginActivity extends AppCompatActivity {
         return instance;
     }
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -109,7 +108,6 @@ public class LoginActivity extends AppCompatActivity {
         Log.e("input id", "id->" + id);
         Log.e("input password", "password->" + pw);
 
-
         retroClient.Login(parameter, new RetroCallback() {
             @Override
             public void onError(Throwable t) {
@@ -136,7 +134,6 @@ public class LoginActivity extends AppCompatActivity {
                     if (FirebaseInstanceId.getInstance().getToken() != null) {
                         Log.d("token at loginactivity", "token = " + FirebaseInstanceId.getInstance().getToken());
                     }
-
                     tokenmap = new HashMap<>();
                     tokenmap.put("user_id", id);
                     tokenmap.put("user_token", FirebaseInstanceId.getInstance().getToken());
@@ -156,7 +153,8 @@ public class LoginActivity extends AppCompatActivity {
 
                         }
                     });
-                } else if (data.getSuccess().equals("nomatch")) {
+                }
+                else if (data.getSuccess().equals("nomatch")) {
                     Toast.makeText(LoginActivity.this, "비밀번호 혹은 아이디를 확인하세요", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(LoginActivity.this, "해당아이디가 없습니다.", Toast.LENGTH_SHORT).show();

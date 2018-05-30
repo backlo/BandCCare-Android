@@ -26,6 +26,8 @@ import android.view.MenuItem;
 
 import com.example.hansung.band_cctv.MyPagerAdapter;
 import com.example.hansung.band_cctv.R;
+import com.example.hansung.band_cctv.Retrofit.Model.Response_Band_Info;
+import com.example.hansung.band_cctv.Retrofit.Model.Response_Info;
 import com.example.hansung.band_cctv.Retrofit.Model.Response_Token;
 import com.example.hansung.band_cctv.Retrofit.RetroCallback;
 import com.example.hansung.band_cctv.Retrofit.RetroClient;
@@ -40,16 +42,27 @@ import java.util.HashMap;
 public class MainActivity extends AppCompatActivity {
     public static Boolean isAppUser;
     public static boolean sv_state = true;
+    public static boolean videoIsOn = false;
     public static MainActivity instance;
 
     private DrawerLayout mDrawerLayout;
     RetroClient2 retroClient2;
     RetroClient retroClient;
     Intent intent2;
-    //SharedPreferences login_pre;
-    //SharedPreferences.Editor login_editor;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
+
+    SharedPreferences sharedPreferencesForPulse;
+    SharedPreferences.Editor editorForPulse;
+
+
+    int bandUserBirth_forPulse;
+    int bandUserSex_forPulse;
+
+    public static int sendindex;
+
+    public static ArrayList<Response_Info> infoArrayList;
+    public static ArrayList<Response_Band_Info> bandInfoArrayList;
 
     public String exit;
     public String noexit;
@@ -62,7 +75,8 @@ public class MainActivity extends AppCompatActivity {
     String noalarm = "noalarm";
     HashMap<String, Object> noalarmmap;
     PulseFragment pulseFragment= PulseFragment.getInstance();
-
+    int MALE = 0, FEMALE = 1;
+    int bandUserAge;
 
     public static MainActivity getInstance() {
         if (instance == null)
@@ -76,6 +90,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         sharedPreferences = getSharedPreferences("info", MODE_PRIVATE);
         editor = sharedPreferences.edit();
+        sharedPreferencesForPulse= getSharedPreferences("pulse", MODE_PRIVATE);
+        editorForPulse = sharedPreferencesForPulse.edit();
+
         noalarmmap = new HashMap<>();
         noalarmmap.put("alarm", noalarm);
         checkDalogAlert();
@@ -83,8 +100,53 @@ public class MainActivity extends AppCompatActivity {
         retroClient = RetroClient.getInstance().createBaseApi();
         intent2 = new Intent(getApplicationContext(), SV_Data.class);
 
-        sharedPreferences = getSharedPreferences("info", MODE_PRIVATE);
         id = sharedPreferences.getString("id", "null");
+
+        retroClient.GetInfo(id, new RetroCallback() {
+            @Override
+            public void onError(Throwable t) {
+            }
+            @Override
+            public void onSuccess(int code, Object receivedData) {
+                infoArrayList = (ArrayList<Response_Info>)receivedData;
+                sendindex = infoArrayList.get(0).getAppUserInfo_index();
+                retroClient.GetInfo_Band(sendindex, new RetroCallback() {
+                    @Override
+                    public void onError(Throwable t) {
+                    }
+
+                    @Override
+                    public void onSuccess(int code, Object receivedData) {
+                        bandInfoArrayList = (ArrayList<Response_Band_Info>) receivedData;
+                        Log.e("band user birth->", "" + bandInfoArrayList.get(0).getBandUserInfo_birth());
+                        Log.e("band user sex->", "" + bandInfoArrayList.get(0).getBandUserInfo_sex());
+                        String bandUserBirth = bandInfoArrayList.get(0).getBandUserInfo_birth().substring(0,4);
+                        Log.e("bandUserBirth",""+bandUserBirth);
+                        bandUserBirth_forPulse = Integer.parseInt(bandUserBirth);
+                        Log.e("bandUserBirth_forPulse",""+bandUserBirth_forPulse);
+                        String bandUserSex = bandInfoArrayList.get(0).getBandUserInfo_sex();
+                        Log.e("bandUserSex",""+bandUserSex);
+                        if(bandUserSex.equals("남성")) bandUserSex_forPulse = 0;
+                        else bandUserSex_forPulse = 1;
+                        Log.e("bandUserSex_forPulse",""+bandUserSex_forPulse);
+
+                        bandUserAge = 2018 - bandUserBirth_forPulse + 1;
+                        editorForPulse.putInt("age",bandUserAge);
+                        editorForPulse.putInt("sex",bandUserSex_forPulse);
+                        editorForPulse.commit();
+                    }
+
+                    @Override
+                    public void onFailure(int code) {
+                    }
+                });
+            }
+
+            @Override
+            public void onFailure(int code) {
+
+            }
+        });
 
         Log.e("main",""+id);
         retroClient.GetToken(id, new RetroCallback() {
@@ -114,7 +176,6 @@ public class MainActivity extends AppCompatActivity {
         retroClient = RetroClient.getInstance().createBaseApi();
         parameter.put("exit", exit);
         parameter2.put("exit", noexit);
-
         retroClient2.Exit_PI(parameter2, new RetroCallback() {
             @Override
             public void onError(Throwable t) {
@@ -131,8 +192,6 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
-
         retroClient2.Send_Alarm(noalarmmap, new RetroCallback() {
             @Override
             public void onError(Throwable t) {
@@ -186,22 +245,24 @@ public class MainActivity extends AppCompatActivity {
                         break;
 
                     case R.id.navigation_logout:
-                        retroClient2.Exit_PI(parameter, new RetroCallback() {
-                            @Override
-                            public void onError(Throwable t) {
+                        if(videoIsOn == true){
+                            retroClient2.Exit_PI(parameter, new RetroCallback() {
+                                @Override
+                                public void onError(Throwable t) {
 
-                            }
+                                }
 
-                            @Override
-                            public void onSuccess(int code, Object receivedData) {
-                                Request_exit_PI data = (Request_exit_PI) receivedData;
-                                Log.e("Logout btn Data->", data.getExit());
-                            }
+                                @Override
+                                public void onSuccess(int code, Object receivedData) {
+                                    Request_exit_PI data = (Request_exit_PI) receivedData;
+                                    Log.e("Logout btn Data->", data.getExit());
+                                }
 
-                            @Override
-                            public void onFailure(int code) {
-                            }
-                        });
+                                @Override
+                                public void onFailure(int code) {
+                                }
+                            });
+                        }
 
                         if(!isServiceRunningCheck()) {
                         }
@@ -209,6 +270,9 @@ public class MainActivity extends AppCompatActivity {
                             stopService(intent2);
                         }
                         editor.putBoolean("autoLogin", false);
+                        editorForPulse.clear();
+                        editorForPulse.commit();
+
                         editor.clear();
                         editor.commit();
                         intent = new Intent(getApplicationContext(), LoginActivity.class);
@@ -228,6 +292,14 @@ public class MainActivity extends AppCompatActivity {
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
         }
+    }*/
+ /*
+    public int getage(){
+        return bandUserAge;
+    }
+
+    public int getsex(){
+        return bandUserSex_forPulse;
     }*/
 
     @Override
@@ -290,22 +362,25 @@ public class MainActivity extends AppCompatActivity {
         alert_ex.setPositiveButton("종료", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                retroClient2.Exit_PI(parameter, new RetroCallback() {
-                    @Override
-                    public void onError(Throwable t) {
+                if(videoIsOn == true){
+                    retroClient2.Exit_PI(parameter, new RetroCallback() {
+                        @Override
+                        public void onError(Throwable t) {
 
-                    }
+                        }
 
-                    @Override
-                    public void onSuccess(int code, Object receivedData) {
-                        Request_exit_PI data = (Request_exit_PI) receivedData;
-                        Log.e("exit data@@", data.getExit());
-                    }
+                        @Override
+                        public void onSuccess(int code, Object receivedData) {
+                            Request_exit_PI data = (Request_exit_PI) receivedData;
+                            Log.e("exit data@@", data.getExit());
+                        }
 
-                    @Override
-                    public void onFailure(int code) {
-                    }
-                });
+                        @Override
+                        public void onFailure(int code) {
+                        }
+                    });
+                }
+
 
                 if(!isServiceRunningCheck()) {
                     Log.e("okok","중복 아님요~");
@@ -324,24 +399,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onUserLeaveHint() {
-
-        Log.e("main ondestroy", "destroy");
-        retroClient2.Exit_PI(parameter, new RetroCallback() {
-            @Override
-            public void onError(Throwable t) {
-
-            }
-
-            @Override
-            public void onSuccess(int code, Object receivedData) {
-                Request_exit_PI data = (Request_exit_PI) receivedData;
-                Log.e("exit data@@", data.getExit());
-            }
-
-            @Override
-            public void onFailure(int code) {
-            }
-        });
         /*pulseFragment.stopThread();
         locationFragment.stopThread();*/
 
