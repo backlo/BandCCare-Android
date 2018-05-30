@@ -169,7 +169,6 @@ JNIEXPORT jint JNICALL Java_com_example_hansung_band_1cctv_util_NDKAdapter_play(
         }
 
         av_packet_unref(&packet);
-        LOGE("x value : %d\n",x);
         if(x==1) break;
     }
 
@@ -343,7 +342,6 @@ JNIEXPORT jint JNICALL Java_com_example_hansung_band_1cctv_util_NDKAdapter_play1
         }
 
         av_packet_unref(&packet);
-        LOGE("y value : %d\n",y);
         if(y==1) break;
     }
 
