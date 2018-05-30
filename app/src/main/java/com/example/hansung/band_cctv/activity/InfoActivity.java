@@ -28,8 +28,7 @@ public class InfoActivity extends AppCompatActivity {
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
     RetroClient retroClient;
- //   SharedPreferences login_pre;
-  //  SharedPreferences.Editor login_editor;
+
     public static int sendindex;
     public static ArrayList<Response_Info> infoArrayList;
     public static ArrayList<Response_Band_Info> bandInfoArrayList;
