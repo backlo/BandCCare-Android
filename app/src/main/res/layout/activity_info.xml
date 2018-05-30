@@ -303,7 +303,7 @@
                         android:id="@+id/band_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="placeholder"
+                        android:text="BandC_B100"
                         android:textColor="@android:color/black"
                         android:textSize="17sp" />
 
@@ -343,7 +343,7 @@
                         android:id="@+id/camera_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="placeholder"
+                        android:text="BandC_C100"
                         android:textColor="@android:color/black"
                         android:textSize="17sp" />
 

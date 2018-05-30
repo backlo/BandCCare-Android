@@ -13,12 +13,14 @@
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:orientation="vertical">
 
             <LinearLayout
@@ -41,13 +43,14 @@
                     android:id="@+id/surface_video1"
                     android:layout_width="match_parent"
                     android:layout_height="600dp"
-                    android:layout_weight="3"/>
+                    android:layout_weight="2.5"/>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:layout_weight="1"
+                    android:layout_gravity="center_horizontal"
                     android:background="@drawable/round"
                     android:orientation="horizontal"
                     android:paddingBottom="10dp"
@@ -117,7 +120,7 @@
                     android:id="@+id/surface_video2"
                     android:layout_width="match_parent"
                     android:layout_height="600dp"
-                    android:layout_weight="3" />
+                    android:layout_weight="2.5" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -125,6 +128,8 @@
                     android:layout_marginTop="10dp"
                     android:layout_weight="1"
                     android:background="@drawable/round"
+                    android:layout_gravity="center_horizontal"
+
                     android:orientation="horizontal"
                     android:paddingBottom="10dp"
                     android:paddingTop="10dp">
