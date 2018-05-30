@@ -58,8 +58,13 @@ public class PulseFragment extends Fragment {
     LineChart lineChart;
     XAxis xAxis;
     List<Entry> entries;
+    int dataString;
+    int statedata;
+    public int count = 0;
+    public int count2 = 0;
 
     TextView dataview;
+    TextView state_textview;
     int result;
     int last_pulse;
     TextView today_tv;
@@ -124,6 +129,7 @@ public class PulseFragment extends Fragment {
 
         dataview = view.findViewById(R.id.dataview);
         lineChart = view.findViewById(R.id.linechart);
+        state_textview = view.findViewById(R.id.state_textview);
 
         ImageView rabbit = view.findViewById(R.id.heart_img);
         GlideDrawableImageViewTarget gifImage = new GlideDrawableImageViewTarget(rabbit);
@@ -179,7 +185,7 @@ public class PulseFragment extends Fragment {
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setTextColor(Color.BLACK);
         xAxis.setAvoidFirstLastClipping(true);
-        xAxis.setAxisMaximum(100);
+        xAxis.setAxisMaximum(50);
         xAxis.setDrawAxisLine(true);
         xAxis.setAxisMinimum(0);
         xAxis.setValueFormatter(myformat);
@@ -236,6 +242,7 @@ public class PulseFragment extends Fragment {
     }
 
     public int getData2(){
+        Log.e("getdata2","@@@@@@@@@@");
         retroClient.LastPulse(new RetroCallback() {
             @Override
             public void onError(Throwable t) {
@@ -253,17 +260,19 @@ public class PulseFragment extends Fragment {
 
             }
         });
+        dataString = last_pulse;
+        statedata = last_pulse;
         return last_pulse;
     }
 
     public void chartUpdate(int x){
-
+        Log.e("getdata22","@@@@@@@@@@");
         entries.add(new Entry(xindexstart,getData2()));
         lineChart.notifyDataSetChanged();
         lineChart.invalidate();
-        //xAxis.setAxisMaximum((float) (maxIndex+xindex));
+        xAxis.setAxisMaximum((float) (xindexstart+xindex));
         xAxis.setAxisMinimum(0);
-        dataview.setText(String.valueOf(getData2()));
+        dataview.setText(String.valueOf(dataString));
     }
 
 

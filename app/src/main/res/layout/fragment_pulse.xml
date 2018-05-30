@@ -67,6 +67,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="정상"
+                android:id="@+id/state_textview"
                 android:textColor="#e56c74"
                 android:textSize="20dp" />
 
