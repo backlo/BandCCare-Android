@@ -14,13 +14,14 @@ import com.example.hansung.band_cctv.R;
 import com.example.hansung.band_cctv.Retrofit.RetroCallback;
 import com.example.hansung.band_cctv.Retrofit2.RetroClient2;
 import com.example.hansung.band_cctv.util.RtspViewPlayer;
+import com.example.hansung.band_cctv.util.RtspViewPlayer1;
 
 import java.util.HashMap;
 
 public class VideoFragment extends Fragment {
     private static VideoFragment instance;
     private RtspViewPlayer playView_first;
-    private RtspViewPlayer playView_second;
+    private RtspViewPlayer1 playView_second;
     private RelativeLayout surfaceView_first;
     private RelativeLayout surfaceView_second;
 
@@ -347,7 +348,7 @@ public class VideoFragment extends Fragment {
         surfaceView_first = view.findViewById(R.id.surface_video1);
         surfaceView_first.addView(playView_first);
 
-        playView_second = new RtspViewPlayer(getContext(),"rtsp://192.168.0.2:8091/rtsp1");
+        playView_second = new RtspViewPlayer1(getContext(),"rtsp://192.168.0.2:8091/rtsp1");
         surfaceView_second = view.findViewById(R.id.surface_video2);
         surfaceView_second.addView(playView_second);
 

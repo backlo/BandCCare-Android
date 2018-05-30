@@ -8,6 +8,11 @@ public class NDKAdapter {
 
     public static native void setDataSource(String uri);
     public static native int play(Object surface);
+    public static native int stop(int k);
+
+    public static native void setDataSource1(String uri);
+    public static native int play1(Object surface);
+    public static native int stop1(int k);
 
     public NDKAdapter(){
 
