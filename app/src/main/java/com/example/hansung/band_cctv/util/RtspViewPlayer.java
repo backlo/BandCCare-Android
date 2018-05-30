@@ -12,7 +12,6 @@ public class RtspViewPlayer extends SurfaceView implements SurfaceHolder.Callbac
     private SurfaceHolder mHolder;
     private NDKAdapter mPlayerNDKAdapter;
     private String uri;
-    private static boolean state = true;
 
     public RtspViewPlayer(Context context, String uri) {
         super(context);
@@ -31,20 +30,10 @@ public class RtspViewPlayer extends SurfaceView implements SurfaceHolder.Callbac
         new Thread(new Runnable() {
             @Override
             public void run() {
-                while(state == true){
                     NDKAdapter.setDataSource(uri);
                     Log.e("surface run1 : ", mHolder.getSurface()+"");
                     mPlayerNDKAdapter.play(mHolder.getSurface());
                     Log.e("surface run2 : ", mHolder.getSurface()+"");
-                    try {
-                        Thread.sleep(5000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-                if(state == false){
-                    state = true;
-                }
             }
         }).start();
     }
@@ -58,7 +47,6 @@ public class RtspViewPlayer extends SurfaceView implements SurfaceHolder.Callbac
     public void surfaceDestroyed(SurfaceHolder surfaceHolder) {
         Log.e("surface destory1 : ", mHolder.getSurface()+"");
         mPlayerNDKAdapter.stop(1);
-        state = false;
         Log.e("surface destory2 : ", mHolder.getSurface()+"");
     }
 }
