@@ -29,7 +29,7 @@
                 android:layout_marginBottom="30dp"
                 android:layout_gravity="center_horizontal"
                 android:text="보호자 정보를 입력하세요."
-                android:textColor="@color/white" />
+                android:textColor="#ffffff" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -42,7 +42,7 @@
                     android:layout_height="wrap_content"
                     android:text="I D"
 
-                    android:textColor="@color/white" />
+                    android:textColor="#ffffff" />
 
                 <EditText
                     android:id="@+id/id_et"
@@ -62,7 +62,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="P A S S W O R D"
-                    android:textColor="@color/white" />
+                    android:textColor="#ffffff" />
 
                 <EditText
                     android:id="@+id/pw_et"
@@ -81,7 +81,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/white"
+                    android:textColor="#ffffff"
 
                     android:text="P H O N E  N U M B E R" />
 
@@ -102,7 +102,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/white"
+                    android:textColor="#ffffff"
 
                     android:text="D A T E  O F  B I R T H" />
 

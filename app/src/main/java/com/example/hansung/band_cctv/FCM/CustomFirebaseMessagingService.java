@@ -34,6 +34,7 @@ public class CustomFirebaseMessagingService extends FirebaseMessagingService {
         Log.e("fcm get data",""+pushDataMap.get("detect"));
 
         if(pushDataMap.get("check").equals("heart")){
+            Log.e("알람","ㅇㅇㅇㅇ");
             HashMap<String, Object> alarmmap = new HashMap<>();
             alarmmap.put("alarm","alarm");
             retroClient2.Send_Alarm(alarmmap, new RetroCallback() {
@@ -59,8 +60,7 @@ public class CustomFirebaseMessagingService extends FirebaseMessagingService {
     private void sendNotification(Map<String, String> dataMap) {
         Intent intent = new Intent(this, MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-
-
+        Log.e("알람","ㅇㅇㅇㅇ");
         PendingIntent contentIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT);
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         if(dataMap != null){

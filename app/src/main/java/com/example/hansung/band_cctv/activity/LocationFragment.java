@@ -41,7 +41,8 @@ import pub.devrel.easypermissions.EasyPermissions;
 
 import static android.content.Context.LOCATION_SERVICE;
 
-public class LocationFragment extends Fragment implements OnMapReadyCallback{
+public class LocationFragment extends Fragment implements OnMapReadyCallback
+{
     private static LocationFragment instance;
 
     RetroClient retroClient;
@@ -84,9 +85,11 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback{
         retroClient = RetroClient.getInstance().createBaseApi();
         locationmap = new HashMap<>();
         mapView = view.findViewById(R.id.map);
-        //mapView.getMapAsync(this);
+        mapView.getMapAsync(this);
+        banduserLocation = new LatLng(37.582631, 127.010712);
 
-        atLocationChange();
+       // atLocationChange();
+        getLocation();
 
 
         find_location = view.findViewById(R.id.band_location_btn);
@@ -98,6 +101,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback{
                     currentLocationMaker = null;
                 }
                 if (currentLocationMaker == null) {
+
                     currentLocationMaker = gMap.addMarker(new MarkerOptions().position(banduserLocation).title("착용자 위치").alpha(0.8f).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
                     gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(banduserLocation, 16));
                     currentLocationMaker.showInfoWindow();
@@ -120,7 +124,8 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback{
                 public void onComplete(@NonNull Task<Location> task) {
                     if (task.isSuccessful() && task.getResult() != null) {
                         location = task.getResult();
-                        myPhoneLocation = new LatLng(location.getLatitude(), location.getLongitude());
+                        //myPhoneLocation = new LatLng(location.getLatitude(), location.getLongitude());
+                        myPhoneLocation = new LatLng(37.582631,127.010712);
                         Log.e("location info ->", "" + myPhoneLocation);
                         userLocationMarker = googleMap.addMarker(new MarkerOptions().position(myPhoneLocation).title("나의위치").alpha(0.7f).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET)));
                         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(myPhoneLocation, 14));
@@ -205,6 +210,8 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback{
                     userLocationMarker.remove();
                 }
                 myPhoneLocation = new LatLng(location.getLatitude(), location.getLongitude());
+                //myPhoneLocation = new LatLng(37.5818581, 127.0098039);
+
                 Log.e("location info ->", "" + myPhoneLocation);
                 userLocationMarker = gMap.addMarker(new MarkerOptions().position(myPhoneLocation).title("나의위치").alpha(0.7f).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET)));
                 gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(myPhoneLocation, 16));
@@ -250,7 +257,9 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback{
             public void onSuccess(int code, Object receivedData) {
                 ArrayList<Response_Location> data = (ArrayList<Response_Location>) receivedData;
                 Log.e("BandUserGPS: ", "" + data.get(0).getLatitude() + "," + data.get(0).getLongitude());
-                banduserLocation = new LatLng(data.get(0).getLatitude(), data.get(0).getLongitude());
+                //banduserLocation = new LatLng(data.get(0).getLatitude(), data.get(0).getLongitude());
+
+
             }
             @Override
             public void onFailure(int code) {

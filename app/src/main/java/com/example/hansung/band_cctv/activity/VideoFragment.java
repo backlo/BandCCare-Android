@@ -59,6 +59,7 @@ public class VideoFragment extends Fragment {
     Button left_center_btn2;
     Button center_btn2;
     Button exit_btn;
+    Button show_video;
 
     RetroClient2 retroClient2;
     HashMap<String ,Object> exitmap;
@@ -78,7 +79,7 @@ public class VideoFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_video, container, false);
         exitmap = new HashMap<>();
         exitmap.put("exit","exit");
-        exit_btn = (Button)view.findViewById(R.id.exit_btn);
+        exit_btn = view.findViewById(R.id.exit_btn);
         exit_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -96,6 +97,28 @@ public class VideoFragment extends Fragment {
                     @Override
                     public void onFailure(int code) {
 
+                    }
+                });
+            }
+        });
+
+        show_video = (Button)view.findViewById(R.id.show_video);
+        show_video.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                HashMap<String, Object> alarmmap = new HashMap<>();
+                alarmmap.put("alarm","alarm");
+                retroClient2.Send_Alarm(alarmmap, new RetroCallback() {
+                    @Override
+                    public void onError(Throwable t) {
+                    }
+                    @Override
+                    public void onSuccess(int code, Object receivedData) {
+                        Log.e("send alarm","messagingservice");
+                    }
+
+                    @Override
+                    public void onFailure(int code) {
                     }
                 });
             }

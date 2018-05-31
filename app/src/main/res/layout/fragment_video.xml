@@ -180,17 +180,34 @@ android:gravity="center_horizontal"
                         android:text="180°" />
 
                 </LinearLayout>
-
-                <Button
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="30dp"
-                    android:layout_marginBottom="20dp"
-                    android:id="@+id/exit_btn"
+                    android:orientation="horizontal">
 
-                    android:background="@drawable/videobtn_round"
-                    android:textColor="@color/white"
-                    android:text="영상 종료" />
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="30dp"
+                        android:layout_marginBottom="20dp"
+                        android:id="@+id/exit_btn"
+
+                        android:background="@drawable/videobtn_round"
+                        android:textColor="#FFFFFF"
+                        android:text="영상 종료" />
+
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="30dp"
+                        android:layout_marginBottom="20dp"
+                        android:id="@+id/show_video"
+                        android:background="@drawable/videobtn_round"
+                        android:textColor="#FFFFFF"
+                        android:text="영상 보기"/>
+                </LinearLayout>
+
+
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

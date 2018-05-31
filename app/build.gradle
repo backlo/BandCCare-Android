@@ -1,11 +1,12 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 26
+    compileSdkVersion 27
     defaultConfig {
+        multiDexEnabled true
         applicationId "com.example.hansung.band_cctv"
         minSdkVersion 19
-        targetSdkVersion 26
+        targetSdkVersion 27
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -40,22 +41,20 @@ dependencies {
     implementation 'com.google.firebase:firebase-messaging:11.0.4'
     implementation 'com.google.firebase:firebase-core:11.0.4'
     testImplementation 'junit:junit:4.12'
-    implementation 'com.journeyapps:zxing-android-embedded:3.5.0'
+
     implementation 'com.github.bumptech.glide:glide:3.7.0'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
-    implementation 'com.journeyapps:zxing-android-embedded:3.5.0'
+
     implementation 'com.squareup.retrofit2:retrofit:2.1.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.1.0'
     implementation 'com.github.PhilJay:MPAndroidChart:v3.0.3'
-    implementation 'com.andrognito.patternlockview:patternlockview:1.0.0'
     // Optional, for RxJava2 adapter
-
-    implementation 'com.andrognito.patternlockview:patternlockview-reactive:1.0.0'
     implementation 'com.google.android.gms:play-services-maps:11.0.4'
     implementation 'com.google.android.gms:play-services-location:11.0.4'
     implementation 'com.google.android.gms:play-services-places:11.0.4'
     implementation 'pub.devrel:easypermissions:1.0.0'
+    implementation 'com.android.support:multidex:1.0.1'
 }
 
 apply plugin: 'com.google.gms.google-services'

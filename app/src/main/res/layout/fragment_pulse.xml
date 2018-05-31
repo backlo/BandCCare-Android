@@ -136,11 +136,10 @@
             android:textSize="15dp" />
     </LinearLayout>
 
-    <com.github.mikephil.charting.charts.LineChart
-        android:layout_width="match_parent"
-        android:layout_height="500dp"
-        android:id="@+id/linechart">
-    </com.github.mikephil.charting.charts.LineChart>
+            <com.github.mikephil.charting.charts.LineChart
+                android:id="@+id/linechart"
+                android:layout_width="match_parent"
+                android:layout_height="500dp"></com.github.mikephil.charting.charts.LineChart>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>
