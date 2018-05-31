@@ -45,7 +45,7 @@ JNIEXPORT jint JNICALL Java_com_example_hansung_band_1cctv_util_NDKAdapter_play(
     LOGD("uri:%s", uri[play_index]);
    // LOGD("uri:%s", uri);
     LOGD("file_name:%s", file_name);
-    //play_index++;
+    play_index++;
     if( file_name == NULL ) {
         LOGE("Please set the DataSource");
         return -1;
